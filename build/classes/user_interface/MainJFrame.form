@@ -364,7 +364,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JTextArea" name="txtAddress">
                       <Properties>
-                        <Property name="columns" type="int" value="20"/>
+                        <Property name="columns" type="int" value="10"/>
                         <Property name="rows" type="int" value="5"/>
                       </Properties>
                     </Component>
@@ -374,6 +374,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Save"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chkDeliveryPartner">
                   <Properties>
@@ -384,6 +387,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Upload Resume "/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUploadResumeActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel9">
                   <Properties>
