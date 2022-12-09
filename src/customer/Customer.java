@@ -39,9 +39,6 @@ public class Customer {
         return cust_id;
     }
 
-//    public void setCust_id(String cust_id) {
-//        this.cust_id = cust_id;
-//    }
 
     public String getZipcode() {
         return zipcode;
