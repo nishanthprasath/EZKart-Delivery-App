@@ -39,6 +39,7 @@ import user_interface_groceries.groceriesAdminPanel;
 
 import user_interface_meatAdmin.meatAdminPanel;
 import user_interface_pharmacyAdmin.pharmAdminPanel;
+import user_interface_sysadmin.sysadminPanel;
 
 
 /**
@@ -60,6 +61,7 @@ public class MainJFrame extends javax.swing.JFrame {
     meatAdminPanel meatAdmin = new meatAdminPanel();
     groceriesAdminPanel groceriesAdmin = new groceriesAdminPanel();
     pharmAdminPanel pharmacyAdmin = new pharmAdminPanel();
+    sysadminPanel sysAdmin = new sysadminPanel();
 
     public static String customer_id;
     private Ecosystem system;
@@ -76,9 +78,17 @@ public class MainJFrame extends javax.swing.JFrame {
 
         system = dB4OUtil.retrieveSystem();
 
-
+        EmployeeAccountDirectory ed = system.getEmpDirectory();
+        Employee e = ed.createEmpAccount("sysadmin", "sysadmin", "sysadmin@ezcart.com", "0000000000", "N/A", "N/A" ,"System Admin");
         jPanel1.setBackground(new Color(0,0,0,20));
         jPanel2.setBackground(new Color(0,0,0,20));
+    }
+    
+    public void logoutAction()
+    {
+       dB4OUtil.storeSystem(system);
+
+
     }
     
      
@@ -367,6 +377,14 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        
+        
+        if(txtUserName.getText().equals("sysadmin@ezcart.com") && String.valueOf(txtPassword.getPassword()).equals("sysadmin")){
+            
+            
+            MainPane.setVisible(false);
+            sysAdmin.setVisible(true);
+        }
 
         if(txtUserName.getText().equals("food")){
         container.add("workArea",foodAdmin);

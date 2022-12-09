@@ -134,9 +134,9 @@ public class foodAdminPanel extends javax.swing.JPanel {
                 manageItems1MousePressed(evt);
             }
         });
-        lblAnalysis.add(manageItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 110, 50));
+        lblAnalysis.add(manageItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 110, 50));
 
-        jPanel3.add(lblAnalysis, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 690, 240, 70));
+        jPanel3.add(lblAnalysis, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, 240, 70));
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
