@@ -4,7 +4,26 @@
  */
 package user_interface;
 
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import user_interface.employee_admin.EmployeeAdminPanel;
 
 /**
  *
@@ -15,11 +34,40 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
+    
+    int value = 1000;
+    public static int counter = 0;
+    String selectedImagePath;
+    String new_path = "/uploads/";
+
+
     public MainJFrame() {
         initComponents();
         jPanel1.setBackground(new Color(0,0,0,20));
         jPanel2.setBackground(new Color(0,0,0,20));
     }
+    
+    private void file_nameActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+        
+ 
+    JFileChooser fileChooser = new JFileChooser();
+    
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("IMAGES", "png",
+    "jpg", "jpeg");
+    
+    fileChooser.addChoosableFileFilter(filter);
+    int showOpenDialogue = fileChooser.showOpenDialog(null);
+    
+    if(showOpenDialogue == JFileChooser.APPROVE_OPTION)
+    {
+        File selected_image = fileChooser.getSelectedFile();
+        selectedImagePath =  selected_image.getAbsolutePath();
+            
+    }
+        
+    
+    }     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,6 +110,7 @@ public class MainJFrame extends javax.swing.JFrame {
         txtPassword2 = new javax.swing.JPasswordField();
         lblBack = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        container = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -158,15 +207,25 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jLabel8.setText("Address");
 
-        txtAddress.setColumns(20);
+        txtAddress.setColumns(10);
         txtAddress.setRows(5);
         jScrollPane1.setViewportView(txtAddress);
 
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         chkDeliveryPartner.setText("Register as a Delivery Partner");
 
         btnUploadResume.setText("Upload Resume ");
+        btnUploadResume.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUploadResumeActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Password");
 
@@ -282,6 +341,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
         getContentPane().add(MainPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 720));
 
+        container.setLayout(new java.awt.CardLayout());
+        getContentPane().add(container, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 720));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -292,6 +354,13 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        
+        EmployeeAdminPanel empadmin = new EmployeeAdminPanel();
+        container.add("workArea",empadmin);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.next(container);
+        MainPane.setVisible(false);
+        container.setVisible(true);
 
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -303,6 +372,74 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         MainPane.setSelectedIndex(0);
     }//GEN-LAST:event_lblBackMousePressed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        
+        this.counter+=1;
+
+        String name = txtName.getText();
+        String gender = comboGender.getSelectedItem().toString();
+        String email = txtEmail.getText();
+        String password = String.valueOf(txtPassword2.getPassword());
+        String phoneno = txtPhone.getText();
+        String address = txtAddress.getText();
+        
+        
+        
+        
+      Connection conn = null;
+      Statement stmt = null;
+      
+    try {
+            
+    conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/ezkart", "root", "root");
+    stmt = (Statement) conn.createStatement();
+    
+    String query = "INSERT INTO customer_details (cust_name ,gender, email, password_data,address, phone_no, cust_id, file) values (?,?,?, ?,?,?,?, ?)";
+    
+        PreparedStatement sta = conn.prepareStatement(query);
+        sta.setString(1, name);
+        sta.setString(2, gender);
+        sta.setString(3, email);
+        sta.setString(4, password);
+        sta.setString(5, address);
+        sta.setString(6,  phoneno);
+        sta.setString(7, 'C' + Integer.toString(value) + Integer.toString(counter));
+        FileReader reader = new FileReader(selectedImagePath);
+        sta.setCharacterStream(8, reader);
+        
+        sta.executeUpdate();
+    
+
+        JOptionPane.showMessageDialog(new JFrame(), "Saved successfully");    
+        conn.close();
+        
+    }
+    
+    catch (Exception exception) {
+    exception.printStackTrace();
+}
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnUploadResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadResumeActionPerformed
+        // TODO add your handling code here:
+            JFileChooser fileChooser = new JFileChooser();
+    
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("IMAGES", "png",
+    "jpg", "jpeg");
+    
+    fileChooser.addChoosableFileFilter(filter);
+    int showOpenDialogue = fileChooser.showOpenDialog(null);
+    
+    if(showOpenDialogue == JFileChooser.APPROVE_OPTION)
+    {
+        File selected_image = fileChooser.getSelectedFile();
+        selectedImagePath =  selected_image.getAbsolutePath();
+            
+    }
+
+    }//GEN-LAST:event_btnUploadResumeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,6 +485,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnUploadResume;
     private javax.swing.JCheckBox chkDeliveryPartner;
     private javax.swing.JComboBox<String> comboGender;
+    private javax.swing.JPanel container;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
