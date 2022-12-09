@@ -45,6 +45,7 @@ public class EmployeeAccountDirectory {
         e.setDepartment(dept);
         e.setEmail_id(email_id);
         e.setRole(role);
+        e.getEmp_id();
         return e;
     
 }
