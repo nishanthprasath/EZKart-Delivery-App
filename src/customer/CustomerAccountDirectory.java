@@ -36,13 +36,15 @@ public class CustomerAccountDirectory {
     }
     
     public Customer createUserAccount(String name, String password, String email_id,
-            String phone_no, String gender, String address){
+            String phone_no, String gender, String address, String zipcode){
         Customer c = new Customer();
         c.setCustomer_name(name);
         c.setPassword(password);
         c.setAddress(address);
         c.setGender(gender);
         c.setEmail_id(email_id);
+        c.setZipcode(zipcode);
+        c.getCust_id();
         return c;
     }
     

@@ -24,6 +24,32 @@ public class Customer {
    private String password;
    private String gender;
    private String address;
+   private String zipcode;
+   private String cust_id;
+   private static int count = 1;
+   
+   
+   public Customer()
+   {
+       cust_id = 'C' + Integer.toString(count);
+       count++;
+   }
+
+    public String getCust_id() {
+        return cust_id;
+    }
+
+//    public void setCust_id(String cust_id) {
+//        this.cust_id = cust_id;
+//    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
 
 
     public String getCustomer_name() {
@@ -76,7 +102,7 @@ public class Customer {
     
 
     
-        @Override
+    @Override
     public String toString() {
         return email_id;
     }

@@ -96,6 +96,8 @@ public class MainJFrame extends javax.swing.JFrame {
         btnUploadResume = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtPassword2 = new javax.swing.JPasswordField();
+        jLabel10 = new javax.swing.JLabel();
+        txtZipCode = new javax.swing.JTextField();
         lblBack = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -216,6 +218,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jLabel9.setText("Password");
 
+        jLabel10.setText("Zip Code");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -229,7 +233,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addComponent(btnUploadResume))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(86, 86, 86)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel5)
@@ -265,7 +269,11 @@ public class MainJFrame extends javax.swing.JFrame {
                                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                                     .addGap(57, 57, 57)
                                                     .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addGap(56, 56, 56)))))))
+                                        .addGap(56, 56, 56))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(41, 41, 41)
+                                .addComponent(txtZipCode)))))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -298,8 +306,12 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(btnSave)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -348,14 +360,6 @@ public class MainJFrame extends javax.swing.JFrame {
             System.out.println("Its null");
         }
         
-
- 
-        
-
-        
-        
-        
-
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
@@ -378,25 +382,20 @@ public class MainJFrame extends javax.swing.JFrame {
         String password = String.valueOf(txtPassword2.getPassword());
         String phoneno = txtPhone.getText();
         String address = txtAddress.getText();
+        String zipcode = txtZipCode.getText();
         
         CustomerAccountDirectory cd =system.getCustDirectory();
-        Customer c = cd.createUserAccount(name, password, email_data, phoneno, gender, address);
+        Customer c = cd.createUserAccount(name, password, email_data, phoneno, gender, address,zipcode);
         cd.SetUserAccountList(c);
         
         dB4OUtil.storeSystem(system);
         system= dB4OUtil.retrieveSystem();
         
-        
-
-        
-        
-        
-        
-        
-
-      
-
-    
+        for(Customer c1: cd.getUserAccountList())
+        {
+            System.out.println(c1.getCust_id());
+        }
+          
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -451,6 +450,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkDeliveryPartner;
     private javax.swing.JComboBox<String> comboGender;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -474,5 +474,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPassword2;
     private javax.swing.JTextField txtPhone;
     private javax.swing.JTextField txtUserName;
+    private javax.swing.JTextField txtZipCode;
     // End of variables declaration//GEN-END:variables
 }
