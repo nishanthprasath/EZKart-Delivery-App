@@ -4,6 +4,8 @@
  */
 package user_interface_sysadmin;
 
+import user_interface_foodAdmin.foodAdminMainPanel;
+
 /**
  *
  * @author snehagovindarajan
@@ -16,8 +18,12 @@ public class sysadminPanel extends javax.swing.JFrame {
     networkPanel networkTab = new networkPanel();
     manageAdminPanel manageAdmin = new manageAdminPanel();
     enterprisePanel enterprise = new enterprisePanel();
+    manageEmployeeAdmin employeeAdmin = new manageEmployeeAdmin();
+//    foodAdminMainPanel foodAdmin = new foodAdminMainPanel();
     public sysadminPanel() {
         initComponents();
+        
+        //splitPanel.setRightComponent(networkTab);
         splitPanel.setRightComponent(networkTab);
         
     }
@@ -37,6 +43,7 @@ public class sysadminPanel extends javax.swing.JFrame {
         enterpriseBtn = new javax.swing.JButton();
         adminBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        addEmployeeAdmin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1200, 720));
@@ -44,6 +51,16 @@ public class sysadminPanel extends javax.swing.JFrame {
         SysMenu.setBackground(new java.awt.Color(153, 153, 153));
 
         networkBtn.setText("Manage Network");
+        networkBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                networkBtnMouseClicked(evt);
+            }
+        });
+        networkBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                networkBtnActionPerformed(evt);
+            }
+        });
 
         enterpriseBtn.setText("Manage Enterprise");
         enterpriseBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -66,21 +83,29 @@ public class sysadminPanel extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/systemadminlogo.png"))); // NOI18N
 
+        addEmployeeAdmin.setText("Add Employee Admin");
+        addEmployeeAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addEmployeeAdminMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout SysMenuLayout = new javax.swing.GroupLayout(SysMenu);
         SysMenu.setLayout(SysMenuLayout);
         SysMenuLayout.setHorizontalGroup(
             SysMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SysMenuLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(SysMenuLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(SysMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addEmployeeAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(adminBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(enterpriseBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(enterpriseBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(networkBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SysMenuLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         SysMenuLayout.setVerticalGroup(
             SysMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,7 +118,9 @@ public class sysadminPanel extends javax.swing.JFrame {
                 .addComponent(enterpriseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(adminBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(300, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(addEmployeeAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(217, Short.MAX_VALUE))
         );
 
         splitPanel.setLeftComponent(SysMenu);
@@ -125,6 +152,20 @@ public class sysadminPanel extends javax.swing.JFrame {
     private void enterpriseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterpriseBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_enterpriseBtnActionPerformed
+
+    private void networkBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_networkBtnMouseClicked
+        // TODO add your handling code here:
+        splitPanel.setRightComponent(networkTab);
+    }//GEN-LAST:event_networkBtnMouseClicked
+
+    private void addEmployeeAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addEmployeeAdminMouseClicked
+        // TODO add your handling code here:
+         splitPanel.setRightComponent(employeeAdmin);
+    }//GEN-LAST:event_addEmployeeAdminMouseClicked
+
+    private void networkBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_networkBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_networkBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,6 +204,7 @@ public class sysadminPanel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SysMenu;
+    private javax.swing.JButton addEmployeeAdmin;
     private javax.swing.JButton adminBtn;
     private javax.swing.JButton enterpriseBtn;
     private javax.swing.JLabel jLabel1;
