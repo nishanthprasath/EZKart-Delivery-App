@@ -4,6 +4,7 @@
  */
 package user_interface;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileReader;
@@ -100,6 +101,7 @@ public class MainJFrame extends javax.swing.JFrame {
         txtZipCode = new javax.swing.JTextField();
         lblBack = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        container = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -340,6 +342,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
         getContentPane().add(MainPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 720));
 
+        container.setLayout(new java.awt.CardLayout());
+        getContentPane().add(container, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 720));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -360,6 +365,13 @@ public class MainJFrame extends javax.swing.JFrame {
             System.out.println("Its null");
         }
         
+//        EmployeeAdminPanel empadmin = new EmployeeAdminPanel();
+//        container.add("workArea",empadmin);
+//        CardLayout layout = (CardLayout) container.getLayout();
+//        layout.next(container);
+        MainPane.setVisible(false);
+        container.setVisible(true);
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
@@ -449,6 +461,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnUploadResume;
     private javax.swing.JCheckBox chkDeliveryPartner;
     private javax.swing.JComboBox<String> comboGender;
+    private javax.swing.JPanel container;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
