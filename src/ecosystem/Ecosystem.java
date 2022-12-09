@@ -5,6 +5,8 @@
 package ecosystem;
 import organisation.Organisation;
 import customer.CustomerAccountDirectory;
+import employee.Employee;
+import employee.EmployeeAccountDirectory;
 /**
  *
  * @author dkdha
@@ -13,6 +15,7 @@ public class Ecosystem extends Organisation {
     
     private static Ecosystem business;
     CustomerAccountDirectory customerList;
+    EmployeeAccountDirectory empList;
     
     public static Ecosystem getInstance(){
         if(business==null){
@@ -28,6 +31,15 @@ public class Ecosystem extends Organisation {
             this.customerList = new CustomerAccountDirectory();
         }
         return customerList;
+    }
+    
+    public EmployeeAccountDirectory getEmpDirectory()
+    {
+        if(empList == null)
+        {
+            this.empList = new EmployeeAccountDirectory();
+        }
+        return empList;
     }
     
 }

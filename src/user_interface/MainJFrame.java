@@ -25,6 +25,8 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import customer.Customer;
 import customer.CustomerAccountDirectory;
+import employee.Employee;
+import employee.EmployeeAccountDirectory;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import ecosystem.Ecosystem;
@@ -117,7 +119,6 @@ public class MainJFrame extends javax.swing.JFrame {
         txtAddress = new javax.swing.JTextArea();
         btnSave = new javax.swing.JButton();
         chkDeliveryPartner = new javax.swing.JCheckBox();
-        btnUploadResume = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtPassword2 = new javax.swing.JPasswordField();
         jLabel10 = new javax.swing.JLabel();
@@ -234,13 +235,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
         chkDeliveryPartner.setText("Register as a Delivery Partner");
 
-        btnUploadResume.setText("Upload Resume ");
-        btnUploadResume.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUploadResumeActionPerformed(evt);
-            }
-        });
-
         jLabel9.setText("Password");
 
         jLabel10.setText("Zip Code");
@@ -250,56 +244,51 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(86, 86, 86)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(chkDeliveryPartner)
-                        .addGap(51, 51, 51)
-                        .addComponent(btnUploadResume))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel6))
-                                .addGap(70, 70, 70)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(btnOTP)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtOTP))
-                                    .addComponent(comboGender, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                                    .addComponent(txtName)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9))
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(chkDeliveryPartner)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel6))
+                            .addGap(70, 70, 70)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(btnOTP)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtOTP))
+                                .addComponent(comboGender, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                                .addComponent(txtName)))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel9))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                                    .addGap(62, 62, 62)
-                                                    .addComponent(btnSave))
-                                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                                    .addGap(57, 57, 57)
-                                                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addGap(56, 56, 56))))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41)
-                                .addComponent(txtZipCode)))))
-                .addContainerGap(72, Short.MAX_VALUE))
+                                                .addGap(62, 62, 62)
+                                                .addComponent(btnSave))
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(57, 57, 57)
+                                                .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGap(56, 56, 56))))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(41, 41, 41)
+                            .addComponent(txtZipCode))))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,13 +325,11 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(btnSave)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkDeliveryPartner)
-                    .addComponent(btnUploadResume))
-                .addGap(43, 43, 43))
+                .addComponent(chkDeliveryPartner)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(btnSave)
+                .addGap(62, 62, 62))
         );
 
         signupPanel.add(jPanel2);
@@ -457,22 +444,35 @@ public class MainJFrame extends javax.swing.JFrame {
         Customer c = cd.createUserAccount(name, password, email_data, phoneno, gender, address,zipcode);
         cd.SetUserAccountList(c);
         
+        
+        
         dB4OUtil.storeSystem(system);
         system= dB4OUtil.retrieveSystem();
         
+
+
+     if(chkDeliveryPartner.isSelected())
+     {
+        EmployeeAccountDirectory ed = system.getEmpDirectory();
+        Employee e = ed.createEmpAccount(name, password, email_data, phoneno, "N/A", address ,"Delivey Agent");
+        ed.SetEmpAccountList(e);
+        JOptionPane.showMessageDialog(new JFrame(), "We will get back to you shortly");
+
+     }
+
+     JOptionPane.showMessageDialog(new JFrame(), "Saved successfully");
+
         for(Customer c1: cd.getUserAccountList())
         {
             System.out.println(c1.getCust_id());
         }
-          
+        
+        for(Employee e1: system.getEmpDirectory().getEmpAccountList())
+        {
+            System.out.println(e1.getEmp_id());
+        }
 
     }//GEN-LAST:event_btnSaveActionPerformed
-
-    private void btnUploadResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadResumeActionPerformed
-        // TODO add your handling code here:
-
-
-    }//GEN-LAST:event_btnUploadResumeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -515,7 +515,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnOTP;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSignup;
-    private javax.swing.JButton btnUploadResume;
     private javax.swing.JCheckBox chkDeliveryPartner;
     private javax.swing.JComboBox<String> comboGender;
     private javax.swing.JPanel container;
