@@ -9,6 +9,10 @@ import ecosystem.Ecosystem;
 import java.awt.Color;
 import javax.swing.JFrame;
 import user_interface.MainJFrame;
+import employee.Employee;
+import employee.EmployeeAccountDirectory;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,12 +26,32 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
     
     Ecosystem system;
     MainJFrame mainframe;
+    EmployeeAccountDirectory emp_dir_ob; 
+    Employee emp_ob;
     private Db4util dB4OUtil = Db4util.getInstance();
     
     
     
     public EmployeeAdminPanel(Ecosystem system, MainJFrame mainframe) {
         initComponents();
+        emp_dir_ob = system.getEmpDirectory();
+
+        DefaultTableModel tblmodel = (DefaultTableModel)tblEmployeeAdmin.getModel();
+        
+         for(int i=0; i< emp_dir_ob.getEmpAccountList().size(); i++)
+        {
+             Object data_value [] = {emp_dir_ob.getEmpAccountList().get(i).getEmployee_name(),
+                 
+                 emp_dir_ob.getEmpAccountList().get(i).getDepartment(),
+                 emp_dir_ob.getEmpAccountList().get(i).getRole(),
+                 emp_dir_ob.getEmpAccountList().get(i).getEmail_id(),
+                 emp_dir_ob.getEmpAccountList().get(i).getPhone_no(),
+                 emp_dir_ob.getEmpAccountList().get(i).getAddress()                 
+            };
+           tblmodel.addRow(data_value);
+        }
+
+
         this.system = system;
         this.mainframe = mainframe;
                 
@@ -59,8 +83,6 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
         comboRole = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        checkAdmin = new java.awt.Checkbox();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblEmployeeAdmin = new javax.swing.JTable();
         btnAddEmployee = new javax.swing.JButton();
@@ -94,36 +116,40 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Role");
 
-        comboDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Item 2", "Item 3", "Item 4" }));
+        comboDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Food", "Groceries", "Meat", "Pharma" }));
 
-        comboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Item 2", "Item 3", "Item 4" }));
+        comboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Food Admin", "Meat Admin", "Pharma Admin", "Groceries Admin", "Delivery Admin", "Delivery Agent", "Support Admin", "Support Agent", "Data analyst"}));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Password");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel9.setText("Admin");
-
         tblEmployeeAdmin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Name", "Department", "Role", "Email", "Phone", "Address", "Admin"
+                "Name", "Department", "Role", "Email", "Phone", "Address"
             }
         ));
         jScrollPane2.setViewportView(tblEmployeeAdmin);
 
         btnAddEmployee.setText("Add Employee");
+        btnAddEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddEmployeeActionPerformed(evt);
+            }
+        });
 
         btnUpdateEmployee.setText("Update");
 
         btnDeleteEmployee.setText("Delete");
 
         btnClearFields.setText("Clear");
+        btnClearFields.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearFieldsActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Logout");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -179,17 +205,10 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel5)
                                 .addGap(52, 52, 52)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(185, 185, 185)
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(84, 84, 84)
-                                        .addComponent(checkAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(212, 212, 212)
-                                        .addComponent(btnAddEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(56, 56, 56)
-                                        .addComponent(btnClearFields)))))))
+                                .addGap(212, 212, 212)
+                                .addComponent(btnAddEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(56, 56, 56)
+                                .addComponent(btnClearFields)))))
                 .addContainerGap(144, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -220,23 +239,19 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
                     .addComponent(jLabel8)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(checkAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(64, 64, 64))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnAddEmployee)
                                 .addComponent(jButton1))
-                            .addComponent(btnClearFields))))
-                .addGap(47, 47, 47))
+                            .addComponent(btnClearFields))
+                        .addGap(47, 47, 47))))
         );
 
         add(jPanel1);
@@ -252,8 +267,28 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
         
      mainframe.logoutAction();
      mainframe.displayPane();
-     this.dispose();
+//     this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnAddEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmployeeActionPerformed
+        // TODO add your handling code here:
+        
+        emp_ob = emp_dir_ob.createEmpAccount(txtName.getText(), txtPassword.getText(), txtEmail.getText(), txtPhone.getText(), comboDepartment.getSelectedItem().toString(), txtAddress.getText().toString() ,
+                comboRole.getSelectedItem().toString());
+        emp_dir_ob.SetEmpAccountList(emp_ob);
+        JOptionPane.showMessageDialog(new JFrame(), "Employee Saved succesfully");
+        
+        
+    }//GEN-LAST:event_btnAddEmployeeActionPerformed
+
+    private void btnClearFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFieldsActionPerformed
+        // TODO add your handling code here:
+        txtName.setText("");
+        txtAddress.setText("");
+        txtEmail.setText("");
+        txtPassword.setText("");
+        txtPhone.setText("");
+    }//GEN-LAST:event_btnClearFieldsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -261,7 +296,6 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnClearFields;
     private javax.swing.JButton btnDeleteEmployee;
     private javax.swing.JButton btnUpdateEmployee;
-    private java.awt.Checkbox checkAdmin;
     private javax.swing.JComboBox<String> comboDepartment;
     private javax.swing.JComboBox<String> comboRole;
     private javax.swing.JButton jButton1;
@@ -273,7 +307,6 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

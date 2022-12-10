@@ -41,9 +41,10 @@ public class EmployeeAccountDirectory {
         Employee e = new Employee();
         e.setEmployee_name(name);
         e.setPassword(password);
+        e.setEmail_id(email_id);
+        e.setPhone_no(phone_no);
         e.setAddress(address);
         e.setDepartment(dept);
-        e.setEmail_id(email_id);
         e.setRole(role);
         e.getEmp_id();
         return e;

@@ -86,10 +86,13 @@ public class MainJFrame extends javax.swing.JFrame {
         this.groceriesAdmin = new groceriesAdminPanel();
         this.empAdmin = new EmployeeAdminPanel(system, this);
         this.sysAdmin = new sysadminPanel(system, this) ;
-
+        
+        if(counter == 0)
+        {
         emp_dir_ob= system.getEmpDirectory();
         emp_ob = emp_dir_ob.createEmpAccount("sysadmin", "sysadmin", "sysadmin@ezcart.com", "0000000000", "N/A", "N/A" ,"System Admin");
         emp_dir_ob.SetEmpAccountList(emp_ob);
+        }
 
         jPanel1.setBackground(new Color(0,0,0,20));
         jPanel2.setBackground(new Color(0,0,0,20));
@@ -456,6 +459,7 @@ public class MainJFrame extends javax.swing.JFrame {
         String address = "";
         String zipcode = "";
         cd =system.getCustDirectory();
+        emp_dir_ob = system.getEmpDirectory();
 
        if(!chkDeliveryPartner.isSelected())
        {
