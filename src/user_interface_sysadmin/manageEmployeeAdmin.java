@@ -215,7 +215,7 @@ public class manageEmployeeAdmin extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         emp_dir_ob = system.getEmpDirectory();
-        Employee e = emp_dir_ob.createEmpAccount(jTextField4.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField5.getText(), jTextField1.getText(), "N/A", jTextArea1.getText() ,"Employee Admin");
+        Employee e = emp_dir_ob.createEmpAccount(jTextField4.getText(), String.valueOf(jPasswordField1.getPassword()), jTextField5.getText(), jTextField1.getText(), "Employee Admin", jTextArea1.getText() ,"Employee Admin");
         emp_dir_ob.SetEmpAccountList(e);
 
         JOptionPane.showMessageDialog(new JFrame(), "Saved successfully");

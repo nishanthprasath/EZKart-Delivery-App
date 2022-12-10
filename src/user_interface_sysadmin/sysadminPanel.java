@@ -4,8 +4,10 @@
  */
 package user_interface_sysadmin;
 
-import db4util.Db4util;
+
 import ecosystem.Ecosystem;
+import javax.swing.JFrame;
+import db4util.Db4util;
 import user_interface.MainJFrame;
 import user_interface_foodAdmin.foodAdminMainPanel;
 import user_interface.MainJFrame;
@@ -19,26 +21,43 @@ public class sysadminPanel extends javax.swing.JFrame {
     /**
      * Creates new form sysadminPanel
      */
-    
+
     Ecosystem system;
     MainJFrame mainframe;
+    communityPanel communityTab ;
+    enterprisePanel enterprise ;
+    manageEmployeeAdmin employeeAdmin;
+    manageAdminPanel manageAdmin ;
     private Db4util dB4OUtil = Db4util.getInstance();
 
-    networkPanel networkTab = new networkPanel();
-    manageAdminPanel manageAdmin = new manageAdminPanel();
-    enterprisePanel enterprise = new enterprisePanel();
-    manageEmployeeAdmin employeeAdmin; 
-    
-    
-    
-    public sysadminPanel(Ecosystem system, MainJFrame mainframe) {
+        public sysadminPanel(Ecosystem system, MainJFrame mainframe) {
         initComponents();
         this.system = system;
         this.mainframe = mainframe;
+        communityTab = new communityPanel(system);
+
         employeeAdmin = new manageEmployeeAdmin(system);
-        splitPanel.setRightComponent(networkTab);
+        manageAdmin = new manageAdminPanel();
+        enterprise = new enterprisePanel();
+        splitPanel.setRightComponent(communityTab);
    
     }
+
+    
+    private void manageCommunity(){
+        //user_interface_sysadmin.communityPanel community = new user_interface_sysadmin.communityPanel(system);
+        splitPanel.setRightComponent(communityTab);
+    }
+    
+    private void manageEnterprise(){
+        //user_interface_sysadmin.communityPanel community = new user_interface_sysadmin.communityPanel(system);
+        enterprise = new enterprisePanel(system);
+        splitPanel.setRightComponent(enterprise);
+ 
+    }
+    
+    
+
     
 
     /**
@@ -173,20 +192,10 @@ public class sysadminPanel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void enterpriseBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enterpriseBtnMouseClicked
-        // TODO add your handling code here:
-//        splitPanel.setRightComponent(enterprise);
-          manageEnterprise();
-    }//GEN-LAST:event_enterpriseBtnMouseClicked
-
     private void adminBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminBtnMouseClicked
         // TODO add your handling code here:manageAdmin
         splitPanel.setRightComponent(manageAdmin);
     }//GEN-LAST:event_adminBtnMouseClicked
-
-    private void enterpriseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterpriseBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_enterpriseBtnActionPerformed
 
     private void networkBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_networkBtnMouseClicked
         // TODO add your handling code here:
@@ -215,6 +224,16 @@ public class sysadminPanel extends javax.swing.JFrame {
     private void addEmployeeAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmployeeAdminActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addEmployeeAdminActionPerformed
+
+    private void enterpriseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterpriseBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_enterpriseBtnActionPerformed
+
+    private void enterpriseBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enterpriseBtnMouseClicked
+        // TODO add your handling code here:
+        //        splitPanel.setRightComponent(enterprise);
+        manageEnterprise();
+    }//GEN-LAST:event_enterpriseBtnMouseClicked
 
     /**
      * @param args the command line arguments
