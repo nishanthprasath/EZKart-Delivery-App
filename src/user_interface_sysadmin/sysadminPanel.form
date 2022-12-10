@@ -104,7 +104,7 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="networkBtn">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Manage Network"/>
+                <Property name="text" type="java.lang.String" value="Manage Community"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="networkBtnMouseClicked"/>

@@ -2,9 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/snehagovindarajan/NetBeansProjects/EZKart/src/user_interface_sysadmin/manageEmployeeAdmin.java</file>
-        </group>
         <group/>
+        <group>
+            <file>file:/Users/snehagovindarajan/NetBeansProjects/EZKart/src/enterprise/Enterprise.java</file>
+            <file>file:/Users/snehagovindarajan/NetBeansProjects/EZKart/src/ecosystem/Ecosystem.java</file>
+            <file>file:/Users/snehagovindarajan/NetBeansProjects/EZKart/src/user_interface_sysadmin/sysadminPanel.java</file>
+            <file>file:/Users/snehagovindarajan/NetBeansProjects/EZKart/src/user_interface/MainJFrame.java</file>
+            <file>file:/Users/snehagovindarajan/NetBeansProjects/EZKart/src/user_interface_sysadmin/enterprisePanel.java</file>
+            <file>file:/Users/snehagovindarajan/NetBeansProjects/EZKart/src/community/Community.java</file>
+            <file>file:/Users/snehagovindarajan/NetBeansProjects/EZKart/src/enterprise/FoodEnterprise.java</file>
+            <file>file:/Users/snehagovindarajan/NetBeansProjects/EZKart/src/enterprise/PharmacyEnterprise.java</file>
+            <file>file:/Users/snehagovindarajan/NetBeansProjects/EZKart/src/user_interface_sysadmin/communityPanel.java</file>
+            <file>file:/Users/snehagovindarajan/NetBeansProjects/EZKart/src/enterprise/EnterpriseDirectory.java</file>
+        </group>
     </open-files>
 </project-private>

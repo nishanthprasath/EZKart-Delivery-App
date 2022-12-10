@@ -4,6 +4,9 @@
  */
 package user_interface_sysadmin;
 
+
+import ecosystem.Ecosystem;
+import javax.swing.JFrame;
 import user_interface.MainJFrame;
 import user_interface_foodAdmin.foodAdminMainPanel;
 
@@ -16,17 +19,41 @@ public class sysadminPanel extends javax.swing.JFrame {
     /**
      * Creates new form sysadminPanel
      */
-    networkPanel networkTab = new networkPanel();
+    communityPanel communityTab ;
     manageAdminPanel manageAdmin = new manageAdminPanel();
-    enterprisePanel enterprise = new enterprisePanel();
+    enterprisePanel enterprise ;
     manageEmployeeAdmin employeeAdmin = new manageEmployeeAdmin();
+    Ecosystem system;
+    MainJFrame mainFrame;
 //    foodAdminMainPanel foodAdmin = new foodAdminMainPanel();
     public sysadminPanel() {
-        initComponents();
+//        initComponents();
+//        
+//        //splitPanel.setRightComponent(networkTab);
+//        splitPanel.setRightComponent(networkTab);
         
+    }
+    
+    public sysadminPanel(Ecosystem system, MainJFrame mainFrame ){
+        this.system = system;
+        this.mainFrame = mainFrame;
+         initComponents();
+         communityTab = new communityPanel(system);
+        
+         
         //splitPanel.setRightComponent(networkTab);
-        splitPanel.setRightComponent(networkTab);
-        
+        splitPanel.setRightComponent(communityTab);
+    }
+    
+    private void manageCommunity(){
+        //user_interface_sysadmin.communityPanel community = new user_interface_sysadmin.communityPanel(system);
+        splitPanel.setRightComponent(communityTab);
+    }
+    
+    private void manageEnterprise(){
+        //user_interface_sysadmin.communityPanel community = new user_interface_sysadmin.communityPanel(system);
+        enterprise = new enterprisePanel(system);
+        splitPanel.setRightComponent(enterprise);
     }
 
     /**
@@ -52,7 +79,7 @@ public class sysadminPanel extends javax.swing.JFrame {
 
         SysMenu.setBackground(new java.awt.Color(153, 153, 153));
 
-        networkBtn.setText("Manage Network");
+        networkBtn.setText("Manage Community");
         networkBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 networkBtnMouseClicked(evt);
@@ -158,7 +185,8 @@ public class sysadminPanel extends javax.swing.JFrame {
 
     private void enterpriseBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enterpriseBtnMouseClicked
         // TODO add your handling code here:
-        splitPanel.setRightComponent(enterprise);
+//        splitPanel.setRightComponent(enterprise);
+          manageEnterprise();
     }//GEN-LAST:event_enterpriseBtnMouseClicked
 
     private void adminBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminBtnMouseClicked
@@ -172,7 +200,8 @@ public class sysadminPanel extends javax.swing.JFrame {
 
     private void networkBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_networkBtnMouseClicked
         // TODO add your handling code here:
-        splitPanel.setRightComponent(networkTab);
+//        splitPanel.setRightComponent(networkTab);
+          manageCommunity();
     }//GEN-LAST:event_networkBtnMouseClicked
 
     private void addEmployeeAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addEmployeeAdminMouseClicked
@@ -185,9 +214,9 @@ public class sysadminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_networkBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       MainJFrame mj = new MainJFrame();
-       mj.logoutAction();
-       new MainJFrame().setVisible(true);
+
+       mainFrame.logoutAction();
+       mainFrame.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
