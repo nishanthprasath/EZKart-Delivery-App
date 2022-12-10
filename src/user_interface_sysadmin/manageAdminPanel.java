@@ -4,6 +4,7 @@
  */
 package user_interface_sysadmin;
 
+import ecosystem.Ecosystem;
 import java.awt.Color;
 
 /**
@@ -15,6 +16,7 @@ public class manageAdminPanel extends javax.swing.JPanel {
     /**
      * Creates new form manageAdminPanel
      */
+    
     public manageAdminPanel() {
         initComponents();
         jPanel1.setBackground(new Color(0,0,0,30));

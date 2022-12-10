@@ -41,12 +41,31 @@ public class EmployeeAccountDirectory {
         Employee e = new Employee();
         e.setEmployee_name(name);
         e.setPassword(password);
+        e.setEmail_id(email_id);
+        e.setPhone_no(phone_no);
         e.setAddress(address);
         e.setDepartment(dept);
-        e.setEmail_id(email_id);
         e.setRole(role);
         e.getEmp_id();
         return e;
     
 }
+    
+        public boolean checkIfUsernameIsUnique(String emailId){
+        for (Employee e : employeeList){
+            if (e.getEmail_id().equals(emailId))
+                return false;
+        }
+        return true;
+    }
+    
+//    public static void main(String[] args) {
+//        
+//        EmployeeAccountDirectory emp_dir = new EmployeeAccountDirectory();
+//        for(Employee e: emp_dir.getEmpAccountList())
+//        {
+//            System.out.println(e.getEmp_id() + e.getRole());
+//        }
+//    }
+    
 }

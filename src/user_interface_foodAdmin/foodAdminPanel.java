@@ -8,6 +8,8 @@ package user_interface_foodAdmin;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import user_interface.MainJFrame;
+import ecosystem.Ecosystem;
+import user_interface.MainJFrame;
 
 /**
  *
@@ -22,7 +24,11 @@ public class foodAdminPanel extends javax.swing.JPanel {
     
     foodAdminMainPanel foodMain;
     manageItems foodItems;
-    public foodAdminPanel() {
+    Ecosystem system;
+    MainJFrame mainframe;
+    public foodAdminPanel(Ecosystem system, MainJFrame mainframe) {
+        
+        
         initComponents();
         foodMain = new foodAdminMainPanel();
         foodItems = new manageItems();

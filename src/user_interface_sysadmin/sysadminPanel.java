@@ -4,11 +4,11 @@
  */
 package user_interface_sysadmin;
 
-
+import db4util.Db4util;
 import ecosystem.Ecosystem;
-import javax.swing.JFrame;
 import user_interface.MainJFrame;
 import user_interface_foodAdmin.foodAdminMainPanel;
+import user_interface.MainJFrame;
 
 /**
  *
@@ -19,42 +19,27 @@ public class sysadminPanel extends javax.swing.JFrame {
     /**
      * Creates new form sysadminPanel
      */
-    communityPanel communityTab ;
-    manageAdminPanel manageAdmin = new manageAdminPanel();
-    enterprisePanel enterprise ;
-    manageEmployeeAdmin employeeAdmin = new manageEmployeeAdmin();
+    
     Ecosystem system;
-    MainJFrame mainFrame;
-//    foodAdminMainPanel foodAdmin = new foodAdminMainPanel();
-    public sysadminPanel() {
-//        initComponents();
-//        
-//        //splitPanel.setRightComponent(networkTab);
-//        splitPanel.setRightComponent(networkTab);
-        
-    }
+    MainJFrame mainframe;
+    private Db4util dB4OUtil = Db4util.getInstance();
+
+    networkPanel networkTab = new networkPanel();
+    manageAdminPanel manageAdmin = new manageAdminPanel();
+    enterprisePanel enterprise = new enterprisePanel();
+    manageEmployeeAdmin employeeAdmin; 
     
-    public sysadminPanel(Ecosystem system, MainJFrame mainFrame ){
+    
+    
+    public sysadminPanel(Ecosystem system, MainJFrame mainframe) {
+        initComponents();
         this.system = system;
-        this.mainFrame = mainFrame;
-         initComponents();
-         communityTab = new communityPanel(system);
-        
-         
-        //splitPanel.setRightComponent(networkTab);
-        splitPanel.setRightComponent(communityTab);
+        this.mainframe = mainframe;
+        employeeAdmin = new manageEmployeeAdmin(system);
+        splitPanel.setRightComponent(networkTab);
+   
     }
     
-    private void manageCommunity(){
-        //user_interface_sysadmin.communityPanel community = new user_interface_sysadmin.communityPanel(system);
-        splitPanel.setRightComponent(communityTab);
-    }
-    
-    private void manageEnterprise(){
-        //user_interface_sysadmin.communityPanel community = new user_interface_sysadmin.communityPanel(system);
-        enterprise = new enterprisePanel(system);
-        splitPanel.setRightComponent(enterprise);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -118,8 +103,13 @@ public class sysadminPanel extends javax.swing.JFrame {
                 addEmployeeAdminMouseClicked(evt);
             }
         });
+        addEmployeeAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addEmployeeAdminActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Logout");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -142,7 +132,7 @@ public class sysadminPanel extends javax.swing.JFrame {
                             .addComponent(adminBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(enterpriseBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(networkBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 6, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SysMenuLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -214,11 +204,17 @@ public class sysadminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_networkBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-       mainFrame.logoutAction();
-       mainFrame.setVisible(true);
-       this.dispose();
+     mainframe.logoutAction();
+     mainframe.displayPane();
+     this.dispose();
+        
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void addEmployeeAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmployeeAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addEmployeeAdminActionPerformed
 
     /**
      * @param args the command line arguments
@@ -250,7 +246,7 @@ public class sysadminPanel extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new sysadminPanel().setVisible(true);
+//                new sysadminPanel().setVisible(true);
             }
         });
     }
