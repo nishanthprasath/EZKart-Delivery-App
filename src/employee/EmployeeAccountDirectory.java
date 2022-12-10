@@ -49,4 +49,14 @@ public class EmployeeAccountDirectory {
         return e;
     
 }
+    
+    public static void main(String[] args) {
+        
+        EmployeeAccountDirectory emp_dir = new EmployeeAccountDirectory();
+        for(Employee e: emp_dir.getEmpAccountList())
+        {
+            System.out.println(e.getEmp_id() + e.getRole());
+        }
+    }
+    
 }

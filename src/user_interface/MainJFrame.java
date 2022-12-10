@@ -39,6 +39,8 @@ import user_interface_groceries.groceriesAdminPanel;
 
 import user_interface_meatAdmin.meatAdminPanel;
 import user_interface_pharmacyAdmin.pharmAdminPanel;
+import user_interface_sysadmin.manageAdminPanel;
+import user_interface_sysadmin.manageEmployeeAdmin;
 import user_interface_sysadmin.sysadminPanel;
 
 
@@ -55,15 +57,19 @@ public class MainJFrame extends javax.swing.JFrame {
     int value = 1000;
     public static int counter = 0;
 
-    String selectedImagePath;
-    String new_path = "/uploads/";
+
     foodAdminPanel foodAdmin;
-    meatAdminPanel meatAdmin = new meatAdminPanel();
-    groceriesAdminPanel groceriesAdmin = new groceriesAdminPanel();
-    pharmAdminPanel pharmacyAdmin = new pharmAdminPanel();
-    sysadminPanel sysAdmin = new sysadminPanel();
+    meatAdminPanel meatAdmin;
+    groceriesAdminPanel groceriesAdmin;
+    pharmAdminPanel pharmacyAdmin;
+    sysadminPanel sysAdmin;
+    EmployeeAdminPanel empAdmin;
+    CustomerAccountDirectory cd ;
 
     public static String customer_id;
+    EmployeeAccountDirectory emp_dir_ob; 
+    Employee emp_ob;
+
     private Ecosystem system;
     private Db4util dB4OUtil = Db4util.getInstance();
 
@@ -73,15 +79,22 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
        
         initComponents();
-
-         this.foodAdmin = new foodAdminPanel();
-
         system = dB4OUtil.retrieveSystem();
+        this.foodAdmin = new foodAdminPanel();
+        this.meatAdmin = new meatAdminPanel();
+        this.pharmacyAdmin = new pharmAdminPanel();
+        this.groceriesAdmin = new groceriesAdminPanel();
+        this.empAdmin = new EmployeeAdminPanel(system, this);
+        this.sysAdmin = new sysadminPanel(system, this) ;
 
-        EmployeeAccountDirectory ed = system.getEmpDirectory();
-        Employee e = ed.createEmpAccount("sysadmin", "sysadmin", "sysadmin@ezcart.com", "0000000000", "N/A", "N/A" ,"System Admin");
+        emp_dir_ob= system.getEmpDirectory();
+        emp_ob = emp_dir_ob.createEmpAccount("sysadmin", "sysadmin", "sysadmin@ezcart.com", "0000000000", "N/A", "N/A" ,"System Admin");
+        emp_dir_ob.SetEmpAccountList(emp_ob);
+
         jPanel1.setBackground(new Color(0,0,0,20));
         jPanel2.setBackground(new Color(0,0,0,20));
+        manageEmployeeAdmin ob = new manageEmployeeAdmin(system);
+
     }
     
     public void logoutAction()
@@ -89,6 +102,11 @@ public class MainJFrame extends javax.swing.JFrame {
        dB4OUtil.storeSystem(system);
 
 
+    }
+    
+    public void displayPane()
+    {
+        MainPane.setVisible(true);
     }
     
      
@@ -379,60 +397,42 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         
+        // Sysadmin Login
         if(txtUserName.getText().equals("sysadmin@ezcart.com") && String.valueOf(txtPassword.getPassword()).equals("sysadmin")){
             
-            
+            sysAdmin = new sysadminPanel(system, this);
             MainPane.setVisible(false);
             sysAdmin.setVisible(true);
         }
-
-        if(txtUserName.getText().equals("food")){
-        container.add("workArea",foodAdmin);
-        CardLayout layout = (CardLayout) container.getLayout();
-        layout.next(container);
-        MainPane.setVisible(false);
-        container.setVisible(true);
-        }else if(txtUserName.getText().equals("meat")){
-        container.add("workArea",meatAdmin);
-        CardLayout layout = (CardLayout) container.getLayout();
-        layout.next(container);
-        MainPane.setVisible(false);
-        container.setVisible(true);
-        }else if(txtUserName.getText().equals("gro")){
-        container.add("workArea",groceriesAdmin);
-        CardLayout layout = (CardLayout) container.getLayout();
-        layout.next(container);
-        MainPane.setVisible(false);
-        container.setVisible(true);
-        }else if(txtUserName.getText().equals("pharm")){
-        container.add("workArea",pharmacyAdmin);
-        CardLayout layout = (CardLayout) container.getLayout();
-        layout.next(container);
-        MainPane.setVisible(false);
-        container.setVisible(true);
-        }
-        else{
-        EmployeeAdminPanel empadmin = new EmployeeAdminPanel();
-        container.add("workArea",empadmin);
-        CardLayout layout = (CardLayout) container.getLayout();
-        layout.next(container);
-
         
-        Customer customeraccount = system.getCustDirectory().authenticateUser(txtUserName.getText(), txtPassword.getText());
+        String empadmin_email = "";
+        String empadmin_pass = "";
+        String role;
         
-        if(customeraccount== null)
+        
+        
+        // Empadmin login        
+        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
         {
-            System.out.println("Its null");
+            if ("Employee Admin".equals(emp_ob.getRole()))
+            {
+                empadmin_email = emp_ob.getEmail_id();
+                empadmin_pass = emp_ob.getPassword();
+        }
         }
         
-//        EmployeeAdminPanel empadmin = new EmployeeAdminPanel();
-//        container.add("workArea",empadmin);
-//        CardLayout layout = (CardLayout) container.getLayout();
-//        layout.next(container);
-
-        MainPane.setVisible(false);
-        container.setVisible(true);
+        if(txtUserName.getText().equals(empadmin_email) && String.valueOf(txtPassword.getPassword()).equals(empadmin_pass))
+        {
+            empAdmin = new EmployeeAdminPanel(system, this);
+            MainPane.setVisible(false);
+            container.add("Empadmin area", empAdmin);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
         }
+        
+        
+          
+
 
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -448,47 +448,51 @@ public class MainJFrame extends javax.swing.JFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         
-        this.counter+=1;
+        String name = "";
+        String gender = "";
+        String email_data= "";
+        String password = "";
+        String phoneno = "";
+        String address = "";
+        String zipcode = "";
+        cd =system.getCustDirectory();
 
-        String name = txtName.getText();
-        String gender = comboGender.getSelectedItem().toString();
-        String email_data = txtEmail.getText();
-        String password = String.valueOf(txtPassword2.getPassword());
-        String phoneno = txtPhone.getText();
-        String address = txtAddress.getText();
-        String zipcode = txtZipCode.getText();
+       if(!chkDeliveryPartner.isSelected())
+       {
+        this.counter+=1;
+        name = txtName.getText();
+        gender = comboGender.getSelectedItem().toString();
+        email_data = txtEmail.getText();
+        password = String.valueOf(txtPassword2.getPassword());
+        phoneno = txtPhone.getText();
+        address = txtAddress.getText();
+        zipcode = txtZipCode.getText();
         
-        CustomerAccountDirectory cd =system.getCustDirectory();
         Customer c = cd.createUserAccount(name, password, email_data, phoneno, gender, address,zipcode);
         cd.SetUserAccountList(c);
         
-        
-        
-        dB4OUtil.storeSystem(system);
-        system= dB4OUtil.retrieveSystem();
+       }
         
 
 
      if(chkDeliveryPartner.isSelected())
      {
-        EmployeeAccountDirectory ed = system.getEmpDirectory();
-        Employee e = ed.createEmpAccount(name, password, email_data, phoneno, "N/A", address ,"Delivey Agent");
-        ed.SetEmpAccountList(e);
+        Employee e = emp_dir_ob.createEmpAccount(name, password, email_data, phoneno, "N/A", address ,"Delivey Agent");
+        emp_dir_ob.SetEmpAccountList(e);
         JOptionPane.showMessageDialog(new JFrame(), "We will get back to you shortly");
 
      }
+     
+     for(Employee e: emp_dir_ob.getEmpAccountList())
+     {
+         System.out.println(e.getRole());
+     }
 
      JOptionPane.showMessageDialog(new JFrame(), "Saved successfully");
-
-        for(Customer c1: cd.getUserAccountList())
-        {
-            System.out.println(c1.getCust_id());
-        }
-        
-        for(Employee e1: system.getEmpDirectory().getEmpAccountList())
-        {
-            System.out.println(e1.getEmp_id());
-        }
+     
+     dB4OUtil.storeSystem(system);
+     system= dB4OUtil.retrieveSystem();
+ 
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -564,3 +568,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtZipCode;
     // End of variables declaration//GEN-END:variables
 }
+
+
+
