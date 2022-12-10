@@ -4,9 +4,12 @@
  */
 package user_interface_foodAdmin;
 
+import customer.Customer;
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JPanel;
+import organisation.FoodVendorDirectory;
+import organisation.FoodVendorOnboarding;
 
 /**
  *
@@ -17,6 +20,8 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
     /**
      * Creates new form foodAdminMainPanel
      */
+    
+    FoodVendorDirectory fvd;
     public foodAdminMainPanel() {
         initComponents();
       
@@ -91,6 +96,11 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
         });
 
         addFoodItemsBtn.setText("Add Shop");
+        addFoodItemsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addFoodItemsBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ItemsContainerLayout = new javax.swing.GroupLayout(ItemsContainer);
         ItemsContainer.setLayout(ItemsContainerLayout);
@@ -180,6 +190,17 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
         foodContainer.setVisible(true);
        
     }//GEN-LAST:event_manageFoodItemsBtnActionPerformed
+
+    private void addFoodItemsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFoodItemsBtnActionPerformed
+        // TODO add your handling code here:
+        
+        fvd = new FoodVendorDirectory();
+        
+        FoodVendorOnboarding fv = fvd.createShopData(foodShopNameText.getText(), foodShopLocationText.getText());
+        fvd.setFoodVendorList(fv); 
+        
+        
+    }//GEN-LAST:event_addFoodItemsBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -42,7 +42,9 @@ import user_interface_pharmacyAdmin.pharmAdminPanel;
 import user_interface_sysadmin.manageAdminPanel;
 import user_interface_sysadmin.manageEmployeeAdmin;
 import user_interface_sysadmin.sysadminPanel;
-
+import user_interface.delivery_admin.DeliveryAdminPanel;
+import user_interface.customer.CustomerMainPanel;
+import user_interface_foodAdmin.foodAdminPanel;
 
 /**
  *
@@ -63,8 +65,11 @@ public class MainJFrame extends javax.swing.JFrame {
     groceriesAdminPanel groceriesAdmin;
     pharmAdminPanel pharmacyAdmin;
     sysadminPanel sysAdmin;
+    DeliveryAdminPanel delAdmin;
     EmployeeAdminPanel empAdmin;
+    Customer c;
     CustomerAccountDirectory cd ;
+    CustomerMainPanel custPanel;
 
     public static String customer_id;
     EmployeeAccountDirectory emp_dir_ob; 
@@ -80,7 +85,7 @@ public class MainJFrame extends javax.swing.JFrame {
        
         initComponents();
         system = dB4OUtil.retrieveSystem();
-        this.foodAdmin = new foodAdminPanel();
+        this.foodAdmin = new foodAdminPanel(system, this);
         this.meatAdmin = new meatAdminPanel();
         this.pharmacyAdmin = new pharmAdminPanel();
         this.groceriesAdmin = new groceriesAdminPanel();
@@ -399,6 +404,23 @@ public class MainJFrame extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         
+        // Customer Login
+        
+        cd =system.getCustDirectory();
+        for(Customer c1 : cd.getUserAccountList())
+
+      
+        if(txtUserName.getText().equals(c1.getEmail_id()) && String.valueOf(txtPassword.getPassword()).equals(c1.getPassword()))
+        {
+            
+            System.out.println("Inside loop");
+            custPanel = new CustomerMainPanel(system, this, c1);
+            MainPane.setVisible(false);
+            container.add("custpanel area", custPanel);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
+        }
+        
         
         // Sysadmin Login
         if(txtUserName.getText().equals("sysadmin@ezcart.com") && String.valueOf(txtPassword.getPassword()).equals("sysadmin")){
@@ -408,13 +430,12 @@ public class MainJFrame extends javax.swing.JFrame {
             sysAdmin.setVisible(true);
         }
         
+    
+        
+        // Empadmin login
         String empadmin_email = "";
         String empadmin_pass = "";
-        String role;
-        
-        
-        
-        // Empadmin login        
+        String role;        
         for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
         {
             if ("Employee Admin".equals(emp_ob.getRole()))
@@ -432,6 +453,54 @@ public class MainJFrame extends javax.swing.JFrame {
             CardLayout layout = (CardLayout) container.getLayout();
             layout.next(container);
         }
+        
+        
+        // Deladmin Login
+        String deladmin_email = "";
+        String deladmin_pass = "";
+        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+        {
+            if ("Delivery Admin".equals(emp_ob.getRole()))
+            {
+                deladmin_email = emp_ob.getEmail_id();
+                deladmin_pass = emp_ob.getPassword();
+        }
+        }
+      
+        if(txtUserName.getText().equals(deladmin_email) && String.valueOf(txtPassword.getPassword()).equals(deladmin_pass))
+        {
+            delAdmin = new DeliveryAdminPanel(system, this);
+            MainPane.setVisible(false);
+            container.add("deladmin area", delAdmin);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
+        }
+        
+        
+        // Foodadmin Login
+        String foodadmin_email = "";
+        String foodadmin_pass = "";
+        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+        {
+            if ("Food Admin".equals(emp_ob.getRole()))
+            {
+                foodadmin_email = emp_ob.getEmail_id();
+                foodadmin_pass = emp_ob.getPassword();
+        }
+        }
+      
+        if(txtUserName.getText().equals(foodadmin_email) && String.valueOf(txtPassword.getPassword()).equals(foodadmin_pass))
+        {
+            foodAdmin = new foodAdminPanel(system, this);
+            MainPane.setVisible(false);
+            container.add("foodadmin area", foodAdmin);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
+        }
+        
+
+        
+        
         
         
           
@@ -472,8 +541,20 @@ public class MainJFrame extends javax.swing.JFrame {
         address = txtAddress.getText();
         zipcode = txtZipCode.getText();
         
+        if(cd.checkIfUsernameIsUnique(email_data))
+        {
+                   
         Customer c = cd.createUserAccount(name, password, email_data, phoneno, gender, address,zipcode);
-        cd.SetUserAccountList(c);
+        cd.SetUserAccountList(c); 
+        }
+        
+        else
+        {
+            String error = "Please enter unique Email Id";
+                        JOptionPane.showMessageDialog(new JFrame(), error, "Error",
+        JOptionPane.ERROR_MESSAGE);
+        }
+
         
        }
         

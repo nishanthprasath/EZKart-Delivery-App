@@ -273,10 +273,36 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
     private void btnAddEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmployeeActionPerformed
         // TODO add your handling code here:
         
+        if(emp_dir_ob.checkIfUsernameIsUnique(txtEmail.getText()))
+        {
         emp_ob = emp_dir_ob.createEmpAccount(txtName.getText(), txtPassword.getText(), txtEmail.getText(), txtPhone.getText(), comboDepartment.getSelectedItem().toString(), txtAddress.getText().toString() ,
                 comboRole.getSelectedItem().toString());
         emp_dir_ob.SetEmpAccountList(emp_ob);
+        
+        DefaultTableModel tblmodel = (DefaultTableModel)tblEmployeeAdmin.getModel();
+        
+         for(int i=0; i< emp_dir_ob.getEmpAccountList().size(); i++)
+        {
+             Object data_value [] = {emp_dir_ob.getEmpAccountList().get(i).getEmployee_name(),
+                 
+                 emp_dir_ob.getEmpAccountList().get(i).getDepartment(),
+                 emp_dir_ob.getEmpAccountList().get(i).getRole(),
+                 emp_dir_ob.getEmpAccountList().get(i).getEmail_id(),
+                 emp_dir_ob.getEmpAccountList().get(i).getPhone_no(),
+                 emp_dir_ob.getEmpAccountList().get(i).getAddress()                 
+            };
+           tblmodel.addRow(data_value);
+        }
+         
+         
         JOptionPane.showMessageDialog(new JFrame(), "Employee Saved succesfully");
+        }
+        else
+        {
+                        String error = "Please enter unique Email ID";
+                        JOptionPane.showMessageDialog(new JFrame(), error, "Error",
+        JOptionPane.ERROR_MESSAGE);
+        }
         
         
     }//GEN-LAST:event_btnAddEmployeeActionPerformed
