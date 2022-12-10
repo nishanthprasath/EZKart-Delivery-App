@@ -48,5 +48,13 @@ public class CustomerAccountDirectory {
         return c;
     }
     
+        public boolean checkIfUsernameIsUnique(String emailId){
+        for (Customer c : customertList){
+            if (c.getEmail_id().equals(emailId))
+                return false;
+        }
+        return true;
+    }
+    
     
 }

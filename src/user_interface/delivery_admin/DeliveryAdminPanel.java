@@ -96,3 +96,6 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblDeliveryAdmin;
     // End of variables declaration//GEN-END:variables
 }
+
+
+

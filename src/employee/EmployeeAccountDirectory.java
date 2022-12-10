@@ -51,13 +51,21 @@ public class EmployeeAccountDirectory {
     
 }
     
-    public static void main(String[] args) {
-        
-        EmployeeAccountDirectory emp_dir = new EmployeeAccountDirectory();
-        for(Employee e: emp_dir.getEmpAccountList())
-        {
-            System.out.println(e.getEmp_id() + e.getRole());
+        public boolean checkIfUsernameIsUnique(String emailId){
+        for (Employee e : employeeList){
+            if (e.getEmail_id().equals(emailId))
+                return false;
         }
+        return true;
     }
+    
+//    public static void main(String[] args) {
+//        
+//        EmployeeAccountDirectory emp_dir = new EmployeeAccountDirectory();
+//        for(Employee e: emp_dir.getEmpAccountList())
+//        {
+//            System.out.println(e.getEmp_id() + e.getRole());
+//        }
+//    }
     
 }
