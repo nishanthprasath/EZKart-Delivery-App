@@ -9,6 +9,7 @@ import user_interface.MainJFrame;
 import customer.Customer;
 import cart.Cart;
 import cart.CartDirectory;
+import order.OrderDirectory;
 
 /**
  *
@@ -24,7 +25,9 @@ public class CustomerMainPanel extends javax.swing.JPanel {
     Ecosystem system;
     MainJFrame mainframe;
     CartDirectory crd;
+    OrderDirectory ord;
     private Db4util dB4OUtil = Db4util.getInstance();
+    static String cust_id;
     
     public CustomerMainPanel(Ecosystem system, MainJFrame mainframe, Customer cust_ob
     ) {
@@ -32,6 +35,7 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         this.system = system;
         this.mainframe = mainframe;
         lblName.setText(cust_ob.getCustomer_name());
+        cust_id = cust_ob.getCust_id();
         crd = new CartDirectory();
         
                 
@@ -274,13 +278,13 @@ public class CustomerMainPanel extends javax.swing.JPanel {
 
     private void btnCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCartActionPerformed
         // TODO add your handling code here:
-        CartItemsPanel cart = new CartItemsPanel(crd);
+        CartItemsPanel cart = new CartItemsPanel(system, crd, ord);
         splitPane.setRightComponent(cart);
     }//GEN-LAST:event_btnCartActionPerformed
 
     private void btnPastOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPastOrdersActionPerformed
         // TODO add your handling code here:
-        PastOrdersPanel pastOrders = new PastOrdersPanel();
+        PastOrdersPanel pastOrders = new PastOrdersPanel(system, ord);
         splitPane.setRightComponent(pastOrders);
     }//GEN-LAST:event_btnPastOrdersActionPerformed
 

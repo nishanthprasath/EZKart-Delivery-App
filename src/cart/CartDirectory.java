@@ -30,12 +30,13 @@ public class CartDirectory {
     }
     
     
-    public Cart createCart(String Itemid, String name, int qty, float price){
+    public Cart createCart(String Itemid, String name, int qty, float price, String type){
         Cart c = new Cart();
         c.setItemId(Itemid);
         c.setItemName(name);
         c.setPrice(price);
         c.setQuantity(qty);
+        c.setType(type);
 
         return c;
     }

@@ -12,6 +12,8 @@ import items.ItemDirectory;
 import javax.swing.table.DefaultTableModel;
 import user_interface.customer.ShopListPanel;
 import cart.CartDirectory;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,6 +35,7 @@ public class FoodItemsPanel extends javax.swing.JPanel {
         this.system = system;
         this.crd = crd;
         Id = system.getItemDirectory();
+        lblShopName.setText(ShopListPanel.tblShopDetails.getValueAt(index, 1).toString());
         
         tblModel = (DefaultTableModel)tblFoodItems.getModel();
 
@@ -180,24 +183,32 @@ public class FoodItemsPanel extends javax.swing.JPanel {
         String item_id;
         String item_type;
         
+        if(jComboBox1.getSelectedItem() == "Select")
+        {
+            JOptionPane.showMessageDialog(new JFrame(),
+                "Please select Quantity",
+                "Error",
+        JOptionPane.ERROR_MESSAGE);
+        }
+        
+        else
+        {
         int index = tblFoodItems.getSelectedRow();
         item_id = tblFoodItems.getValueAt( index, 0).toString();
         item_name = tblFoodItems.getValueAt(index, 1).toString();
         item_type = tblFoodItems.getValueAt(index, 2).toString();
         item_price = Float.parseFloat(tblFoodItems.getValueAt(index, 3).toString());
         item_qty = Integer.parseInt(jComboBox1.getSelectedItem().toString());
-        Cart c = crd.createCart(item_id, item_name, item_qty, item_price);
+        Cart c = crd.createCart(item_id, item_name, item_qty, item_price, "Food");
         crd.setCartList(c);
         
         
+        JOptionPane.showMessageDialog(new JFrame(), "Added to Cart");
+        }
+
         
         
-        
-        
-        
-        
-        
-        
+           
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

@@ -9,6 +9,8 @@ import employee.Employee;
 import employee.EmployeeAccountDirectory;
 import organisation.FoodVendorDirectory;
 import items.ItemDirectory;
+import order.OrderDirectory;
+import support.SupportRequestDirectory;
 /**
  *
  * @author dkdha
@@ -19,7 +21,9 @@ public class Ecosystem extends Organisation {
     CustomerAccountDirectory customerList;
     EmployeeAccountDirectory empList;
     FoodVendorDirectory foodList;
+    OrderDirectory orderList;
     ItemDirectory itemList;
+    SupportRequestDirectory supportList;
     
     
     public static Ecosystem getInstance(){
@@ -65,6 +69,24 @@ public class Ecosystem extends Organisation {
             this.itemList = new ItemDirectory();
         }
         return itemList;
+    }
+    
+        public OrderDirectory getOrderDirectory()
+    {
+        if(orderList == null)
+        {
+            this.orderList = new OrderDirectory();
+        }
+        return orderList;
+    }
+        
+     public SupportRequestDirectory getSupportDirectory()
+    {
+        if(supportList == null)
+        {
+            this.supportList = new SupportRequestDirectory();
+        }
+        return supportList;
     }
     
     

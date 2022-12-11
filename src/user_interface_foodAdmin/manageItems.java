@@ -364,7 +364,11 @@ public class manageItems extends javax.swing.JPanel {
         int qty_edit = Integer.parseInt(jTextField4.getText());
         
         
-        id.getItemList().get(index_val).setItemName(item_edit);
+        id.getItemList().get(foodAdminPanel.index_1).setItemName(item_edit);
+        id.getItemList().get(foodAdminPanel.index_1).setPrice(price_edit);
+        id.getItemList().get(foodAdminPanel.index_1).setType(type_edit);
+        id.getItemList().get(foodAdminPanel.index_1).setQuantity(qty_edit);
+        
         
         
 

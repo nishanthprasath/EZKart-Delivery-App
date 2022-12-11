@@ -28,6 +28,9 @@ public class ShopListPanel extends javax.swing.JPanel {
     String shopType;
     Ecosystem system;
     FoodVendorDirectory fvd;
+//    GroceryVendorDirectory gcd;
+//    PharmaVendorDirectory pvd;
+//    MeatVendorDirectory mvd;
     ItemDirectory id;
     CartDirectory crd;
     
@@ -41,6 +44,7 @@ public class ShopListPanel extends javax.swing.JPanel {
         this.crd = crd;
                 
         fvd = system.getFoodDirectory();
+       
         
         if(shop.equals("food"))
         {
@@ -60,6 +64,70 @@ public class ShopListPanel extends javax.swing.JPanel {
            tblModel.addRow(data_value);
         }
         }
+        
+        
+        if(shop.equals("grocery"))
+        {
+            
+        tblModel = (DefaultTableModel)tblShopDetails.getModel();
+        tblModel.setRowCount(0);
+      
+         for(int i=0; i< fvd.getFoodVendorList().size(); i++)
+        {
+             Object data_value [] = {fvd.getFoodVendorList().get(i).getShop_id(),
+                 
+                 fvd.getFoodVendorList().get(i).getShop_name(),
+                 
+                 fvd.getFoodVendorList().get(i).getLocation()
+
+            };
+           tblModel.addRow(data_value);
+        }
+        }
+        
+        if(shop.equals("meat"))
+        {
+            
+        tblModel = (DefaultTableModel)tblShopDetails.getModel();
+        tblModel.setRowCount(0);
+      
+         for(int i=0; i< fvd.getFoodVendorList().size(); i++)
+        {
+             Object data_value [] = {fvd.getFoodVendorList().get(i).getShop_id(),
+                 
+                 fvd.getFoodVendorList().get(i).getShop_name(),
+                 
+                 fvd.getFoodVendorList().get(i).getLocation()
+
+            };
+           tblModel.addRow(data_value);
+        }
+        }
+        
+        else
+        {
+            
+        tblModel = (DefaultTableModel)tblShopDetails.getModel();
+        tblModel.setRowCount(0);
+      
+         for(int i=0; i< fvd.getFoodVendorList().size(); i++)
+        {
+             Object data_value [] = {fvd.getFoodVendorList().get(i).getShop_id(),
+                 
+                 fvd.getFoodVendorList().get(i).getShop_name(),
+                 
+                 fvd.getFoodVendorList().get(i).getLocation()
+
+            };
+           tblModel.addRow(data_value);
+        }
+        }
+        
+        
+        
+        
+        
+        
 
         
   
@@ -162,7 +230,7 @@ public class ShopListPanel extends javax.swing.JPanel {
         else if(shopType.equals("grocery")){
             jPanel1.setVisible(false);
             jLabel1.setVisible(false);
-            GroceryItemsPanel groceryitemsPanel = new GroceryItemsPanel();
+            GroceryItemsPanel groceryitemsPanel = new GroceryItemsPanel(system , index, crd);
             container.add("workArea",groceryitemsPanel);
             CardLayout layout = (CardLayout) container.getLayout();
             layout.next(container);       
@@ -171,7 +239,7 @@ public class ShopListPanel extends javax.swing.JPanel {
         }else if(shopType.equals("meat")){
             jPanel1.setVisible(false);
             jLabel1.setVisible(false);
-            MeatItemsPanel meatitemsPanel = new MeatItemsPanel();
+            MeatItemsPanel meatitemsPanel = new MeatItemsPanel(system, index, crd);
             container.add("workArea",meatitemsPanel);
             CardLayout layout = (CardLayout) container.getLayout();
             layout.next(container);       
@@ -181,7 +249,7 @@ public class ShopListPanel extends javax.swing.JPanel {
         else{
             jPanel1.setVisible(false);
             jLabel1.setVisible(false);
-            PharmaItemsPanel pharmaitemsPanel = new PharmaItemsPanel();
+            PharmaItemsPanel pharmaitemsPanel = new PharmaItemsPanel(system, index, crd);
             container.add("workArea",pharmaitemsPanel);
             CardLayout layout = (CardLayout) container.getLayout();
             layout.next(container);       
