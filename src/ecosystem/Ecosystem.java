@@ -116,6 +116,11 @@ public class Ecosystem extends Organisation {
             this.meatItemList = new MeatItemDirectory();
         }
         return meatItemList;
+        
+    }
+        
+        
+        
         public OrderDirectory getOrderDirectory()
     {
         if(orderList == null)

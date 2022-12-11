@@ -47,26 +47,7 @@ public class manageItems extends javax.swing.JPanel {
      * Creates new form foodAdminMainPanel
      */
     
-    public manageItems(Ecosystem system, MainJFrame mainframe) {
-        initComponents();
-        tblmodel1 = (DefaultTableModel) foodAdminMainPanel.foodShopTable.getModel();
-        
 
-
-        
-        if(foodAdminMainPanel.index !=99)
-        {
-        String name = tblmodel1.getValueAt(foodAdminMainPanel.index, 1).toString();
-        jLabel2.setText(name);
-        }
-        
-        
-        
-        
-        id = system.getItemDirectory();
-        
-
-         tblmodel = (DefaultTableModel)meatItemTbl.getModel();
     public  void populatetable()
     {
         tblmodel.setRowCount(0);
