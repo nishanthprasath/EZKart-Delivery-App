@@ -6,6 +6,15 @@ package user_interface.customer;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import ecosystem.Ecosystem;
+import javax.swing.table.DefaultTableModel;
+import organisation.FoodVendorDirectory;
+import organisation.FoodVendorOnboarding;
+import items.ItemDirectory;
+import items.Item;
+import static user_interface_foodAdmin.foodAdminMainPanel.foodShopTable;
+import cart.CartDirectory;
+
 
 /**
  *
@@ -17,10 +26,43 @@ public class ShopListPanel extends javax.swing.JPanel {
      * Creates new form FoodPanel
      */
     String shopType;
+    Ecosystem system;
+    FoodVendorDirectory fvd;
+    ItemDirectory id;
+    CartDirectory crd;
     
-    public ShopListPanel(String shop) {
+    DefaultTableModel tblModel;
+    static int index;
+    
+    public ShopListPanel(Ecosystem system, String shop, CartDirectory crd) {
         initComponents();
         this.shopType = shop;
+        this.system = system;
+        this.crd = crd;
+                
+        fvd = system.getFoodDirectory();
+        
+        if(shop.equals("food"))
+        {
+            
+        tblModel = (DefaultTableModel)tblShopDetails.getModel();
+        tblModel.setRowCount(0);
+      
+         for(int i=0; i< fvd.getFoodVendorList().size(); i++)
+        {
+             Object data_value [] = {fvd.getFoodVendorList().get(i).getShop_id(),
+                 
+                 fvd.getFoodVendorList().get(i).getShop_name(),
+                 
+                 fvd.getFoodVendorList().get(i).getLocation()
+
+            };
+           tblModel.addRow(data_value);
+        }
+        }
+
+        
+  
         jPanel1.setBackground(new Color(0,0,0,20));
     }
 
@@ -50,7 +92,7 @@ public class ShopListPanel extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "Shop Name", "Address", "ZIP"
+                "Shop Id", "Shop Name", "Location"
             }
         ));
         tblShopDetails.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -99,13 +141,25 @@ public class ShopListPanel extends javax.swing.JPanel {
         if(shopType.equals("food")){
             jPanel1.setVisible(false);
             jLabel1.setVisible(false);
-            FoodItemsPanel fooditemsPanel = new FoodItemsPanel();
+            index = tblShopDetails.getSelectedRow();
+            FoodItemsPanel fooditemsPanel = new FoodItemsPanel(system, index, crd);
             container.add("workArea",fooditemsPanel);
             CardLayout layout = (CardLayout) container.getLayout();
             layout.next(container);       
             container.setVisible(true);
-            jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/foodAdmin.png")));        
-        }else if(shopType.equals("grocery")){
+            jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/foodAdmin.png"))); 
+
+            
+            
+            
+            
+            
+            
+        }
+        
+        
+        
+        else if(shopType.equals("grocery")){
             jPanel1.setVisible(false);
             jLabel1.setVisible(false);
             GroceryItemsPanel groceryitemsPanel = new GroceryItemsPanel();
@@ -143,6 +197,6 @@ public class ShopListPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblShopDetails;
+    public static javax.swing.JTable tblShopDetails;
     // End of variables declaration//GEN-END:variables
 }

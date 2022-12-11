@@ -45,6 +45,8 @@ import user_interface_sysadmin.sysadminPanel;
 import user_interface.delivery_admin.DeliveryAdminPanel;
 import user_interface.customer.CustomerMainPanel;
 import user_interface_foodAdmin.foodAdminPanel;
+import java.util.Random;
+import api.API;
 
 /**
  *
@@ -74,6 +76,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public static String customer_id;
     EmployeeAccountDirectory emp_dir_ob; 
     Employee emp_ob;
+    String otp_val;
 
     private Ecosystem system;
     private Db4util dB4OUtil = Db4util.getInstance();
@@ -262,6 +265,11 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel5.setText("Email");
 
         btnOTP.setText("Send OTP");
+        btnOTP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOTPActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Phone");
 
@@ -548,21 +556,43 @@ public class MainJFrame extends javax.swing.JFrame {
         phoneno = txtPhone.getText();
         address = txtAddress.getText();
         zipcode = txtZipCode.getText();
+        String user_otp = txtOTP.getText();
         
-   
-                   
+        
+//        if(user_otp.equals(otp_val))
+//        {
+//                               
         Customer c = cd.createUserAccount(name, password, email_data, phoneno, gender, address,zipcode);
         cd.SetUserAccountList(c); 
+//        }
+        
+//        else
+//        {
+//          JOptionPane.showMessageDialog(new JFrame(),
+//                "OTP is invalid",
+//                "Error",
+//        JOptionPane.ERROR_MESSAGE);
+//        }
+        
+        
+   
+
        }
 
 
-        
        
-        
-
 
      if(chkDeliveryPartner.isSelected())
      {
+         
+        name = txtName.getText();
+        gender = comboGender.getSelectedItem().toString();
+        email_data = txtEmail.getText();
+        password = String.valueOf(txtPassword2.getPassword());
+        phoneno = txtPhone.getText();
+        address = txtAddress.getText();
+        zipcode = txtZipCode.getText();
+        String user_otp = txtOTP.getText();
         Employee e = emp_dir_ob.createEmpAccount(name, password, email_data, phoneno, "N/A", address ,"Delivey Agent");
         emp_dir_ob.SetEmpAccountList(e);
         JOptionPane.showMessageDialog(new JFrame(), "We will get back to you shortly");
@@ -581,6 +611,23 @@ public class MainJFrame extends javax.swing.JFrame {
  
 
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnOTPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOTPActionPerformed
+        // TODO add your handling code here:
+        
+        API api_ob = new API();
+        try
+        {
+        otp_val = api_ob.sendEmail();
+        }
+        catch(IOException ex)
+        {
+            System.out.println("Error in sending OTP");
+        }
+        
+        
+        
+    }//GEN-LAST:event_btnOTPActionPerformed
 
     /**
      * @param args the command line arguments

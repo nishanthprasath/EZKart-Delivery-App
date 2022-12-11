@@ -27,7 +27,7 @@ public class foodAdminPanel extends javax.swing.JPanel {
     MainJFrame mainframe;
     FoodVendorDirectory fvd;
     foodAdminMainPanel foodMain;
-    int index;
+    static int index_1;
     manageItems foodItems;
 
     public foodAdminPanel(Ecosystem system, MainJFrame mainframe) {
@@ -218,6 +218,7 @@ public class foodAdminPanel extends javax.swing.JPanel {
 
     private void manageItemsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageItemsMousePressed
         // TODO add your handling code here:
+       foodItems = new manageItems(system, mainframe);
        rightSystemAdminPanel.add("foodMain", foodItems);
        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
        layout.next(rightSystemAdminPanel);

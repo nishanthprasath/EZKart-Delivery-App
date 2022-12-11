@@ -5,18 +5,39 @@
 package user_interface.customer;
 
 import java.awt.Color;
+import cart.CartDirectory;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author nishu
  */
 public class CartItemsPanel extends javax.swing.JPanel {
+    
+    CartDirectory crd;
+    DefaultTableModel tblmodel;
 
     /**
      * Creates new form CartItemsPanel
      */
-    public CartItemsPanel() {
+    public CartItemsPanel(CartDirectory crd) {
         initComponents();
+        this.crd = crd;
+        
+        tblmodel = (DefaultTableModel)tblCart.getModel();
+       tblmodel.setRowCount(0);
+      
+         for(int i=0; i< crd.getCartList().size(); i++)
+        {
+             Object data_value [] = {crd.getCartList().get(i).getItemName(),
+                 
+                 crd.getCartList().get(i).getQuantity(),
+                 
+                 crd.getCartList().get(i).getQuantity() * crd.getCartList().get(i).getPrice()
+
+            };
+           tblmodel.addRow(data_value);
+        }
         jPanel1.setBackground(new Color(0,0,0,20));
     }
 

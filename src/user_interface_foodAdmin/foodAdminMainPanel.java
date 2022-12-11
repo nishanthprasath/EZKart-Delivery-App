@@ -17,7 +17,7 @@ import javax.swing.table.TableModel;
 import organisation.FoodVendorDirectory;
 import organisation.FoodVendorOnboarding;
 import user_interface.MainJFrame;
-
+import user_interface_foodAdmin.foodAdminPanel;
 /**
  *
  * @author snehagovindarajan
@@ -35,11 +35,11 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
     DefaultTableModel tblmodel;
 
     private Db4util dB4OUtil = Db4util.getInstance();
-
-    public foodAdminMainPanel(Ecosystem system, MainJFrame mainframe) {
-        initComponents();
-        fvd = system.getFoodDirectory();
-         tblmodel = (DefaultTableModel)foodShopTable.getModel();
+    
+    public  void populatetable()
+    {
+       tblmodel = (DefaultTableModel)foodShopTable.getModel();
+       tblmodel.setRowCount(0);
       
          for(int i=0; i< fvd.getFoodVendorList().size(); i++)
         {
@@ -52,6 +52,13 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
             };
            tblmodel.addRow(data_value);
         }
+    }
+
+    public foodAdminMainPanel(Ecosystem system, MainJFrame mainframe) {
+        initComponents();
+        fvd = system.getFoodDirectory();
+        populatetable();
+
 
         this.system = system;
         this.mainframe = mainframe;
@@ -215,12 +222,8 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
 
         FoodVendorOnboarding fv = fvd.createShopData(foodShopNameText.getText(), foodShopLocationText.getText());
         fvd.setFoodVendorList(fv); 
-        Object data_value [] = {fv.getShop_id(),
-            foodShopNameText.getText(),foodShopLocationText.getText()
-                 
-                 
-            };
-           tblmodel.addRow(data_value);
+        populatetable();
+
          
        JOptionPane.showMessageDialog(new JFrame(), "Shop Saved succesfully");
 
@@ -233,6 +236,7 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
         
         
         this.index = foodShopTable.getSelectedRow();
+        foodAdminPanel.index_1 = this.index;
           TableModel model = foodShopTable.getModel();
 //        String shop_name = model.getValueAt(index, 1).toString();
 //        String shop_location = model.getValueAt(index, 2).toString();
@@ -255,12 +259,14 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
         else
         {
         
-        String shopname_edit = foodShopName.getText();
-        String shop_loc_edit = foodShopLocation.getText();
+        String shopname_edit = foodShopNameText.getText();
+        String shop_loc_edit = foodShopLocationText.getText();
         
         
         fvd.getFoodVendorList().get(index).setShop_name(shopname_edit);
         fvd.getFoodVendorList().get(index).setLocation(shop_loc_edit);
+        populatetable();
+       JOptionPane.showMessageDialog(new JFrame(), "Data edited succesfully");
 
 
         }
