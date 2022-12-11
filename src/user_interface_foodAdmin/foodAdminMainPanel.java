@@ -5,11 +5,18 @@
 package user_interface_foodAdmin;
 
 import customer.Customer;
+import db4util.Db4util;
+import ecosystem.Ecosystem;
 import java.awt.CardLayout;
 import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import organisation.FoodVendorDirectory;
 import organisation.FoodVendorOnboarding;
+import user_interface.MainJFrame;
 
 /**
  *
@@ -22,11 +29,38 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
      */
     
     FoodVendorDirectory fvd;
-    public foodAdminMainPanel() {
+    Ecosystem system;
+    MainJFrame mainframe;
+    public static int index = 99;
+    DefaultTableModel tblmodel;
+
+    private Db4util dB4OUtil = Db4util.getInstance();
+
+    public foodAdminMainPanel(Ecosystem system, MainJFrame mainframe) {
         initComponents();
+        fvd = system.getFoodDirectory();
+         tblmodel = (DefaultTableModel)foodShopTable.getModel();
+      
+         for(int i=0; i< fvd.getFoodVendorList().size(); i++)
+        {
+             Object data_value [] = {fvd.getFoodVendorList().get(i).getShop_id(),
+                 
+                 fvd.getFoodVendorList().get(i).getShop_name(),
+                 
+                 fvd.getFoodVendorList().get(i).getLocation()
+
+            };
+           tblmodel.addRow(data_value);
+        }
+
+        this.system = system;
+        this.mainframe = mainframe;
+                
       
         ItemsContainer.setBackground(new Color(0,0,0,90));
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,7 +81,6 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
         deleteFoodItemsBtn = new javax.swing.JButton();
         updateFoodItemsBtn = new javax.swing.JButton();
         clearFoodItemsBtn = new javax.swing.JButton();
-        manageFoodItemsBtn = new javax.swing.JButton();
         addFoodItemsBtn = new javax.swing.JButton();
         foodContainer = new javax.swing.JPanel();
         foodAdminImage = new javax.swing.JLabel();
@@ -59,9 +92,14 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Shop Id", "Shop Name", "Location"
+                "Shop ID", "Shop Name", "Location"
             }
         ));
+        foodShopTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                foodShopTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(foodShopTable);
 
         foodShopName.setBackground(new java.awt.Color(255, 255, 255));
@@ -85,15 +123,13 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
         deleteFoodItemsBtn.setText("Delete Shop");
 
         updateFoodItemsBtn.setText("Update Shop");
-
-        clearFoodItemsBtn.setText("Clear");
-
-        manageFoodItemsBtn.setText("Manage Items");
-        manageFoodItemsBtn.addActionListener(new java.awt.event.ActionListener() {
+        updateFoodItemsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manageFoodItemsBtnActionPerformed(evt);
+                updateFoodItemsBtnActionPerformed(evt);
             }
         });
+
+        clearFoodItemsBtn.setText("Clear");
 
         addFoodItemsBtn.setText("Add Shop");
         addFoodItemsBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -109,19 +145,14 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
             .addGroup(ItemsContainerLayout.createSequentialGroup()
                 .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ItemsContainerLayout.createSequentialGroup()
+                        .addGap(214, 214, 214)
                         .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ItemsContainerLayout.createSequentialGroup()
-                                .addGap(214, 214, 214)
-                                .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(ItemsContainerLayout.createSequentialGroup()
-                                        .addGap(13, 13, 13)
-                                        .addComponent(foodShopName, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(addFoodItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(foodShopLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(ItemsContainerLayout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(manageFoodItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(13, 13, 13)
+                                .addComponent(foodShopName, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(addFoodItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(foodShopLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ItemsContainerLayout.createSequentialGroup()
                                 .addGap(60, 60, 60)
@@ -158,8 +189,7 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
                     .addComponent(updateFoodItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteFoodItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clearFoodItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addFoodItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(manageFoodItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addFoodItemsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
 
@@ -179,28 +209,67 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_foodShopNameTextActionPerformed
 
-    private void manageFoodItemsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageFoodItemsBtnActionPerformed
-        // TODO add your handling code here:
-        manageItems foodItemList = new manageItems();
-        
-        foodContainer.add("foodArea",foodItemList);
-        CardLayout layout = (CardLayout) foodContainer.getLayout();
-        layout.next(foodContainer);
-        ItemsContainer.setVisible(false);
-        foodContainer.setVisible(true);
-       
-    }//GEN-LAST:event_manageFoodItemsBtnActionPerformed
-
     private void addFoodItemsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFoodItemsBtnActionPerformed
         // TODO add your handling code here:
-        
-        fvd = new FoodVendorDirectory();
-        
+        fvd = system.getFoodDirectory();
+
         FoodVendorOnboarding fv = fvd.createShopData(foodShopNameText.getText(), foodShopLocationText.getText());
         fvd.setFoodVendorList(fv); 
+        Object data_value [] = {fv.getShop_id(),
+            foodShopNameText.getText(),foodShopLocationText.getText()
+                 
+                 
+            };
+           tblmodel.addRow(data_value);
+         
+       JOptionPane.showMessageDialog(new JFrame(), "Shop Saved succesfully");
+
         
         
     }//GEN-LAST:event_addFoodItemsBtnActionPerformed
+
+    private void foodShopTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodShopTableMouseClicked
+        // TODO add your handling code here:
+        
+        
+        this.index = foodShopTable.getSelectedRow();
+          TableModel model = foodShopTable.getModel();
+//        String shop_name = model.getValueAt(index, 1).toString();
+//        String shop_location = model.getValueAt(index, 2).toString();
+        
+        foodShopNameText.setText(model.getValueAt(index, 1).toString());
+        foodShopLocationText.setText(model.getValueAt(index, 2).toString());
+    }//GEN-LAST:event_foodShopTableMouseClicked
+
+    private void updateFoodItemsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateFoodItemsBtnActionPerformed
+        // TODO add your handling code here:
+        
+        if (index == 99)
+        {
+                    JOptionPane.showMessageDialog(new JFrame(),
+                "Please make a selection",
+                "Error",
+        JOptionPane.ERROR_MESSAGE);
+        }
+        
+        else
+        {
+        
+        String shopname_edit = foodShopName.getText();
+        String shop_loc_edit = foodShopLocation.getText();
+        
+        
+        fvd.getFoodVendorList().get(index).setShop_name(shopname_edit);
+        fvd.getFoodVendorList().get(index).setLocation(shop_loc_edit);
+
+
+        }
+        
+
+
+        
+        
+    }//GEN-LAST:event_updateFoodItemsBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -214,9 +283,8 @@ public class foodAdminMainPanel extends javax.swing.JPanel {
     private javax.swing.JTextField foodShopLocationText;
     private javax.swing.JLabel foodShopName;
     private javax.swing.JTextField foodShopNameText;
-    private javax.swing.JTable foodShopTable;
+    public static javax.swing.JTable foodShopTable;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton manageFoodItemsBtn;
     private javax.swing.JButton updateFoodItemsBtn;
     // End of variables declaration//GEN-END:variables
 }

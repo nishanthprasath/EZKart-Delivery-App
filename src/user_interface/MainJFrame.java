@@ -92,12 +92,21 @@ public class MainJFrame extends javax.swing.JFrame {
         this.empAdmin = new EmployeeAdminPanel(system, this);
         this.sysAdmin = new sysadminPanel(system, this) ;
         
-        if(counter == 0)
-        {
+
         emp_dir_ob= system.getEmpDirectory();
+        ArrayList<String> mailid = new ArrayList<String>();
+        for(Employee e: emp_dir_ob.getEmpAccountList())
+        {
+            mailid.add(e.getEmail_id());
+        }
+
+        
+        if(!mailid.contains("sysadmin@ezcart.com"))
+        {
         emp_ob = emp_dir_ob.createEmpAccount("sysadmin", "sysadmin", "sysadmin@ezcart.com", "0000000000", "N/A", "N/A" ,"System Admin");
         emp_dir_ob.SetEmpAccountList(emp_ob);
         }
+        
 
         jPanel1.setBackground(new Color(0,0,0,20));
         jPanel2.setBackground(new Color(0,0,0,20));
@@ -407,8 +416,7 @@ public class MainJFrame extends javax.swing.JFrame {
         
         cd =system.getCustDirectory();
         for(Customer c1 : cd.getUserAccountList())
-
-      
+        {
         if(txtUserName.getText().equals(c1.getEmail_id()) && String.valueOf(txtPassword.getPassword()).equals(c1.getPassword()))
         {
             
@@ -418,6 +426,7 @@ public class MainJFrame extends javax.swing.JFrame {
             container.add("custpanel area", custPanel);
             CardLayout layout = (CardLayout) container.getLayout();
             layout.next(container);
+        }
         }
         
         
@@ -531,7 +540,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
        if(!chkDeliveryPartner.isSelected())
        {
-        this.counter+=1;
         name = txtName.getText();
         gender = comboGender.getSelectedItem().toString();
         email_data = txtEmail.getText();
@@ -540,22 +548,15 @@ public class MainJFrame extends javax.swing.JFrame {
         address = txtAddress.getText();
         zipcode = txtZipCode.getText();
         
-        if(cd.checkIfUsernameIsUnique(email_data))
-        {
+   
                    
         Customer c = cd.createUserAccount(name, password, email_data, phoneno, gender, address,zipcode);
         cd.SetUserAccountList(c); 
-        }
-        
-        else
-        {
-            String error = "Please enter unique Email Id";
-                        JOptionPane.showMessageDialog(new JFrame(), error, "Error",
-        JOptionPane.ERROR_MESSAGE);
-        }
+       }
+
 
         
-       }
+       
         
 
 

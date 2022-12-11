@@ -30,6 +30,7 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
     Employee emp_ob;
     int employeeIndex;
     private Db4util dB4OUtil = Db4util.getInstance();
+    DefaultTableModel tblmodel;
     
     
     
@@ -37,7 +38,7 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
         initComponents();
         emp_dir_ob = system.getEmpDirectory();
 
-        DefaultTableModel tblmodel = (DefaultTableModel)tblEmployeeAdmin.getModel();
+        tblmodel = (DefaultTableModel)tblEmployeeAdmin.getModel();
         
          for(int i=0; i< emp_dir_ob.getEmpAccountList().size(); i++)
         {
@@ -308,21 +309,14 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
                 comboRole.getSelectedItem().toString());
         emp_dir_ob.SetEmpAccountList(emp_ob);
         
-        DefaultTableModel tblmodel = (DefaultTableModel)tblEmployeeAdmin.getModel();
-        
-         for(int i=0; i< emp_dir_ob.getEmpAccountList().size(); i++)
-        {
-             Object data_value [] = {emp_dir_ob.getEmpAccountList().get(i).getEmployee_name(),
-                 
-                 emp_dir_ob.getEmpAccountList().get(i).getDepartment(),
-                 emp_dir_ob.getEmpAccountList().get(i).getRole(),
-                 emp_dir_ob.getEmpAccountList().get(i).getEmail_id(),
-                 emp_dir_ob.getEmpAccountList().get(i).getPhone_no(),
-                 emp_dir_ob.getEmpAccountList().get(i).getAddress()                 
+                      Object data_value [] = {txtName.getText(),
+                         txtPassword.getText(),
+                         txtEmail.getText(),
+                         txtPhone.getText(),
+                         comboDepartment.getSelectedItem().toString(),
+                         comboRole.getSelectedItem().toString()
             };
            tblmodel.addRow(data_value);
-        }
-         
          
         JOptionPane.showMessageDialog(new JFrame(), "Employee Saved succesfully");
         }

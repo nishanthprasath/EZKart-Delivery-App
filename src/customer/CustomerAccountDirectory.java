@@ -5,6 +5,8 @@
 package customer;
 import java.util.ArrayList;
 import customer.Customer;
+import java.util.Random;
+import ecosystem.Ecosystem;
 
 /**
  *
@@ -12,7 +14,10 @@ import customer.Customer;
  */
 public class CustomerAccountDirectory {
     
+    private Ecosystem system;
     private ArrayList<Customer> customertList;
+    Random rand;
+
 
     public CustomerAccountDirectory() {
         customertList = new ArrayList();
@@ -27,34 +32,29 @@ public class CustomerAccountDirectory {
         customertList.add(ob);
     }
     
-    public Customer authenticateUser(String username, String password){
-        for (Customer c : customertList)
-            if (c.getEmail_id().equals(username) && c.getPassword().equals(password)){
-                return c;
-            }
-        return null;
-    }
-    
+
+   
     public Customer createUserAccount(String name, String password, String email_id,
             String phone_no, String gender, String address, String zipcode){
         Customer c = new Customer();
+        rand = new Random();
         c.setCustomer_name(name);
         c.setPassword(password);
         c.setAddress(address);
         c.setGender(gender);
         c.setEmail_id(email_id);
         c.setZipcode(zipcode);
-        c.getCust_id();
+        c.setCust_id('C' + Integer.toString(rand.nextInt(10000)));
         return c;
     }
     
-        public boolean checkIfUsernameIsUnique(String emailId){
-        for (Customer c : customertList){
-            if (c.getEmail_id().equals(emailId))
-                return false;
-        }
-        return true;
-    }
+//        public boolean checkIfUseridUnique(String emailId){
+//        for (Customer c : customertList){
+//            if (c.getEmail_id().equals(emailId))
+//                return false;
+//        }
+//        return true;
+//    }
     
     
 }
