@@ -86,7 +86,7 @@ public class MainJFrame extends javax.swing.JFrame {
         initComponents();
         system = dB4OUtil.retrieveSystem();
         this.foodAdmin = new foodAdminPanel(system, this);
-        this.meatAdmin = new meatAdminPanel();
+        this.meatAdmin = new meatAdminPanel(system,this);
         this.pharmacyAdmin = new pharmAdminPanel();
         this.groceriesAdmin = new groceriesAdminPanel();
         this.empAdmin = new EmployeeAdminPanel(system, this);
@@ -413,7 +413,7 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         // Customer Login
-        
+       // System.out.println(cd.getUserAccountList());
         cd =system.getCustDirectory();
         for(Customer c1 : cd.getUserAccountList())
         {
@@ -430,8 +430,8 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         
         
-        // Sysadmin Login
-        if(txtUserName.getText().equals("sysadmin@ezcart.com") && String.valueOf(txtPassword.getPassword()).equals("sysadmin")){
+        // Sysadmin Login sysadmin@ezcart.com
+        if(txtUserName.getText().equals("sy") && String.valueOf(txtPassword.getPassword()).equals("sy")){
             
             sysAdmin = new sysadminPanel(system, this);
             MainPane.setVisible(false);
@@ -506,6 +506,27 @@ public class MainJFrame extends javax.swing.JFrame {
             layout.next(container);
         }
         
+                 // meatadmin Login
+        String meatadmin_email = "";
+        String meatadmin_pass = "";
+        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+        {
+            if (emp_ob.getRole().equals("Meat Admin"))
+            {
+                meatadmin_email = emp_ob.getEmail_id();
+                meatadmin_pass = emp_ob.getPassword();
+        }
+        }
+      
+        if(txtUserName.getText().equals(meatadmin_email) && String.valueOf(txtPassword.getPassword()).equals(meatadmin_pass))
+        {
+            meatAdmin = new meatAdminPanel(system, this);
+            MainPane.setVisible(false);
+            container.add("meatadmin area", meatAdmin);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
+        }
+        
 
         
         
@@ -562,6 +583,13 @@ public class MainJFrame extends javax.swing.JFrame {
 
      if(chkDeliveryPartner.isSelected())
      {
+        name = txtName.getText();
+        gender = comboGender.getSelectedItem().toString();
+        email_data = txtEmail.getText();
+        password = String.valueOf(txtPassword2.getPassword());
+        phoneno = txtPhone.getText();
+        address = txtAddress.getText();
+        zipcode = txtZipCode.getText();
         Employee e = emp_dir_ob.createEmpAccount(name, password, email_data, phoneno, "N/A", address ,"Delivey Agent");
         emp_dir_ob.SetEmpAccountList(e);
         JOptionPane.showMessageDialog(new JFrame(), "We will get back to you shortly");

@@ -33,9 +33,11 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
     DefaultTableModel tblmodel;
     
     
-    
     public EmployeeAdminPanel(Ecosystem system, MainJFrame mainframe) {
         initComponents();
+        this.system = system;
+        this.mainframe = mainframe;
+        System.out.println("EmployeeAdmin");
         emp_dir_ob = system.getEmpDirectory();
 
         tblmodel = (DefaultTableModel)tblEmployeeAdmin.getModel();
@@ -54,8 +56,7 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
         }
 
 
-        this.system = system;
-        this.mainframe = mainframe;
+      
                 
         jPanel1.setBackground(new Color(0,0,0,15));
     }
@@ -310,11 +311,12 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
         emp_dir_ob.SetEmpAccountList(emp_ob);
         
                       Object data_value [] = {txtName.getText(),
-                         txtPassword.getText(),
+                         comboDepartment.getSelectedItem().toString(),
+                         comboRole.getSelectedItem().toString(),
                          txtEmail.getText(),
                          txtPhone.getText(),
-                         comboDepartment.getSelectedItem().toString(),
-                         comboRole.getSelectedItem().toString()
+                         txtAddress.getText(),
+                        
             };
            tblmodel.addRow(data_value);
          
@@ -365,6 +367,7 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
 
     private void btnUpdateEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateEmployeeActionPerformed
         // TODO add your handling code here:
+        employeeIndex = tblEmployeeAdmin.getSelectedRow();
         String name = txtName.getText();
         String department = comboDepartment.getSelectedItem().toString();
         String role = comboRole.getSelectedItem().toString();

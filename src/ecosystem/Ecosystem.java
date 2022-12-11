@@ -6,10 +6,12 @@ package ecosystem;
 import community.Community;
 import organisation.Organisation;
 import customer.CustomerAccountDirectory;
-import employee.Employee;
 import employee.EmployeeAccountDirectory;
 import organisation.FoodVendorDirectory;
 import items.ItemDirectory;
+import items.MeatItemDirectory;
+import java.util.ArrayList;
+import organisation.MeatVendorDirectory;
 /**
  *
  * @author dkdha
@@ -21,7 +23,9 @@ public class Ecosystem extends Organisation {
     CustomerAccountDirectory customerList;
     EmployeeAccountDirectory empList;
     FoodVendorDirectory foodList;
+    MeatVendorDirectory meatList;
     ItemDirectory itemList;
+    MeatItemDirectory meatItemList;
     
     
     public static Ecosystem getInstance(){
@@ -90,6 +94,24 @@ public class Ecosystem extends Organisation {
             this.itemList = new ItemDirectory();
         }
         return itemList;
+    }
+    
+        public MeatVendorDirectory getMeatDirectory()
+    {
+        if(meatList == null)
+        {
+            this.meatList = new MeatVendorDirectory();
+        }
+        return meatList;
+    }
+     
+    public MeatItemDirectory getMeatItemDirectory()
+    {
+        if(meatItemList == null)
+        {
+            this.meatItemList = new MeatItemDirectory();
+        }
+        return meatItemList;
     }
     
     

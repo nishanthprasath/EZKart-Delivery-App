@@ -5,9 +5,11 @@
  */
 package user_interface_meatAdmin;
 
+import ecosystem.Ecosystem;
 import user_interface_foodAdmin.*;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import user_interface.MainJFrame;
 
 /**
  *
@@ -19,13 +21,16 @@ public class meatAdminPanel extends javax.swing.JPanel {
      * Creates new form SystemAdminWorkAreaJPanel
      */
   
-    
+    Ecosystem system;
+    MainJFrame mainframe;
     meatAdminMainPanel meatMain;
     manageMeatItems meatItems;
-    public meatAdminPanel() {
+    public meatAdminPanel(Ecosystem system, MainJFrame mainframe) {
         initComponents();
-        meatMain = new meatAdminMainPanel();
-        meatItems = new manageMeatItems();
+        this.system = system;
+        this.mainframe = mainframe;
+        meatMain = new meatAdminMainPanel(system,mainframe);
+       // meatItems = new manageMeatItems(system,mainframe);
         rightSystemAdminPanel.add("foodMain", meatMain);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel);
@@ -196,6 +201,7 @@ public class meatAdminPanel extends javax.swing.JPanel {
 
     private void manageItemsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageItemsMousePressed
         // TODO add your handling code here:
+       meatItems = new manageMeatItems(system,mainframe);
        rightSystemAdminPanel.add("foodMain", meatItems);
        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
        layout.next(rightSystemAdminPanel);
@@ -216,7 +222,9 @@ public class meatAdminPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_manageItems1MousePressed
 
     private void lblAnalysis1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAnalysis1MousePressed
-
+            
+     mainframe.logoutAction();
+     mainframe.displayPane();
     }//GEN-LAST:event_lblAnalysis1MousePressed
 
 

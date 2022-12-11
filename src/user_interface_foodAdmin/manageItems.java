@@ -59,12 +59,13 @@ public class manageItems extends javax.swing.JPanel {
         id = system.getItemDirectory();
         
 
-         tblmodel = (DefaultTableModel)jTable1.getModel();
+         tblmodel = (DefaultTableModel)meatItemTbl.getModel();
         
 
          for(int i=0; i< id.getItemList().size(); i++)
         {
-             Object data_value [] = {id.getItemList().get(i).getItemName(),
+             Object data_value [] = {
+                 id.getItemList().get(i).getItemName(),
                  id.getItemList().get(i).getPrice(),
                  id.getItemList().get(i).getType(),
                  id.getItemList().get(i).getQuantity()
@@ -105,7 +106,7 @@ public class manageItems extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        meatItemTbl = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setLayout(null);
@@ -165,7 +166,7 @@ public class manageItems extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        meatItemTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -173,7 +174,7 @@ public class manageItems extends javax.swing.JPanel {
                 "Items", "Price", "Type", "Quantity"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(meatItemTbl);
 
         javax.swing.GroupLayout foodAdminTempLayout = new javax.swing.GroupLayout(foodAdminTemp);
         foodAdminTemp.setLayout(foodAdminTempLayout);
@@ -310,10 +311,10 @@ public class manageItems extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable meatItemTbl;
     private javax.swing.JButton uploadFoodPic;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,7 +5,10 @@
 package user_interface_sysadmin;
 
 import ecosystem.Ecosystem;
+import java.awt.CardLayout;
 import java.awt.Color;
+import user_interface.customer.CustomerMainPanel;
+import user_interface.employee_admin.EmployeeAdminPanel;
 
 /**
  *
@@ -16,11 +19,18 @@ public class manageAdminPanel extends javax.swing.JPanel {
     /**
      * Creates new form manageAdminPanel
      */
-    
+    Ecosystem system;
     public manageAdminPanel() {
         initComponents();
         jPanel1.setBackground(new Color(0,0,0,30));
+        
     }
+    
+//      public manageAdminPanel(Ecosystem system) {
+//        initComponents();
+//        jPanel1.setBackground(new Color(0,0,0,30));
+//        this.system = system;
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
