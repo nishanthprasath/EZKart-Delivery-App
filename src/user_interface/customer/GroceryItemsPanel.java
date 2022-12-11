@@ -4,20 +4,63 @@
  */
 package user_interface.customer;
 
+import cart.Cart;
+import cart.CartDirectory;
+import ecosystem.Ecosystem;
+import items.Item;
+import items.ItemDirectory;
 import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author nishu
  */
 public class GroceryItemsPanel extends javax.swing.JPanel {
+    
+    Ecosystem system;
+    ItemDirectory Id;
+    DefaultTableModel tblModel;
+    CartDirectory crd;
+    int count = 0;
 
     /**
      * Creates new form GroceryItemsPanel
      */
-    public GroceryItemsPanel() {
+    public GroceryItemsPanel(Ecosystem system, int index, CartDirectory crd) {
         initComponents();
+        
+        this.system = system;
+        this.crd = crd;
+        Id = system.getItemDirectory();
+        
+        tblModel = (DefaultTableModel)tblGroceryItems.getModel();
         jPanel1.setBackground(new Color(0,0,0,20));
+        
+                    
+            for(Item I1: Id.getItemList())
+            {
+                if(I1.getShop_id().equals(ShopListPanel.tblShopDetails.getValueAt(index, 0).toString()))
+                {
+                    
+                    
+      
+//         for(int i=0; i< Id.getItemList().size(); i++)
+//        {
+             Object data_value [] = {Id.getItemList().get(count).getItemid(),
+
+                 Id.getItemList().get(count).getItemName(),
+                 Id.getItemList().get(count).getType(),
+                 Id.getItemList().get(count).getPrice()
+                 
+            };
+           tblModel.addRow(data_value);
+//        }
+                    
+                    
+                }
+                count++;
+            }
     }
 
     /**
@@ -39,13 +82,13 @@ public class GroceryItemsPanel extends javax.swing.JPanel {
 
         tblGroceryItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Item", "Type", "Best Before", "Price"
+                "Item Id", "Item", "Type", "Best Before", "Price"
             }
         ));
         jScrollPane1.setViewportView(tblGroceryItems);
@@ -60,6 +103,11 @@ public class GroceryItemsPanel extends javax.swing.JPanel {
         jLabel1.setText("Quantity");
 
         jButton1.setText("Add to Cart");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,6 +169,28 @@ public class GroceryItemsPanel extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+       
+        String item_id;
+        String item_name;
+        String item_type;
+        String best_before;
+        float price;
+        int qty;
+        
+        int index = tblGroceryItems.getSelectedRow();
+        item_id = tblGroceryItems.getValueAt( index, 0).toString();
+        item_name = tblGroceryItems.getValueAt(index, 1).toString();
+        item_type = tblGroceryItems.getValueAt(index, 2).toString();
+        best_before = tblGroceryItems.getValueAt(index, 3).toString();
+        price = Float.parseFloat(tblGroceryItems.getValueAt(index, 4).toString());
+        qty = Integer.parseInt(jComboBox1.getSelectedItem().toString());
+        
+        Cart c = crd.createCart(item_id, item_name, qty, price, "Grocery");
+        crd.setCartList(c);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

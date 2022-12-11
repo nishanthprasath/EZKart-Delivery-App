@@ -15,7 +15,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import organisation.FoodVendorOnboarding;
 import user_interface_foodAdmin.foodAdminMainPanel;
+import user_interface_foodAdmin.foodAdminPanel;
+
 import items.Item;
+import java.util.ArrayList;
 import javax.swing.JTable;
 //import static user_interface_foodAdmin.foodAdminMainPanel.foodShopTable;
 /**
@@ -29,7 +32,11 @@ public class manageItems extends javax.swing.JPanel {
     MainJFrame mainframe;
     ItemDirectory id;
     DefaultTableModel tblmodel;
-    DefaultTableModel tblmodel1;
+    ArrayList<String> items_gen;
+    ArrayList<Float> price_gen;
+    ArrayList<Integer> qty_gen;
+    ArrayList<String> type_gen;
+    int index_val;
 
 
     
@@ -60,23 +67,79 @@ public class manageItems extends javax.swing.JPanel {
         
 
          tblmodel = (DefaultTableModel)meatItemTbl.getModel();
+    public  void populatetable()
+    {
+        tblmodel.setRowCount(0);
         
 
+ 
          for(int i=0; i< id.getItemList().size(); i++)
         {
+            
+            if(id.getItemList().get(i).getShop_id().equals(foodAdminMainPanel.foodShopTable.getValueAt(foodAdminPanel.index_1, 0).toString()))
+            {
              Object data_value [] = {
                  id.getItemList().get(i).getItemName(),
                  id.getItemList().get(i).getPrice(),
                  id.getItemList().get(i).getType(),
-                 id.getItemList().get(i).getQuantity()
+                 id.getItemList().get(i).getQuantity(),
+                 id.getItemList().get(i).getShop_id()
+                     
             };
            tblmodel.addRow(data_value);
+            }
         }
+    }
+    
+    public manageItems(Ecosystem system, MainJFrame mainframe) {
+
+        initComponents(); 
+        id = system.getItemDirectory();
+
         this.system = system;
         this.mainframe = mainframe;
+        tblmodel = (DefaultTableModel)jTable1.getModel();
+
+        populatetable();
+
         foodAdminTemp.setBackground(new Color(0,0,0,90));
-        //jLabel2.setVisible(true);
      
+    }
+    
+
+    
+    public void genData()
+    {
+         items_gen = new ArrayList<String>();
+        price_gen = new ArrayList<Float>();
+        qty_gen = new ArrayList<Integer>();
+
+        items_gen.add("Briyani");
+        items_gen.add("Dosa");
+        items_gen.add("Idli");
+        items_gen.add("Pongal");
+        items_gen.add("Noodles");
+        
+        price_gen.add((float) 20.00);
+        price_gen.add((float) 13.00);
+        price_gen.add((float) 7.00);
+        price_gen.add((float) 10.00);
+        price_gen.add((float) 17.00);
+        
+        
+        qty_gen.add(100);
+        qty_gen.add(100);
+        qty_gen.add(100);
+        qty_gen.add(100);
+        qty_gen.add(100);
+        
+        type_gen.add("Non veg");
+        type_gen.add("veg");
+        type_gen.add("veg");
+        type_gen.add("veg");
+        type_gen.add("Nonveg");
+        
+        
     }
 
     /**
@@ -156,6 +219,11 @@ public class manageItems extends javax.swing.JPanel {
         });
 
         jButton2.setText("Update Item");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Delete Item");
 
@@ -171,10 +239,16 @@ public class manageItems extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Items", "Price", "Type", "Quantity"
+                "Items", "Price", "Type", "Quantity", "Shop Id"
             }
         ));
         jScrollPane1.setViewportView(meatItemTbl);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout foodAdminTempLayout = new javax.swing.GroupLayout(foodAdminTemp);
         foodAdminTemp.setLayout(foodAdminTempLayout);
@@ -267,22 +341,16 @@ public class manageItems extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        System.out.println("Index" + foodAdminMainPanel.index);
+        
 
         
-        id = system.getItemDirectory();
         Item i = id.createItems(jTextField3.getText() , Float.parseFloat(jTextField2.getText()),
                 jComboBox1.getSelectedItem().toString(), Integer.parseInt(jTextField4.getText()),
-                tblmodel1.getValueAt(foodAdminMainPanel.index, 1).toString()
+                foodAdminMainPanel.foodShopTable.getValueAt(foodAdminMainPanel.index, 0).toString()
                 );
         id.setItemList(i); 
-        Object data_value [] = {
-                 jTextField3.getText() , Float.parseFloat(jTextField2.getText()),
-                jComboBox1.getSelectedItem().toString(), Integer.parseInt(jTextField4.getText())
-                 
-            };
-           tblmodel.addRow(data_value);
-         
+       
+        populatetable();
        JOptionPane.showMessageDialog(new JFrame(), "Item Saved succesfully");
         
         
@@ -293,6 +361,56 @@ public class manageItems extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+        index_val = jTable1.getSelectedRow();
+        System.out.println("Index val"  + index_val);
+        
+        if (index_val<0)
+        {
+                    JOptionPane.showMessageDialog(new JFrame(),
+                "Please make a selection",
+                "Error",
+        JOptionPane.ERROR_MESSAGE);
+        }
+        
+        else
+        {
+        
+        String item_edit = jTextField3.getText();
+        Float price_edit = Float.parseFloat(jTextField2.getText());
+        String type_edit = jComboBox1.getSelectedItem().toString() ;
+        int qty_edit = Integer.parseInt(jTextField4.getText());
+        
+        
+        id.getItemList().get(foodAdminPanel.index_1).setItemName(item_edit);
+        id.getItemList().get(foodAdminPanel.index_1).setPrice(price_edit);
+        id.getItemList().get(foodAdminPanel.index_1).setType(type_edit);
+        id.getItemList().get(foodAdminPanel.index_1).setQuantity(qty_edit);
+        
+        
+        
+
+
+        populatetable();
+       JOptionPane.showMessageDialog(new JFrame(), "Data edited succesfully");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        this.index_val = jTable1.getSelectedRow();
+        TableModel model = jTable1.getModel();
+        jTextField3.setText(model.getValueAt(index_val, 0).toString());
+        jTextField2.setText(model.getValueAt(index_val, 1).toString());
+        jComboBox1.setSelectedItem(model.getValueAt(index_val, 2).toString());
+        jTextField4.setText(model.getValueAt(index_val, 3).toString());
+
+
+        
+    }//GEN-LAST:event_jTable1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -311,6 +429,7 @@ public class manageItems extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    public static javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;

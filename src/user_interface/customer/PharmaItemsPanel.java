@@ -4,20 +4,57 @@
  */
 package user_interface.customer;
 
+import cart.Cart;
+import cart.CartDirectory;
+import ecosystem.Ecosystem;
+import items.Item;
+import items.ItemDirectory;
 import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author nishu
  */
 public class PharmaItemsPanel extends javax.swing.JPanel {
+    
+    Ecosystem system;
+    ItemDirectory Id;
+    DefaultTableModel tblModel;
+    CartDirectory crd;
+    int count = 0;
 
     /**
      * Creates new form PharmaItemsPanel
      */
-    public PharmaItemsPanel() {
+    public PharmaItemsPanel(Ecosystem system, int index, CartDirectory crd) {
         initComponents();
+        this.system = system;
+        this.crd = crd;
+        Id = system.getItemDirectory();
+        
+        tblModel = (DefaultTableModel)tblPharmatems.getModel();
         jPanel1.setBackground(new Color(0,0,0,20));
+        
+        for(Item I1: Id.getItemList())
+            {
+                if(I1.getShop_id().equals(ShopListPanel.tblShopDetails.getValueAt(index, 0).toString()))
+                {
+                    
+                  
+             Object data_value [] = {Id.getItemList().get(count).getItemid(),
+
+                 Id.getItemList().get(count).getItemName(),
+                 Id.getItemList().get(count).getType(),
+                 Id.getItemList().get(count).getPrice()
+                 
+            };
+           tblModel.addRow(data_value);
+                    
+                    
+                }
+                count++;
+            }
     }
 
     /**
@@ -39,13 +76,13 @@ public class PharmaItemsPanel extends javax.swing.JPanel {
 
         tblPharmatems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Item", "Type", "Expiry Date", "Price"
+                "Item Id", "Item", "Type", "Expiry Date", "Price"
             }
         ));
         jScrollPane1.setViewportView(tblPharmatems);
@@ -60,6 +97,11 @@ public class PharmaItemsPanel extends javax.swing.JPanel {
         jLabel1.setText("Quantity");
 
         jButton1.setText("Add to Cart");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,6 +163,27 @@ public class PharmaItemsPanel extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String item_id;
+        String item_name;
+        String item_type;
+        String exp_date;
+        float price;
+        int qty;
+        
+        int index = tblPharmatems.getSelectedRow();
+        item_id = tblPharmatems.getValueAt( index, 0).toString();
+        item_name = tblPharmatems.getValueAt(index, 1).toString();
+        item_type = tblPharmatems.getValueAt(index, 2).toString();
+        exp_date = tblPharmatems.getValueAt(index, 3).toString();
+        price = Float.parseFloat(tblPharmatems.getValueAt(index, 4).toString());
+        qty = Integer.parseInt(jComboBox1.getSelectedItem().toString());
+        
+        Cart c = crd.createCart(item_id, item_name, qty, price, "Pharma");
+        crd.setCartList(c);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

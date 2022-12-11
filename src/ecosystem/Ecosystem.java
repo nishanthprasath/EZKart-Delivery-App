@@ -12,6 +12,8 @@ import items.ItemDirectory;
 import items.MeatItemDirectory;
 import java.util.ArrayList;
 import organisation.MeatVendorDirectory;
+import order.OrderDirectory;
+import support.SupportRequestDirectory;
 /**
  *
  * @author dkdha
@@ -24,8 +26,10 @@ public class Ecosystem extends Organisation {
     EmployeeAccountDirectory empList;
     FoodVendorDirectory foodList;
     MeatVendorDirectory meatList;
-    ItemDirectory itemList;
     MeatItemDirectory meatItemList;
+    OrderDirectory orderList;
+    ItemDirectory itemList;
+    SupportRequestDirectory supportList;
     
     
     public static Ecosystem getInstance(){
@@ -112,6 +116,22 @@ public class Ecosystem extends Organisation {
             this.meatItemList = new MeatItemDirectory();
         }
         return meatItemList;
+        public OrderDirectory getOrderDirectory()
+    {
+        if(orderList == null)
+        {
+            this.orderList = new OrderDirectory();
+        }
+        return orderList;
+    }
+        
+     public SupportRequestDirectory getSupportDirectory()
+    {
+        if(supportList == null)
+        {
+            this.supportList = new SupportRequestDirectory();
+        }
+        return supportList;
     }
     
     

@@ -5,19 +5,77 @@
 package user_interface.customer;
 
 import java.awt.Color;
+import cart.CartDirectory;
+import ecosystem.Ecosystem;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import order.Order;
+import order.OrderDirectory;
+import user_interface.customer.CustomerMainPanel;
+import customer.CustomerAccountDirectory;
 
 /**
  *
  * @author nishu
  */
 public class CartItemsPanel extends javax.swing.JPanel {
+    
+    CartDirectory crd;
+    DefaultTableModel tblmodel;
+    OrderDirectory ord;
+    Ecosystem system;
+    float value = 0;
+    static int cnt = 0;
+
 
     /**
      * Creates new form CartItemsPanel
      */
-    public CartItemsPanel() {
+    
+    public float total_price()
+    {
+        for(int i=0; i< crd.getCartList().size(); i++)
+        {
+            
+            value = value + (crd.getCartList().get(i).getQuantity() * crd.getCartList().get(i).getPrice());
+
+            }
+                 
+                 return value;
+                             
+    }
+    
+    public void populateTable()
+    {
+        tblmodel = (DefaultTableModel)tblCart.getModel();
+        tblmodel.setRowCount(0);
+      
+         for(int i=0; i< crd.getCartList().size(); i++)
+        {
+             Object data_value [] = {crd.getCartList().get(i).getItemName(),
+                 
+                 crd.getCartList().get(i).getQuantity(),
+                 
+                 crd.getCartList().get(i).getQuantity() * crd.getCartList().get(i).getPrice()
+
+            };
+           tblmodel.addRow(data_value);
+           
+           cnt++;
+        }
+    
+    }
+    public CartItemsPanel(Ecosystem system , CartDirectory crd, OrderDirectory ord) {
         initComponents();
+        this.system = system;
+        this.crd = crd;
+ 
+        String total = Float.toString(total_price());
+        lblTotal.setText(total);
+        populateTable();
         jPanel1.setBackground(new Color(0,0,0,20));
+
     }
 
     /**
@@ -43,10 +101,7 @@ public class CartItemsPanel extends javax.swing.JPanel {
 
         tblCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Item", "Quantity", "Price"
@@ -68,6 +123,11 @@ public class CartItemsPanel extends javax.swing.JPanel {
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Click to Pay");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -127,6 +187,24 @@ public class CartItemsPanel extends javax.swing.JPanel {
         jLabel1.setBounds(0, 0, 1042, 714);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+
+        float tot = total_price();
+        ord = system.getOrderDirectory();
+        Order o = ord.createOrder(CustomerMainPanel.cust_id, tot );
+        ord.setOrdList(o);
+        crd.getCartList().clear();
+        JOptionPane.showMessageDialog(new JFrame(), "Order placed successfully");
+       populateTable();
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+    public void rePlaceCart(CartDirectory crd){
+     crd = new CartDirectory();}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;

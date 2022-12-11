@@ -4,22 +4,61 @@
  */
 package user_interface.customer;
 
+import ecosystem.Ecosystem;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import order.OrderDirectory;
+import java.util.*;
+import javax.swing.JFrame;
+import order.Order;
+import support.SupportRequest;
+import support.SupportRequestDirectory;
+import user_interface.customer.CustomerMainPanel;
 
 /**
  *
  * @author nishu
  */
 public class PastOrdersPanel extends javax.swing.JPanel {
+    
+    Ecosystem system;
+    OrderDirectory ord;
+    SupportRequestDirectory srd;
+    String timeStamp;
+    static int index;
+    
+    DefaultTableModel tblmodel;
 
     /**
      * Creates new form PastOrdersPanel
      */
-    public PastOrdersPanel() {
+    public PastOrdersPanel(Ecosystem system, OrderDirectory ord) {
         initComponents();
-        reasonDropDown = new javax.swing.JComboBox<>();
-        jPanel1.setBackground(new Color(0,0,0,20));
+        this.system = system;
+        this.ord  = ord;
+        tblmodel = (DefaultTableModel)tblPastOrders.getModel();
+        ord = system.getOrderDirectory();
+                
+         for(int i=0; i< ord.getOrderList().size(); i++)
+        {
+             Object data_value [] = {ord.getOrderList().get(i).getOrderid(),
+                 
+                 ord.getOrderList().get(i).getTotal_price(),
+                 
+                  timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date()),
+                 
+                 ord.getOrderList().get(i).getStatus()
+                 
+                 
+                 
+
+            };
+           tblmodel.addRow(data_value);
+        }
+//        reasonDropDown = new javax.swing.JComboBox<>();
+//        jPanel1.setBackground(new Color(0,0,0,20));
     }
 
     /**
@@ -35,20 +74,19 @@ public class PastOrdersPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPastOrders = new javax.swing.JTable();
         btnCancelOrder = new javax.swing.JButton();
-        btnRaiseIssue = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setLayout(null);
 
         tblPastOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Order ID", "Items", "Price", "Date", "Status"
+                "Order ID", "Total Price", "Date", "Status"
             }
         ));
         tblPastOrders.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -66,11 +104,14 @@ public class PastOrdersPanel extends javax.swing.JPanel {
             }
         });
 
-        btnRaiseIssue.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnRaiseIssue.setText("Raise Issue");
-        btnRaiseIssue.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("Raise Issue");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Food Quality", "Order not delivered", "Item missing"}));
+
+        jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRaiseIssueActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -79,15 +120,21 @@ public class PastOrdersPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(169, 169, 169)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(169, 169, 169)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(298, 298, 298)
+                        .addComponent(btnCancelOrder)
+                        .addGap(104, 104, 104)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(455, 455, 455)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(190, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelOrder)
-                .addGap(52, 52, 52)
-                .addComponent(btnRaiseIssue)
-                .addGap(210, 210, 210))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,8 +144,11 @@ public class PastOrdersPanel extends javax.swing.JPanel {
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelOrder)
-                    .addComponent(btnRaiseIssue))
-                .addContainerGap(165, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addComponent(jButton1)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         add(jPanel1);
@@ -112,27 +162,52 @@ public class PastOrdersPanel extends javax.swing.JPanel {
 
     private void tblPastOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPastOrdersMouseClicked
         // TODO add your handling code here:
+        
+        index = tblPastOrders.getSelectedRow();
+        
     }//GEN-LAST:event_tblPastOrdersMouseClicked
 
     private void btnCancelOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelOrderActionPerformed
         // TODO add your handling code here:
+        
+        ord = system.getOrderDirectory();
+        for(Order o1: ord.getOrderList())
+        {
+            if(o1.getOrderid().equals(tblPastOrders.getValueAt(index, 0).toString()))
+            {
+                o1.setStatus("Cancelled");
+            }
+            
+            JOptionPane.showMessageDialog(new JFrame(), "Order cancelled");
+            
+        }
     }//GEN-LAST:event_btnCancelOrderActionPerformed
 
-    private void btnRaiseIssueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRaiseIssueActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String message = "Select Reason\n";
-        reasonDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Food Quality", "Order Not Delivered", "Item Missing" }));
-        Object[] params = {message, reasonDropDown};
-        JOptionPane.showConfirmDialog(null, params, "Raise Issue", JOptionPane.PLAIN_MESSAGE);
-        String reason = reasonDropDown.getSelectedItem().toString();
-    }//GEN-LAST:event_btnRaiseIssueActionPerformed
+        
+        ord = system.getOrderDirectory();
+        srd = system.getSupportDirectory();
+        for(Order o1: ord.getOrderList())
+        {
+            if(o1.getOrderid().equals(tblPastOrders.getValueAt(index, 0).toString()))
+            {
+                SupportRequest sr = srd.createReq(CustomerMainPanel.cust_id, o1.getOrderid(), jComboBox1.getSelectedItem().toString());
+                o1.setStatus("Issue raised");
+            }
+            
+            JOptionPane.showMessageDialog(new JFrame(), "Support ticket raised");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     private javax.swing.JComboBox<String> reasonDropDown;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelOrder;
-    private javax.swing.JButton btnRaiseIssue;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPastOrders;
