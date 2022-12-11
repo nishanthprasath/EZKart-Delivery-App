@@ -7,6 +7,8 @@ import organisation.Organisation;
 import customer.CustomerAccountDirectory;
 import employee.Employee;
 import employee.EmployeeAccountDirectory;
+import organisation.FoodVendorDirectory;
+import items.ItemDirectory;
 /**
  *
  * @author dkdha
@@ -16,6 +18,9 @@ public class Ecosystem extends Organisation {
     private static Ecosystem business;
     CustomerAccountDirectory customerList;
     EmployeeAccountDirectory empList;
+    FoodVendorDirectory foodList;
+    ItemDirectory itemList;
+    
     
     public static Ecosystem getInstance(){
         if(business==null){
@@ -33,6 +38,8 @@ public class Ecosystem extends Organisation {
         return customerList;
     }
     
+
+    
     public EmployeeAccountDirectory getEmpDirectory()
     {
         if(empList == null)
@@ -41,5 +48,25 @@ public class Ecosystem extends Organisation {
         }
         return empList;
     }
+    
+     public FoodVendorDirectory getFoodDirectory()
+    {
+        if(foodList == null)
+        {
+            this.foodList = new FoodVendorDirectory();
+        }
+        return foodList;
+    }
+     
+    public ItemDirectory getItemDirectory()
+    {
+        if(itemList == null)
+        {
+            this.itemList = new ItemDirectory();
+        }
+        return itemList;
+    }
+    
+    
     
 }

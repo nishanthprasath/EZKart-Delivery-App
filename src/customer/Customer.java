@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package customer;
-
+import java.util.Random;
 
 /**
  *
@@ -26,18 +26,18 @@ public class Customer {
    private String address;
    private String zipcode;
    private String cust_id;
-   private static int count = 1;
-   
-   
-   public Customer()
-   {
-       cust_id = 'C' + Integer.toString(count);
-       count++;
-   }
+   Random rand =new Random();
 
     public String getCust_id() {
         return cust_id;
     }
+
+    public void setCust_id(String cust_id) {
+        this.cust_id = cust_id;
+    }
+   
+   
+
 
 
     public String getZipcode() {

@@ -20,15 +20,6 @@ public class Employee {
    private String emp_id;
 
 
-   private static int count = 1;
-
-
-   
-      public Employee()
-   {
-       emp_id = 'E' + Integer.toString(count);
-       count++;
-   }
       
     public String getEmp_id() {
         return emp_id;

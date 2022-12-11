@@ -6,6 +6,7 @@ package employee;
 
 import employee.Employee;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class EmployeeAccountDirectory {
     
     private ArrayList<Employee> employeeList;
+    Random rand;
 
     public EmployeeAccountDirectory() {
         employeeList = new ArrayList();
@@ -39,6 +41,7 @@ public class EmployeeAccountDirectory {
     public Employee createEmpAccount(String name, String password, String email_id,
             String phone_no, String dept, String address, String role){
         Employee e = new Employee();
+        rand = new Random();
         e.setEmployee_name(name);
         e.setPassword(password);
         e.setEmail_id(email_id);
@@ -46,7 +49,7 @@ public class EmployeeAccountDirectory {
         e.setAddress(address);
         e.setDepartment(dept);
         e.setRole(role);
-        e.getEmp_id();
+        e.setEmp_id('E' + Integer.toString(rand.nextInt(10000)));
         return e;
     
 }

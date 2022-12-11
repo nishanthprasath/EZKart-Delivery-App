@@ -12,6 +12,10 @@ public class FoodVendorOnboarding {
     
     private String shop_name;
     private String location;
+    private String shop_id;
+    
+
+
 
     public String getShop_id() {
         return shop_id;
@@ -20,13 +24,8 @@ public class FoodVendorOnboarding {
     public void setShop_id(String shop_id) {
         this.shop_id = shop_id;
     }
-    private String shop_id;
-   private static int count = 1;
 
-    public FoodVendorOnboarding() {
-       shop_id = 'S' + Integer.toString(count);
-       count++;
-    }
+
 
     public String getShop_name() {
         return shop_name;
