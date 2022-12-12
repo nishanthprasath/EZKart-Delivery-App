@@ -4,12 +4,18 @@
  */
 package user_interface.delivery_agent;
 
+import assignedDeliveryAgent.assignedAgent;
+import assignedDeliveryAgent.assignedAgentDirectory;
+import customer.CustomerAccountDirectory;
 import ecosystem.Ecosystem;
 import employee.Employee;
 import employee.EmployeeAccountDirectory;
 import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import order.Order;
+import order.OrderDirectory;
 import user_interface.MainJFrame;
 
 /**
@@ -24,20 +30,46 @@ public class DeliveryAgentPanel extends javax.swing.JPanel {
     Ecosystem system;
     MainJFrame mainframe;
     EmployeeAccountDirectory emp_dir_ob; 
+    assignedAgentDirectory assignAgent;
+    OrderDirectory orderDir;
     Employee emp;
-    
+    DefaultTableModel tblModel;
+    int count =0;
     
     public DeliveryAgentPanel(Ecosystem system, MainJFrame mainframe, Employee emp) {
         initComponents();
         this.system = system;
         this.mainframe = mainframe;
         emp_dir_ob= system.getEmpDirectory();
+        assignAgent = system.getAssignedAgentDirectory();
+       // custDir = system.getCustDirectory();
+        orderDir = system.getOrderDirectory();
+
         jPanel1.setBackground(new Color(0,0,0,15));
         jPanel2.setBackground(new Color(0,0,0,15));
        
         this.emp = emp;
+        setName.setText(emp.getEmployee_name());
+        setEmpId.setText(emp.getEmp_id());
         fieldPopulate();
+        tblModel = (DefaultTableModel)tblDeliveryAgent.getModel();
         System.out.println(this.emp.getEmployee_name());
+        for(assignedAgent a : assignAgent.getAssignedAgentList()){
+            if(a.getDelPerson_id().equals(emp.getEmp_id())){
+                
+                Object data_value [] = {
+                    assignAgent.getAssignedAgentList().get(count).getAgent_id(),
+                     assignAgent.getAssignedAgentList().get(count).getOrder_id(),
+                     assignAgent.getAssignedAgentList().get(count).getCust_id(),
+                      assignAgent.getAssignedAgentList().get(count).getOrderStatus()
+
+            };
+           tblModel.addRow(data_value);
+            }
+            count++;
+        }
+        //populateTabel();
+        
         
     }
     
@@ -47,6 +79,8 @@ public class DeliveryAgentPanel extends javax.swing.JPanel {
         txtAddress.setText(emp.getAddress());
         txtPassword.setText(emp.getPassword());
     }
+    
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,6 +100,9 @@ public class DeliveryAgentPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        setName = new javax.swing.JLabel();
+        setEmpId = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         viewProfile = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -86,13 +123,10 @@ public class DeliveryAgentPanel extends javax.swing.JPanel {
 
         tblDeliveryAgent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Order ID", "Customer Name", "Address", "Phone", "Status"
+                "Delivery Id", "Order ID", "Customer Id", "Status"
             }
         ));
         tblDeliveryAgent.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -120,23 +154,40 @@ public class DeliveryAgentPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel11.setFont(new java.awt.Font("Maku", 3, 28)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel11.setText("Welcome..!!");
+
+        setEmpId.setText("jLabel8");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(150, 150, 150)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(149, 149, 149)
-                        .addComponent(jLabel3)
-                        .addGap(258, 258, 258))
+                        .addGap(103, 103, 103)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 778, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(163, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(136, 136, 136)
+                                .addComponent(jButton1)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(59, 59, 59)
+                                .addComponent(setEmpId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(47, 47, 47)
+                                .addComponent(setName, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(159, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logoutBtn)
@@ -145,19 +196,27 @@ public class DeliveryAgentPanel extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
+                        .addComponent(setName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(setEmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(27, 27, 27))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(27, 27, 27)))
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(61, 61, 61)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(127, 127, 127)
                 .addComponent(logoutBtn)
                 .addGap(47, 47, 47))
         );
@@ -302,9 +361,44 @@ public class DeliveryAgentPanel extends javax.swing.JPanel {
 
     private void tblDeliveryAgentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDeliveryAgentMouseClicked
         // TODO add your handling code here:
+        int index = tblDeliveryAgent.getSelectedRow();
         String message = "Order Delivered\n";
         Object[] params = {message};
         JOptionPane.showConfirmDialog(null, params, "Update Order Status", JOptionPane.PLAIN_MESSAGE);
+        for(Order o : orderDir.getOrderList()){
+            if(o.getOrderid().equals(tblDeliveryAgent.getValueAt(index,1).toString())){
+                o.setStatus("Delivered");
+            }
+        }
+        //tblDeliveryAgent.setValueAt("Delivered", 1, index);
+         for(assignedAgent a : assignAgent.getAssignedAgentList()){
+            if(a.getOrder_id().equals(tblDeliveryAgent.getValueAt(index,1).toString())){
+                a.setOrderStatus("Delivered");
+            }
+        }
+        
+         
+        int count1 =0 ;
+       tblModel = (DefaultTableModel)tblDeliveryAgent.getModel();
+       tblModel.setRowCount(0);
+        System.out.println(this.emp.getEmployee_name());
+        for(assignedAgent a : assignAgent.getAssignedAgentList()){
+            if(a.getDelPerson_id().equals(emp.getEmp_id())){
+                
+                Object data_value [] = {
+                    assignAgent.getAssignedAgentList().get(count1).getAgent_id(),
+                     assignAgent.getAssignedAgentList().get(count1).getOrder_id(),
+                     assignAgent.getAssignedAgentList().get(count1).getCust_id(),
+                     assignAgent.getAssignedAgentList().get(count1).getOrderStatus()
+
+            };
+           tblModel.addRow(data_value);
+            }
+            count1++;
+        }
+        
+        
+        
 
     }//GEN-LAST:event_tblDeliveryAgentMouseClicked
 
@@ -354,6 +448,7 @@ public class DeliveryAgentPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -367,6 +462,8 @@ public class DeliveryAgentPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel setEmpId;
+    private javax.swing.JLabel setName;
     private javax.swing.JTable tblDeliveryAgent;
     private javax.swing.JTextArea txtAddress;
     private javax.swing.JTextField txtName;

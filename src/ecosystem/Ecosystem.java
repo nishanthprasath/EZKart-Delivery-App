@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ecosystem;
+import assignedDeliveryAgent.assignedAgent;
+import assignedDeliveryAgent.assignedAgentDirectory;
 import community.Community;
 import organisation.Organisation;
 import customer.CustomerAccountDirectory;
@@ -32,6 +34,7 @@ public class Ecosystem extends Organisation {
     OrderDirectory orderList;
     ItemDirectory itemList;
     SupportRequestDirectory supportList;
+    assignedAgentDirectory assignedAgentList;
     SupportRequestAssignDir supassignList;
     
     
@@ -132,6 +135,16 @@ public class Ecosystem extends Organisation {
         }
         return orderList;
     }
+        
+    public assignedAgentDirectory getAssignedAgentDirectory()
+    {
+        if(assignedAgentList == null)
+        {
+            this.assignedAgentList = new assignedAgentDirectory();
+        }
+        return assignedAgentList;
+    }
+       
         
      public SupportRequestDirectory getSupportDirectory()
     {

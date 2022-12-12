@@ -56,6 +56,7 @@ public class groceriesAdminPanel extends javax.swing.JPanel {
         lblAnalysis1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         manageItems1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         rightSystemAdminPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(215, 81, 81));
@@ -141,8 +142,9 @@ public class groceriesAdminPanel extends javax.swing.JPanel {
         jPanel3.add(lblAnalysis, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 280, -1));
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Hello Sysadmin");
+        jLabel7.setText("Welcome Grocery Admin");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 170, 20));
 
         lblAnalysis1.setBackground(new java.awt.Color(167, 159, 159));
@@ -169,6 +171,9 @@ public class groceriesAdminPanel extends javax.swing.JPanel {
         lblAnalysis1.add(manageItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -10, 110, 70));
 
         jPanel3.add(lblAnalysis1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 220, 50));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/groceriesAdminAvatar.jpeg"))); // NOI18N
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 80, 80));
 
         rightSystemAdminPanel.setBackground(new java.awt.Color(255, 255, 255));
         rightSystemAdminPanel.setPreferredSize(new java.awt.Dimension(1058, 840));
@@ -228,6 +233,7 @@ public class groceriesAdminPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel3;

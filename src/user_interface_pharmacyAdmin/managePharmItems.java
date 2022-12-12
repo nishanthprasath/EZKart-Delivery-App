@@ -53,6 +53,7 @@ public class managePharmItems extends javax.swing.JPanel {
         foodShopName5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -120,7 +121,7 @@ public class managePharmItems extends javax.swing.JPanel {
         foodShopName5.setText("Expiry Date");
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(new java.awt.Font("Lao MN", 3, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Lao MN", 3, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 255, 255));
         jLabel2.setText("Add Items");
 
@@ -213,6 +214,13 @@ public class managePharmItems extends javax.swing.JPanel {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Pharamaadmin_1200x720.png"))); // NOI18N
         add(jLabel1);
         jLabel1.setBounds(0, 0, 1200, 720);
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Lao MN", 3, 36)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(204, 255, 255));
+        jLabel4.setText("Add Food Shops");
+        add(jLabel4);
+        jLabel4.setBounds(0, 0, 280, 51);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -236,6 +244,7 @@ public class managePharmItems extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;

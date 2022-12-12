@@ -4,10 +4,19 @@
  */
 package user_interface.delivery_admin;
 
+import assignedDeliveryAgent.assignedAgent;
+import assignedDeliveryAgent.assignedAgentDirectory;
 import db4util.Db4util;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import ecosystem.Ecosystem;
+import employee.Employee;
+import employee.EmployeeAccountDirectory;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import order.Order;
+import order.OrderDirectory;
 import user_interface.MainJFrame;
 /**
  *
@@ -23,11 +32,59 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
     /**
      * Creates new form DeliveryAdminPanel
      */
+    ArrayList<Order> orderList;
+    OrderDirectory order;
+    EmployeeAccountDirectory employee;
+    assignedAgentDirectory assignAgent;
+    ArrayList<Employee> empList;
+    int index;
     public DeliveryAdminPanel(Ecosystem system, MainJFrame mainframe) {
         initComponents();
         this.system = system;
         this.mainframe = mainframe;
         jPanel1.setBackground(new Color(0, 0, 0, 15));
+        //order = new OrderDirectory();
+        order = system.getOrderDirectory();
+        orderList = order.getOrderList();
+        employee = system.getEmpDirectory();
+        empList = employee.getEmpAccountList();
+        System.out.print(empList);
+        populateTable(orderList);
+        populateComboBox(empList);
+        
+    }
+    
+    private void populateTable(ArrayList<Order> orderList){
+         DefaultTableModel orderModel = (DefaultTableModel)tblDeliveryAdmin.getModel();
+      
+         orderModel.setRowCount(0);
+       
+            for(int i=0;i< orderList.size();i++){
+            //Create temporary object array to add in Table 
+             Object tempEncounter[] = {
+                 orderList.get(i).getOrderid(),
+                 orderList.get(i).getCust_id(),
+                 orderList.get(i).getStatus(),
+                 orderList.get(index)
+             };
+             
+             //Adding Data into the table
+              orderModel.addRow(tempEncounter);
+             
+        
+    }
+    }
+    
+     private void populateComboBox(ArrayList<Employee> empList) {
+        jComboBoxDeliveryAgent.removeAllItems();
+        //enterpriseComboBox.removeAllItems();
+        for (Employee employee : empList) {
+                  System.out.println(employee.getRole());
+            if(employee.getRole().equals("Delivery Agent")){
+                System.out.println("Found agent");
+            jComboBoxDeliveryAgent.addItem(employee.getEmp_id());
+            }
+        }
     }
 
     /**
@@ -43,9 +100,10 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDeliveryAdmin = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jComboBoxDeliveryAgent = new javax.swing.JComboBox<>();
+        assignBtn = new javax.swing.JButton();
+        logoutBtn = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setLayout(null);
@@ -55,7 +113,7 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Order ID", "Customer ID", "Address"
+                "Order ID", "Customer ID", "Status", "Order"
             }
         ));
         tblDeliveryAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -64,14 +122,38 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane2.setViewportView(tblDeliveryAdmin);
+        if (tblDeliveryAdmin.getColumnModel().getColumnCount() > 0) {
+            tblDeliveryAdmin.getColumnModel().getColumn(3).setMinWidth(0);
+            tblDeliveryAdmin.getColumnModel().getColumn(3).setPreferredWidth(0);
+            tblDeliveryAdmin.getColumnModel().getColumn(3).setMaxWidth(0);
+        }
 
         jLabel2.setText("Assign to delivery Person");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxDeliveryAgent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxDeliveryAgent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxDeliveryAgentActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Assign");
+        assignBtn.setText("Assign");
+        assignBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignBtnActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Logout");
+        logoutBtn.setText("Logout");
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Maku", 3, 36)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel10.setText("Welcome Admin ..!!");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -83,34 +165,39 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
                         .addGap(150, 150, 150)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(298, 298, 298)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(279, 279, 279)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(86, 86, 86)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBoxDeliveryAgent, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jButton2)
+                        .addComponent(logoutBtn)
                         .addGap(353, 353, 353)
-                        .addComponent(jButton1)))
+                        .addComponent(assignBtn))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(163, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(109, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxDeliveryAgent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addComponent(jButton1)
+                        .addComponent(assignBtn)
                         .addGap(57, 57, 57))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(logoutBtn)
                         .addGap(38, 38, 38))))
         );
 
@@ -130,15 +217,62 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_tblDeliveryAdminMouseClicked
 
+    private void jComboBoxDeliveryAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxDeliveryAgentActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboBoxDeliveryAgentActionPerformed
+
+    private void assignBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignBtnActionPerformed
+        // TODO add your handling code here:
+        index = tblDeliveryAdmin.getSelectedRow();
+        if(index <0 ){
+            JOptionPane.showMessageDialog(new JFrame(),
+                "Please make a selection",
+                "Error",
+        JOptionPane.ERROR_MESSAGE);
+            return;
+        }else if(tblDeliveryAdmin.getValueAt(index,2).toString().equals("Assigned")){
+            JOptionPane.showMessageDialog(new JFrame(),
+                "Already Assigned",
+                "Error",
+        JOptionPane.ERROR_MESSAGE);
+            return;
+        }else{
+        assignAgent = system.getAssignedAgentDirectory();
+        DefaultTableModel agent = (DefaultTableModel)tblDeliveryAdmin.getModel();
+        String cust_id = tblDeliveryAdmin.getValueAt(index,1).toString();
+        String order_id = tblDeliveryAdmin.getValueAt(index,0).toString();
+        String status = tblDeliveryAdmin.getValueAt(index,2).toString();
+        for(Order o : orderList){
+            if(o.getOrderid().equals(order_id)){
+                o.setStatus("Assigned");
+            }
+        }
+        String delPerson = jComboBoxDeliveryAgent.getSelectedItem().toString();
+        assignedAgent a = assignAgent.createAssignedAgent(cust_id, order_id, "Assigned",delPerson);
+        assignAgent.setAssignedAgentList(a);
+         JOptionPane.showMessageDialog(new JFrame(),
+                "Successfully added");
+        }
+        populateTable(orderList);
+    }//GEN-LAST:event_assignBtnActionPerformed
+
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        // TODO add your handling code here:
+        mainframe.logoutAction();
+        mainframe.displayPane();
+    }//GEN-LAST:event_logoutBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton assignBtn;
+    private javax.swing.JComboBox<String> jComboBoxDeliveryAgent;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton logoutBtn;
     private javax.swing.JTable tblDeliveryAdmin;
     // End of variables declaration//GEN-END:variables
 }

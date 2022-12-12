@@ -82,6 +82,7 @@ public class meatAdminMainPanel extends javax.swing.JPanel {
         meatUpdateShop = new javax.swing.JButton();
         clearMeatShop = new javax.swing.JButton();
         addMeatShop = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         temp = new javax.swing.JPanel();
         meatAdminImage = new javax.swing.JLabel();
 
@@ -148,6 +149,11 @@ public class meatAdminMainPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Lao MN", 3, 36)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(204, 255, 255));
+        jLabel4.setText("Add Food Shops");
+
         javax.swing.GroupLayout ItemsContainerLayout = new javax.swing.GroupLayout(ItemsContainer);
         ItemsContainer.setLayout(ItemsContainerLayout);
         ItemsContainerLayout.setHorizontalGroup(
@@ -180,13 +186,18 @@ public class meatAdminMainPanel extends javax.swing.JPanel {
                                     .addComponent(meatShopName, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(ItemsContainerLayout.createSequentialGroup()
                         .addGap(87, 87, 87)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ItemsContainerLayout.createSequentialGroup()
+                        .addGap(225, 225, 225)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(223, Short.MAX_VALUE))
         );
         ItemsContainerLayout.setVerticalGroup(
             ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ItemsContainerLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
+                .addGap(25, 25, 25)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -318,6 +329,7 @@ public class meatAdminMainPanel extends javax.swing.JPanel {
     private javax.swing.JButton clearMeatShop;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField locationMeat;
     private javax.swing.JLabel meatAdminImage;

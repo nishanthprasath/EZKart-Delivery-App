@@ -68,6 +68,7 @@ public class communityPanel extends javax.swing.JPanel {
         communitySubmit = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         addCommunityCode = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setLayout(null);
@@ -130,6 +131,11 @@ public class communityPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Lao MN", 3, 36)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(204, 255, 255));
+        jLabel5.setText("Add Community");
+
         javax.swing.GroupLayout networkPaneLayout = new javax.swing.GroupLayout(networkPane);
         networkPane.setLayout(networkPaneLayout);
         networkPaneLayout.setHorizontalGroup(
@@ -150,13 +156,18 @@ public class communityPanel extends javax.swing.JPanel {
                             .addComponent(addCommunityCode, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(networkPaneLayout.createSequentialGroup()
                         .addGap(277, 277, 277)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(networkPaneLayout.createSequentialGroup()
+                        .addGap(385, 385, 385)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(370, Short.MAX_VALUE))
         );
         networkPaneLayout.setVerticalGroup(
             networkPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(networkPaneLayout.createSequentialGroup()
-                .addGap(192, 192, 192)
+                .addGap(48, 48, 48)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(99, 99, 99)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51)
                 .addGroup(networkPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -228,6 +239,7 @@ public class communityPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel networkPane;
     // End of variables declaration//GEN-END:variables

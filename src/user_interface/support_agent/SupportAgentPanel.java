@@ -4,8 +4,11 @@
  */
 package user_interface.support_agent;
 
+import ecosystem.Ecosystem;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import user_interface.MainJFrame;
+
 import ecosystem.Ecosystem;
 import user_interface.MainJFrame;
 import organisation.SupportRequestAssignDir;
@@ -81,6 +84,7 @@ public class SupportAgentPanel extends javax.swing.JPanel {
         tblDeliveryAgent2 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -130,11 +134,17 @@ public class SupportAgentPanel extends javax.swing.JPanel {
         );
 
         add(jPanel1);
-        jPanel1.setBounds(370, 100, 760, 470);
+        jPanel1.setBounds(50, 100, 890, 460);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/customer-support-bg.jpg"))); // NOI18N
         add(jLabel1);
         jLabel1.setBounds(0, 0, 1200, 720);
+
+        jLabel10.setFont(new java.awt.Font("Maku", 3, 36)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel10.setText("Welcome Admin ..!!");
+        add(jLabel10);
+        jLabel10.setBounds(100, 0, 380, 80);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblDeliveryAgent2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDeliveryAgent2MouseClicked
@@ -165,6 +175,9 @@ public class SupportAgentPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable tblDeliveryAgent2;

@@ -163,7 +163,7 @@ public class foodAdminPanel extends javax.swing.JPanel {
 
         jPanel3.add(lblAnalysis, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 220, 50));
 
-        jLabel7.setFont(new java.awt.Font("SansSerif", 2, 13)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Welcome Food Admin");

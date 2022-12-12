@@ -52,7 +52,8 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
                  emp_dir_ob.getEmpAccountList().get(i).getRole(),
                  emp_dir_ob.getEmpAccountList().get(i).getEmail_id(),
                  emp_dir_ob.getEmpAccountList().get(i).getPhone_no(),
-                 emp_dir_ob.getEmpAccountList().get(i).getAddress()                 
+                 emp_dir_ob.getEmpAccountList().get(i).getAddress(), 
+                 emp_dir_ob.getEmpAccountList().get(i).getEmp_id()
             };
            tblmodel.addRow(data_value);
         }
@@ -136,7 +137,7 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Name", "Department", "Role", "Email", "Phone", "Address"
+                "Name", "Department", "Role", "Email", "Phone", "Address", "Employee Id"
             }
         ));
         tblEmployeeAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -239,16 +240,16 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
+                        .addGap(29, 29, 29)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(153, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
