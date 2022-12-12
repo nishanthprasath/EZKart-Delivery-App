@@ -11,6 +11,7 @@ import ecosystem.Ecosystem;
 import enterprise.Enterprise;
 import enterprise.EnterpriseDirectory;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 /**
  *
@@ -184,10 +185,17 @@ public class communityPanel extends javax.swing.JPanel {
 
     private void communitySubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_communitySubmitMouseClicked
         // TODO add your handling code here:
+                if(addCommunityName.getText().trim().equals("")){
+                     JOptionPane.showMessageDialog(new JFrame(), "Enter valid Community Name..!!");
+                }else if(addCommunityCode.getText().trim().equals("")){
+                    JOptionPane.showMessageDialog(new JFrame(), "Enter valid Zipcode ..!!");
+                }
+                else{
                 String name = addCommunityName.getText().trim();
                 int zipcode = Integer.parseInt(addCommunityCode.getText());
 //        if (!name.isEmpty()) {
 //            if (system.isUnique(name)) {
+                 
                 Community community = system.createAndAddNetwork();
                 community.setCommunityName(name);
                 community.setZipCode(zipcode);
@@ -202,6 +210,7 @@ public class communityPanel extends javax.swing.JPanel {
 //            JOptionPane.showMessageDialog(null, "Enter network name");
 //        }
         populateNetworkTable();
+         }
         
         
     }//GEN-LAST:event_communitySubmitMouseClicked

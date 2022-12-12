@@ -59,6 +59,7 @@ public class meatAdminPanel extends javax.swing.JPanel {
         lblAnalysis1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         manageItems1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         rightSystemAdminPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(215, 81, 81));
@@ -101,8 +102,8 @@ public class meatAdminPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(manageNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(manageNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         manageNetworkPanelLayout.setVerticalGroup(
             manageNetworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +117,7 @@ public class meatAdminPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel3.add(manageNetworkPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 290, -1));
+        jPanel3.add(manageNetworkPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 230, -1));
 
         lblAnalysis.setBackground(new java.awt.Color(167, 159, 159));
         lblAnalysis.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,14 +140,15 @@ public class meatAdminPanel extends javax.swing.JPanel {
                 manageItemsMousePressed(evt);
             }
         });
-        lblAnalysis.add(manageItems, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 230, 38));
+        lblAnalysis.add(manageItems, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 120, 38));
 
-        jPanel3.add(lblAnalysis, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 280, -1));
+        jPanel3.add(lblAnalysis, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 230, -1));
 
-        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("SansSerif", 2, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Hello Sysadmin");
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 170, 20));
+        jLabel7.setText("Welcome Meat Admin");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 170, 20));
 
         lblAnalysis1.setBackground(new java.awt.Color(167, 159, 159));
         lblAnalysis1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -171,7 +173,10 @@ public class meatAdminPanel extends javax.swing.JPanel {
         });
         lblAnalysis1.add(manageItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, -10, 110, 70));
 
-        jPanel3.add(lblAnalysis1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 590, 240, 50));
+        jPanel3.add(lblAnalysis1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 220, 50));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/meatAdminAvatar.jpeg"))); // NOI18N
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 80, 80));
 
         rightSystemAdminPanel.setBackground(new java.awt.Color(255, 255, 255));
         rightSystemAdminPanel.setPreferredSize(new java.awt.Dimension(1058, 840));
@@ -182,14 +187,16 @@ public class meatAdminPanel extends javax.swing.JPanel {
         systemAdminPanelLayout.setHorizontalGroup(
             systemAdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(systemAdminPanelLayout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rightSystemAdminPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rightSystemAdminPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE))
         );
         systemAdminPanelLayout.setVerticalGroup(
             systemAdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(rightSystemAdminPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(rightSystemAdminPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(systemAdminPanelLayout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         add(systemAdminPanel, java.awt.BorderLayout.CENTER);
@@ -201,6 +208,7 @@ public class meatAdminPanel extends javax.swing.JPanel {
 
     private void manageItemsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageItemsMousePressed
         // TODO add your handling code here:
+       
        meatItems = new manageMeatItems(system,mainframe);
        rightSystemAdminPanel.add("foodMain", meatItems);
        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
@@ -212,6 +220,7 @@ public class meatAdminPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_manageNetworkPanelMousePressed
 
     private void manageNetworkMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageNetworkMousePressed
+        meatMain = new meatAdminMainPanel(system,mainframe);
         rightSystemAdminPanel.add("foodMain", meatMain);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel);
@@ -231,6 +240,7 @@ public class meatAdminPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel3;

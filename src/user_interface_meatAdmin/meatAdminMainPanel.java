@@ -155,27 +155,33 @@ public class meatAdminMainPanel extends javax.swing.JPanel {
             .addGroup(ItemsContainerLayout.createSequentialGroup()
                 .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ItemsContainerLayout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(ItemsContainerLayout.createSequentialGroup()
-                        .addGap(99, 99, 99)
                         .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(ItemsContainerLayout.createSequentialGroup()
+                                .addGap(160, 160, 160)
+                                .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(72, 72, 72))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ItemsContainerLayout.createSequentialGroup()
+                                .addGap(69, 69, 69)
                                 .addComponent(addMeatShop, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(73, 73, 73)
-                                .addComponent(meatUpdateShop, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(92, 92, 92)
+                                .addGap(52, 52, 52)
+                                .addComponent(meatUpdateShop, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ItemsContainerLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
                                 .addComponent(meatShopDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(97, 97, 97)
+                                .addGap(80, 80, 80)
                                 .addComponent(clearMeatShop, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(meatShopName, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(locationMeat, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(336, Short.MAX_VALUE))
+                            .addGroup(ItemsContainerLayout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(locationMeat, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(meatShopName, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(ItemsContainerLayout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
         ItemsContainerLayout.setVerticalGroup(
             ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,10 +192,10 @@ public class meatAdminMainPanel extends javax.swing.JPanel {
                 .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(meatShopName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(locationMeat, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(locationMeat, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                 .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addMeatShop, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -200,7 +206,7 @@ public class meatAdminMainPanel extends javax.swing.JPanel {
         );
 
         add(ItemsContainer);
-        ItemsContainer.setBounds(0, 0, 1200, 720);
+        ItemsContainer.setBounds(0, 0, 950, 720);
 
         temp.setLayout(new java.awt.CardLayout());
         add(temp);
@@ -218,6 +224,7 @@ public class meatAdminMainPanel extends javax.swing.JPanel {
     private void meattableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_meattableMouseClicked
         // TODO add your handling code here:
           this.index = meattable.getSelectedRow();
+          
          // manageMeatItems.shopName.setText(meatShopList.getMeatVendorList().get(index).getShop_name());
           TableModel model = meattable.getModel();
         meatShopName.setText(model.getValueAt(index, 1).toString());
@@ -226,6 +233,12 @@ public class meatAdminMainPanel extends javax.swing.JPanel {
 
     private void addMeatShopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMeatShopActionPerformed
         // TODO add your handling code here:
+        if(meatShopName.getText().trim().equals("") || locationMeat.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(new JFrame(),
+                "Please Enter valid Inputs",
+                "Error",
+        JOptionPane.ERROR_MESSAGE);
+        }else{
         meatShopList = system.getMeatDirectory();
 
         MeatVendorOnboarding meatShop = meatShopList.createShopData(meatShopName.getText(), locationMeat.getText());
@@ -235,11 +248,13 @@ public class meatAdminMainPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(new JFrame(), "Meat Admins Added successfully ..!!");
         meatShopName.setText("");
         locationMeat.setText("");
+        }
     }//GEN-LAST:event_addMeatShopActionPerformed
 
     private void meatUpdateShopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meatUpdateShopActionPerformed
         // TODO add your handling code here:
-         if (index == 99)
+          shopIndex = meattable.getSelectedRow();
+         if (shopIndex < 0 )
         {
                     JOptionPane.showMessageDialog(new JFrame(),
                 "Please make a selection",
@@ -251,7 +266,7 @@ public class meatAdminMainPanel extends javax.swing.JPanel {
         {
         
                // TODO add your handling code here:
-        shopIndex = meattable.getSelectedRow();
+      
         String name = meatShopName.getText();
         String location = locationMeat.getText();
         
@@ -277,13 +292,22 @@ public class meatAdminMainPanel extends javax.swing.JPanel {
 
     private void meatShopDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meatShopDeleteBtnActionPerformed
         // TODO add your handling code here:
-        shopIndex = meattable.getSelectedRow();//ArrayList<Patient> patientList = patient.getPatientList();
+        shopIndex = meattable.getSelectedRow();
+//ArrayList<Patient> patientList = patient.getPatientList();
+            if (shopIndex < 0 )
+        {
+                    JOptionPane.showMessageDialog(new JFrame(),
+                "Please make a selection",
+                "Error",
+        JOptionPane.ERROR_MESSAGE);
+        }else{
         meatShopList.getMeatVendorList().remove(shopIndex);
         //emp_dir_ob.getEmpAccountList().remove(employeeIndex);
         populateMeatShopTable();
         JOptionPane.showMessageDialog(new JFrame(), "Meat Shop deleted successfully ..!!");
         meatShopName.setText("");
         locationMeat.setText("");
+        }
         
     }//GEN-LAST:event_meatShopDeleteBtnActionPerformed
 

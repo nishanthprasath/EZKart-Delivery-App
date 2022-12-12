@@ -8,6 +8,7 @@ import community.Community;
 import ecosystem.Ecosystem;
 import enterprise.Enterprise;
 import java.awt.Color;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -202,6 +203,9 @@ public class enterprisePanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 //         int communityId =  communityComboBox.getSelectedIndex();
+        if(nameText.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(new JFrame(), "Enter valid Details..!!");
+        }else{
         Community community = system.retriveNetwork(communityComboBox.getSelectedItem().toString()) ;
         Enterprise.EnterpriseType type = (Enterprise.EnterpriseType) enterpriseComboBox.getSelectedItem();
        // String type =  enterpriseComboBox.getSelectedItem().toString();
@@ -224,6 +228,7 @@ public class enterprisePanel extends javax.swing.JPanel {
 //            }
         } else {
             JOptionPane.showMessageDialog(null, "Enter enterprise name");
+        }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

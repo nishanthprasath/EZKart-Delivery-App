@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import user_interface.MainJFrame;
 import employee.Employee;
 import employee.EmployeeAccountDirectory;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -181,7 +183,7 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
 
         jLabel10.setFont(new java.awt.Font("Maku", 3, 36)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 51, 102));
-        jLabel10.setText("Welcome Employee Admin ..!!");
+        jLabel10.setText("Welcome Admin ..!!");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -300,10 +302,39 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
      mainframe.displayPane();
 //     this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
+          public boolean isValid(String s){
+        Pattern p = Pattern.compile("^\\d{10}$");
+ 
+        Matcher m = p.matcher(s);
+ 
+        // Returning boolean value
+        return (m.matches());
+    }
+    
+    public boolean isValidEmail(String s){
+        String regex = "^(.+)@(\\S+)$";
+       return s.matches(regex);
+    }
     private void btnAddEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmployeeActionPerformed
         // TODO add your handling code here:
-        
+       if(txtName.getText().trim().equals("")){
+             String error = "Please enter valid Name";
+              JOptionPane.showMessageDialog(new JFrame(), error, "Error",
+        JOptionPane.ERROR_MESSAGE);
+        }else if(!isValidEmail(txtEmail.getText())){
+             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid E-mail ");   //Validation for employee Phone Number
+        }else if(!isValid(txtPhone.getText().trim())){
+            JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Phone Number ");   //Validation for employee Phone Number
+        }else if(txtAddress.getText().trim().equals("")){
+             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Address ");
+        }else if(comboDepartment.getSelectedIndex() == 0){
+             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid department ");
+        }else if(comboRole.getSelectedIndex() == 0){
+             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Role ");
+        }else if(txtPassword.getText().trim().equals("")){
+             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Password ");
+        }else{
         if(emp_dir_ob.checkIfUsernameIsUnique(txtEmail.getText()))
         {
         emp_ob = emp_dir_ob.createEmpAccount(txtName.getText(), txtPassword.getText(), txtEmail.getText(), txtPhone.getText(), comboDepartment.getSelectedItem().toString(), txtAddress.getText().toString() ,
@@ -322,12 +353,8 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
          
         JOptionPane.showMessageDialog(new JFrame(), "Employee Saved succesfully");
         }
-        else
-        {
-                        String error = "Please enter unique Email ID";
-                        JOptionPane.showMessageDialog(new JFrame(), error, "Error",
-        JOptionPane.ERROR_MESSAGE);
         }
+        
         
         
     }//GEN-LAST:event_btnAddEmployeeActionPerformed

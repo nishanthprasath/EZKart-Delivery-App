@@ -5,9 +5,11 @@
  */
 package user_interface_groceries;
 
+import ecosystem.Ecosystem;
 import user_interface_foodAdmin.*;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import user_interface.MainJFrame;
 
 /**
  *
@@ -22,7 +24,7 @@ public class groceriesAdminPanel extends javax.swing.JPanel {
     
     groceriesAdminMainPanel groceriesMain;
     manageGroceriesItems groceriesItems;
-    public groceriesAdminPanel() {
+    public groceriesAdminPanel(Ecosystem system, MainJFrame mainframe) {
         initComponents();
         groceriesMain = new groceriesAdminMainPanel();
         groceriesItems = new manageGroceriesItems();
@@ -96,8 +98,8 @@ public class groceriesAdminPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(manageNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(manageNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         manageNetworkPanelLayout.setVerticalGroup(
             manageNetworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +136,7 @@ public class groceriesAdminPanel extends javax.swing.JPanel {
                 manageItemsMousePressed(evt);
             }
         });
-        lblAnalysis.add(manageItems, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 230, 38));
+        lblAnalysis.add(manageItems, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 170, 38));
 
         jPanel3.add(lblAnalysis, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 280, -1));
 
@@ -166,7 +168,7 @@ public class groceriesAdminPanel extends javax.swing.JPanel {
         });
         lblAnalysis1.add(manageItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -10, 110, 70));
 
-        jPanel3.add(lblAnalysis1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 260, 50));
+        jPanel3.add(lblAnalysis1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 220, 50));
 
         rightSystemAdminPanel.setBackground(new java.awt.Color(255, 255, 255));
         rightSystemAdminPanel.setPreferredSize(new java.awt.Dimension(1058, 840));
@@ -177,14 +179,17 @@ public class groceriesAdminPanel extends javax.swing.JPanel {
         systemAdminPanelLayout.setHorizontalGroup(
             systemAdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(systemAdminPanelLayout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(rightSystemAdminPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rightSystemAdminPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1147, Short.MAX_VALUE))
         );
         systemAdminPanelLayout.setVerticalGroup(
             systemAdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(rightSystemAdminPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(rightSystemAdminPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, systemAdminPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         add(systemAdminPanel, java.awt.BorderLayout.CENTER);
