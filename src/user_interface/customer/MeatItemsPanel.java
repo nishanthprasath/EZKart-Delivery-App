@@ -6,6 +6,7 @@ package user_interface.customer;
 
 import cart.Cart;
 import cart.CartDirectory;
+import db4util.Db4util;
 import ecosystem.Ecosystem;
 import items.Item;
 import items.ItemDirectory;
@@ -18,10 +19,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MeatItemsPanel extends javax.swing.JPanel {
     
-        Ecosystem system;
+    Ecosystem system;
     ItemDirectory Id;
     DefaultTableModel tblModel;
     CartDirectory crd;
+    CartDirectory dcrd;
+    private Db4util dB4OUtil = Db4util.getInstance();
     int count = 0;
 
     /**
@@ -34,7 +37,8 @@ public class MeatItemsPanel extends javax.swing.JPanel {
          this.system = system;
         this.crd = crd;
         Id = system.getItemDirectory();
-        
+        dcrd = system.getCartDirectory();
+       
         tblModel = (DefaultTableModel)tblMeatItems.getModel();
         
                     
@@ -187,7 +191,9 @@ public class MeatItemsPanel extends javax.swing.JPanel {
         qty = Integer.parseInt(jComboBox1.getSelectedItem().toString());
         
         Cart c = crd.createCart(item_id, item_name, qty, price, "Meat");
+        Cart temp_c = dcrd.createCart(item_id, item_name, qty, price, "Meat");
         crd.setCartList(c);
+        dcrd.setCartList(temp_c);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

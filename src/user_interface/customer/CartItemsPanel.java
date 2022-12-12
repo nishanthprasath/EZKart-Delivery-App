@@ -22,6 +22,7 @@ import customer.CustomerAccountDirectory;
 public class CartItemsPanel extends javax.swing.JPanel {
     
     CartDirectory crd;
+    CartDirectory dcrd;
     DefaultTableModel tblmodel;
     OrderDirectory ord;
     Ecosystem system;
@@ -70,6 +71,7 @@ public class CartItemsPanel extends javax.swing.JPanel {
         initComponents();
         this.system = system;
         this.crd = crd;
+        dcrd = system.getCartDirectory();
  
         String total = Float.toString(total_price());
         lblTotal.setText(total);
@@ -90,8 +92,6 @@ public class CartItemsPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCart = new javax.swing.JTable();
-        btnDelete = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
@@ -108,16 +108,6 @@ public class CartItemsPanel extends javax.swing.JPanel {
             }
         ));
         jScrollPane1.setViewportView(tblCart);
-
-        btnDelete.setBackground(new java.awt.Color(0, 0, 0));
-        btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnDelete.setText("Delete");
-
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Reduce");
 
         jButton2.setBackground(new java.awt.Color(51, 153, 0));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -144,34 +134,23 @@ public class CartItemsPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(125, 125, 125)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTotal)))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDelete)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                        .addComponent(lblTotal))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(115, 115, 115)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(123, 123, 123)
+                .addComponent(jButton2)
                 .addContainerGap(90, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(68, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(68, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTotal)
@@ -197,7 +176,7 @@ public class CartItemsPanel extends javax.swing.JPanel {
         ord.setOrdList(o);
         crd.getCartList().clear();
         JOptionPane.showMessageDialog(new JFrame(), "Order placed successfully");
-       populateTable();
+        populateTable();
         
         
         
@@ -207,8 +186,6 @@ public class CartItemsPanel extends javax.swing.JPanel {
      crd = new CartDirectory();}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

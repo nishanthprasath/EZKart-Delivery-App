@@ -73,7 +73,7 @@ public class MainJFrame extends javax.swing.JFrame {
     pharmAdminPanel pharmacyAdmin;
     sysadminPanel sysAdmin;
     DeliveryAdminPanel delAdmin;
-    EmployeeAdminPanel empAdmin;
+    EmployeeAdminPanel empAdminn;
     DeliveryAgentPanel deliveryAgent;
     SupportAdminPanel supAdmin;
     Customer c;
@@ -96,12 +96,12 @@ public class MainJFrame extends javax.swing.JFrame {
        
         initComponents();
         system = dB4OUtil.retrieveSystem();
-        this.foodAdmin = new foodAdminPanel(system, this);
-        this.meatAdmin = new meatAdminPanel(system,this);
-        this.pharmacyAdmin = new pharmAdminPanel(system,this);
-        this.groceriesAdmin = new groceriesAdminPanel(system,this);
-        this.empAdmin = new EmployeeAdminPanel(system, this);
-        this.sysAdmin = new sysadminPanel(system, this) ;
+//        this.foodAdmin = new foodAdminPanel(system, this);
+//        this.meatAdmin = new meatAdminPanel(system,this);
+//        this.pharmacyAdmin = new pharmAdminPanel(system,this);
+//        this.groceriesAdmin = new groceriesAdminPanel(system,this);
+//        this.empAdminn = new EmployeeAdminPanel(system, this);
+//        this.sysAdmin = new sysadminPanel(system, this) ;
         
 
         emp_dir_ob= system.getEmpDirectory();
@@ -466,7 +466,6 @@ public class MainJFrame extends javax.swing.JFrame {
         if(txtUserName.getText().trim().equals(c1.getEmail_id()) && String.valueOf(txtPassword.getPassword()).trim().equals(c1.getPassword()))
         {
             
-            System.out.println("Inside loop");
             custPanel = new CustomerMainPanel(system, this, c1);
             MainPane.setVisible(false);
             container.add("custpanel area", custPanel);
@@ -474,17 +473,6 @@ public class MainJFrame extends javax.swing.JFrame {
             layout.next(container);
         }
         }
-        
-        
-        // Sysadmin Login sysadmin@ezcart.com
-        if(txtUserName.getText().trim().equals("sy") && String.valueOf(txtPassword.getPassword()).trim().equals("sy")){
-            
-            sysAdmin = new sysadminPanel(system, this);
-            MainPane.setVisible(false);
-            sysAdmin.setVisible(true);
-        }
-        
-    
         
         // Empadmin login
         String empadmin_email = "";
@@ -501,12 +489,25 @@ public class MainJFrame extends javax.swing.JFrame {
         
         if(txtUserName.getText().trim().equals(empadmin_email) && String.valueOf(txtPassword.getPassword()).trim().equals(empadmin_pass))
         {
-            empAdmin = new EmployeeAdminPanel(system, this);
+            empAdminn = new EmployeeAdminPanel(system, this);
             MainPane.setVisible(false);
-            container.add("Empadmin area", empAdmin);
+            container.add("Empadmin area", empAdminn);
             CardLayout layout = (CardLayout) container.getLayout();
             layout.next(container);
         }
+        
+        
+        // Sysadmin Login sysadmin@ezcart.com
+        if(txtUserName.getText().trim().equals("sy") && String.valueOf(txtPassword.getPassword()).trim().equals("sy")){
+            
+            sysAdmin = new sysadminPanel(system, this);
+            MainPane.setVisible(false);
+            sysAdmin.setVisible(true);
+        }
+        
+    
+        
+
         
         
         // Deladmin Login
@@ -552,7 +553,7 @@ public class MainJFrame extends javax.swing.JFrame {
             layout.next(container);
         }
         
-                 // meatadmin Login
+        // meatadmin Login
         String meatadmin_email = "";
         String meatadmin_pass = "";
         for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
@@ -595,29 +596,29 @@ public class MainJFrame extends javax.swing.JFrame {
         
         // sup agent
         
-        String sup_agent_email = "";
-        String sup_agent_pw = "";
-        String sup_emp_id = "";
-           for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
-        {
-           if ("Support Agent".equals(emp_ob.getRole()))
-            {
-            }
-                sup_agent_email = emp_ob.getEmail_id();
-                sup_agent_pw = emp_ob.getPassword();
-                sup_emp_id = emp_ob.getEmp_id();
-                
-        }
-        
-            
-        if(txtUserName.getText().equals(sup_agent_email) && String.valueOf(txtPassword.getPassword()).equals(sup_agent_pw))
-        {
-            supagPanel = new SupportAgentPanel(system, this, sup_emp_id);
-            MainPane.setVisible(false);
-            container.add("supp agent area", supagPanel);
-            CardLayout layout = (CardLayout) container.getLayout();
-            layout.next(container);
-        }
+//        String sup_agent_email = "";
+//        String sup_agent_pw = "";
+//        String sup_emp_id = "";
+//           for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+//        {
+//           if ("Support Agent".equals(emp_ob.getRole()))
+//            {
+//            }
+//                sup_agent_email = emp_ob.getEmail_id();
+//                sup_agent_pw = emp_ob.getPassword();
+//                sup_emp_id = emp_ob.getEmp_id();
+//                
+//        }
+//        
+//            
+//        if(txtUserName.getText().equals(sup_agent_email) && String.valueOf(txtPassword.getPassword()).equals(sup_agent_pw))
+//        {
+//            supagPanel = new SupportAgentPanel(system, this, sup_emp_id);
+//            MainPane.setVisible(false);
+//            container.add("supp agent area", supagPanel);
+//            CardLayout layout = (CardLayout) container.getLayout();
+//            layout.next(container);
+//        }
         
         
         
@@ -687,11 +688,14 @@ public class MainJFrame extends javax.swing.JFrame {
         JOptionPane.ERROR_MESSAGE);
         }else if(!isValidEmail(txtEmail.getText())){
              JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid E-mail ");   //Validation for employee Phone Number
-        }else if(txtOTP.getText().trim().equals("")){
-             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Otp tp proceed ");
-        }else if(txtOTP.getText().trim().equals("")){
-             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Otp tp proceed ");
-        }else if(!isValid(txtPhone.getText().trim())){
+        }
+//        else if(txtOTP.getText().trim().equals("")){
+//             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Otp tp proceed ");
+//        }
+        
+
+        
+        else if(!isValid(txtPhone.getText().trim())){
             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Phone Number ");   //Validation for employee Phone Number
         }else if(txtAddress.getText().trim().equals("")){
              JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Address ");
@@ -722,11 +726,15 @@ public class MainJFrame extends javax.swing.JFrame {
         JOptionPane.ERROR_MESSAGE);
         }else if(!isValidEmail(txtEmail.getText())){
              JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid E-mail ");   //Validation for employee Phone Number
-        }else if(txtOTP.getText().trim().equals("")){
-             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Otp tp proceed ");
-        }else if(txtOTP.getText().trim().equals("")){
-             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Otp tp proceed ");
-        }else if(!isValid(txtPhone.getText().trim())){
+        }
+//        else if(txtOTP.getText().trim().equals("")){
+//             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Otp tp proceed ");
+//             
+//        }
+
+        
+        
+        else if(!isValid(txtPhone.getText().trim())){
             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Phone Number ");   //Validation for employee Phone Number
         }else if(txtAddress.getText().trim().equals("")){
              JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Address ");
@@ -738,7 +746,7 @@ public class MainJFrame extends javax.swing.JFrame {
         
 //        if(user_otp.equals(otp_val))
 //        {
-//                               
+                               
         Customer c = cd.createUserAccount(name, password, email_data, phoneno, gender, address,zipcode);
         cd.SetUserAccountList(c); 
 //        }
@@ -798,7 +806,7 @@ public class MainJFrame extends javax.swing.JFrame {
         API api_ob = new API();
         try
         {
-        otp_val = api_ob.sendEmail();
+        otp_val = api_ob.sendEmail(txtEmail.getText());
         }
         catch(IOException ex)
         {

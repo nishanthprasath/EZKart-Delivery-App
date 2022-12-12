@@ -12,6 +12,7 @@ import items.ItemDirectory;
 import javax.swing.table.DefaultTableModel;
 import user_interface.customer.ShopListPanel;
 import cart.CartDirectory;
+import db4util.Db4util;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -28,6 +29,9 @@ public class FoodItemsPanel extends javax.swing.JPanel {
     ItemDirectory Id;
     DefaultTableModel tblModel;
     CartDirectory crd;
+    CartDirectory dcrd;
+    private Db4util dB4OUtil = Db4util.getInstance();
+
     int count = 0;
     
     public FoodItemsPanel(Ecosystem system, int index, CartDirectory crd) {
@@ -35,6 +39,8 @@ public class FoodItemsPanel extends javax.swing.JPanel {
         this.system = system;
         this.crd = crd;
         Id = system.getItemDirectory();
+        dcrd = system.getCartDirectory();
+                
         lblShopName.setText(ShopListPanel.tblShopDetails.getValueAt(index, 1).toString());
         
         tblModel = (DefaultTableModel)tblFoodItems.getModel();
@@ -200,7 +206,9 @@ public class FoodItemsPanel extends javax.swing.JPanel {
         item_price = Float.parseFloat(tblFoodItems.getValueAt(index, 3).toString());
         item_qty = Integer.parseInt(jComboBox1.getSelectedItem().toString());
         Cart c = crd.createCart(item_id, item_name, item_qty, item_price, "Food");
+        Cart temp_c = dcrd.createCart(item_id, item_name, item_qty, item_price, "Food");
         crd.setCartList(c);
+        dcrd.setCartList(temp_c);
         
         
         JOptionPane.showMessageDialog(new JFrame(), "Added to Cart");
