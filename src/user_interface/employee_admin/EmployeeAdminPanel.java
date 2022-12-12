@@ -124,7 +124,7 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Role");
 
-        comboDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A","Food", "Groceries", "Meat", "Pharma" }));
+        comboDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "General", "Food", "Groceries", "Meat", "Pharma" }));
 
         comboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None","Food Admin", "Meat Admin", "Pharma Admin", "Groceries Admin", "Delivery Admin", "Delivery Agent", "Support Admin", "Support Agent", "Data analyst"}));
 

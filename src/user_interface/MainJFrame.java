@@ -48,7 +48,9 @@ import user_interface.delivery_admin.DeliveryAdminPanel;
 import user_interface.customer.CustomerMainPanel;
 import user_interface.delivery_agent.DeliveryAgentPanel;
 import user_interface_foodAdmin.foodAdminPanel;
+import user_interface.support_admin.SupportAdminPanel;
 import java.util.Random;
+import user_interface.support_agent.SupportAgentPanel;
 import api.API;
 
 /**
@@ -73,9 +75,11 @@ public class MainJFrame extends javax.swing.JFrame {
     DeliveryAdminPanel delAdmin;
     EmployeeAdminPanel empAdmin;
     DeliveryAgentPanel deliveryAgent;
+    SupportAdminPanel supAdmin;
     Customer c;
     CustomerAccountDirectory cd ;
     CustomerMainPanel custPanel;
+    SupportAgentPanel supagPanel;
 
     public static String customer_id;
     EmployeeAccountDirectory emp_dir_ob; 
@@ -568,6 +572,57 @@ public class MainJFrame extends javax.swing.JFrame {
             CardLayout layout = (CardLayout) container.getLayout();
             layout.next(container);
         }
+        //support admin login
+        String sup_admin_email = "";
+        String sup_admin_pw = "";
+        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+        {
+            if ("Support Admin".equals(emp_ob.getRole()))
+            {
+                sup_admin_email = emp_ob.getEmail_id();
+                sup_admin_pw = emp_ob.getPassword();
+        }
+        }
+      
+        if(txtUserName.getText().equals(sup_admin_email) && String.valueOf(txtPassword.getPassword()).equals(sup_admin_pw))
+        {
+            supAdmin = new SupportAdminPanel(system, this);
+            MainPane.setVisible(false);
+            container.add("sup admin area", supAdmin);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
+        }
+        
+        // sup agent
+        
+        String sup_agent_email = "";
+        String sup_agent_pw = "";
+        String sup_emp_id = "";
+           for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+        {
+           if ("Support Agent".equals(emp_ob.getRole()))
+            {
+            }
+                sup_agent_email = emp_ob.getEmail_id();
+                sup_agent_pw = emp_ob.getPassword();
+                sup_emp_id = emp_ob.getEmp_id();
+                
+        }
+        
+            
+        if(txtUserName.getText().equals(sup_agent_email) && String.valueOf(txtPassword.getPassword()).equals(sup_agent_pw))
+        {
+            supagPanel = new SupportAgentPanel(system, this, sup_emp_id);
+            MainPane.setVisible(false);
+            container.add("supp agent area", supagPanel);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
+        }
+        
+        
+        
+        
+
         
         //delivery Agent
         String deliveryAgent_email = "";

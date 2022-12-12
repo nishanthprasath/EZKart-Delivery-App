@@ -6,18 +6,64 @@ package user_interface.support_agent;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
-
+import ecosystem.Ecosystem;
+import user_interface.MainJFrame;
+import organisation.SupportRequestAssignDir;
+import employee.Employee;
+import employee.EmployeeAccountDirectory;
+import javax.swing.table.DefaultTableModel;
+import order.OrderDirectory;
+import organisation.SupportRequestAssign;
+import organisation.SupportRequestAssignDir;
+import order.Order;
 /**
  *
  * @author nishu
  */
 public class SupportAgentPanel extends javax.swing.JPanel {
+    
+    Ecosystem system;
+    MainJFrame mainframe;
+    SupportRequestAssignDir sard;
+    OrderDirectory ord;
+    DefaultTableModel tblModel;
+
+    int count = 0;
 
     /**
      * Creates new form SupportAgentPanel
      */
-    public SupportAgentPanel() {
+    public SupportAgentPanel(Ecosystem system, MainJFrame mainframe, String sup_emp_id) {
         initComponents();
+        this.system = system;
+        this.mainframe = mainframe;
+        sard = system.getSupportAssignDirectory();
+        ord = system.getOrderDirectory();
+        tblModel = (DefaultTableModel)tblDeliveryAgent2.getModel();
+
+        
+        
+            for(SupportRequestAssign sa1: sard.getsupassignList())
+            {
+                if(sa1.getEmp_id().equals(sup_emp_id))
+                {
+                    
+                    
+                  
+             Object data_value [] = {sard.getsupassignList().get(count).getSup_id(),
+
+                sard.getsupassignList().get(count).getOrder_id(),
+                sard.getsupassignList().get(count).getCust_id(),
+                sard.getsupassignList().get(count).getReason(),
+                 
+            };
+           tblModel.addRow(data_value);
+//        }
+                    
+                    
+                }
+                count++;
+            }
         jPanel1.setBackground(new Color(0,0,0,15));
     }
 
@@ -31,27 +77,19 @@ public class SupportAgentPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblDeliveryAgent2 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setLayout(null);
 
-        jLabel2.setText("Name");
-
-        jLabel3.setText("Employee ID");
-
         tblDeliveryAgent2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Support ID", "Order ID", "Customer ID", "Customer Phone", "Reason"
+                "Support ID", "Order ID", "Customer ID", "Reason"
             }
         ));
         tblDeliveryAgent2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -61,32 +99,34 @@ public class SupportAgentPanel extends javax.swing.JPanel {
         });
         jScrollPane4.setViewportView(tblDeliveryAgent2);
 
+        jButton1.setText("Logout");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(59, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(136, 136, 136)
-                        .addComponent(jLabel3)
-                        .addGap(129, 129, 129))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(315, 315, 315)
+                .addComponent(jButton1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(43, 43, 43)
+                .addGap(91, 91, 91)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(21, 21, 21))
         );
 
         add(jPanel1);
@@ -99,22 +139,34 @@ public class SupportAgentPanel extends javax.swing.JPanel {
 
     private void tblDeliveryAgent2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDeliveryAgent2MouseClicked
         // TODO add your handling code here:
+        
+        int index = tblDeliveryAgent2.getSelectedRow();
         String message = "Issue Resolved\n";
         Object[] params = {message};
         JOptionPane.showConfirmDialog(null, params, "Update Issue Status", JOptionPane.PLAIN_MESSAGE);
+        
+        for(Order o1: ord.getOrderList())
+        {
+            if(o1.getOrderid().equals(tblDeliveryAgent2.getValueAt(index, 1).toString()))
+            {
+                o1.setStatus("Resolved");
+            }
+        }
     }//GEN-LAST:event_tblDeliveryAgent2MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+     
+     mainframe.logoutAction();
+     mainframe.displayPane();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable tblDeliveryAgent;
-    private javax.swing.JTable tblDeliveryAgent1;
     private javax.swing.JTable tblDeliveryAgent2;
     // End of variables declaration//GEN-END:variables
 }

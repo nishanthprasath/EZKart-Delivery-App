@@ -13,7 +13,9 @@ import items.MeatItemDirectory;
 import java.util.ArrayList;
 import organisation.MeatVendorDirectory;
 import order.OrderDirectory;
+import organisation.SupportRequestAssignDir;
 import support.SupportRequestDirectory;
+import organisation.SupportRequestAssignDir;
 /**
  *
  * @author dkdha
@@ -30,6 +32,7 @@ public class Ecosystem extends Organisation {
     OrderDirectory orderList;
     ItemDirectory itemList;
     SupportRequestDirectory supportList;
+    SupportRequestAssignDir supassignList;
     
     
     public static Ecosystem getInstance(){
@@ -137,6 +140,15 @@ public class Ecosystem extends Organisation {
             this.supportList = new SupportRequestDirectory();
         }
         return supportList;
+    }
+     
+    public SupportRequestAssignDir getSupportAssignDirectory()
+    {
+        if(supassignList == null)
+        {
+            this.supassignList = new SupportRequestAssignDir();
+        }
+        return supassignList;
     }
     
     
