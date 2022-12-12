@@ -4,22 +4,97 @@
  */
 package user_interface.support_admin;
 
+import ecosystem.Ecosystem;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
+import javax.swing.table.DefaultTableModel;
+import support.SupportRequestDirectory;
+import user_interface.MainJFrame;
+import employee.Employee;
+import employee.EmployeeAccountDirectory;
+import javax.swing.JFrame;
+import organisation.SupportRequestAssign;
+import organisation.SupportRequestAssignDir;
 /**
  *
  * @author nishu
  */
 public class SupportAdminPanel extends javax.swing.JPanel {
+    
+    Ecosystem system;
+    MainJFrame mainframe;
+    DefaultTableModel tblmodel;
+    SupportRequestDirectory srd;
+    EmployeeAccountDirectory erd;
+    SupportRequestAssignDir sard;
+    public static int index;
+    
+
+
 
     /**
      * Creates new form SupportAdminPanel
      */
-    public SupportAdminPanel() {
+    public SupportAdminPanel(Ecosystem system, MainJFrame mainframe) {
         initComponents();
-        jPanel1.setBackground(new Color(0, 0, 0, 15));
+        this.system = system;
+        this.mainframe = mainframe;
+        erd = system.getEmpDirectory();
+        srd = system.getSupportDirectory();
+        sard = system.getSupportAssignDirectory();
+
+        
+        ArrayList <String> sup_id = new ArrayList<>();
+        
+        for(Employee e1 : erd.getEmpAccountList())
+        {
+            if(e1.getRole().equals("Support Agent"))
+            {
+                sup_id.add(e1.getEmp_id());
+            }
+        }
+        
+        String[] sup_id_arr = new String[sup_id.size()];
+       
+        for(int i=0; i< sup_id.size(); i++ )
+        {
+            sup_id_arr[i] = sup_id.get(i);
+            
+        }
+        
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(sup_id_arr));
+        
+
+
+        
+        
+        tblmodel = (DefaultTableModel)tblSupportAdmin.getModel();
+        populatetable();
+
+        
+        
     }
+    
+        public  void populatetable()
+    {
+       
+         for(int i=0; i< srd.getSupportList().size(); i++)
+        {
+        
+             Object data_value [] = {
+                 srd.getSupportList().get(i).getSupid(),
+                 srd.getSupportList().get(i).getOrderid(),
+                 srd.getSupportList().get(i).getCustid(),
+                 srd.getSupportList().get(i).getReason(),
+
+
+                     
+            };
+           tblmodel.addRow(data_value);
+            }
+        }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,16 +108,17 @@ public class SupportAdminPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSupportAdmin = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setLayout(null);
 
         tblSupportAdmin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Support ID", "Order ID", "Customer ID", "Reason"
@@ -55,13 +131,43 @@ public class SupportAdminPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblSupportAdmin);
 
+        jLabel2.setText("Assign Agent");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton1.setText("Assign");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Logout");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(328, 328, 328)
+                        .addComponent(jLabel2)
+                        .addGap(127, 127, 127)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jButton2)
+                        .addGap(331, 331, 331)
+                        .addComponent(jButton1)))
                 .addContainerGap(163, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -69,7 +175,19 @@ public class SupportAdminPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(85, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(172, 172, 172))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jButton1)
+                        .addGap(37, 37, 37))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addGap(46, 46, 46))))
         );
 
         add(jPanel1);
@@ -82,17 +200,39 @@ public class SupportAdminPanel extends javax.swing.JPanel {
 
     private void tblSupportAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSupportAdminMouseClicked
         // TODO add your handling code here:
-        String message = "\n";
-        Object[] params = {message};
-        JOptionPane.showConfirmDialog(null, params, "Assign Support Person", JOptionPane.PLAIN_MESSAGE);
+        
+        index = tblSupportAdmin.getSelectedRow();
+        
 
     }//GEN-LAST:event_tblSupportAdminMouseClicked
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+     mainframe.logoutAction();
+     mainframe.displayPane();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        SupportRequestAssign sw = sard.createsupdata();
+        sard.SetUserAccountList(sw);
+        JOptionPane.showMessageDialog(new JFrame(), "Ticket Assigned");
+
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    public static javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblSupportAdmin;
+    public static javax.swing.JTable tblSupportAdmin;
     // End of variables declaration//GEN-END:variables
 }

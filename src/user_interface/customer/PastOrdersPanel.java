@@ -193,6 +193,7 @@ public class PastOrdersPanel extends javax.swing.JPanel {
             if(o1.getOrderid().equals(tblPastOrders.getValueAt(index, 0).toString()))
             {
                 SupportRequest sr = srd.createReq(CustomerMainPanel.cust_id, o1.getOrderid(), jComboBox1.getSelectedItem().toString());
+                srd.setSupList(sr);
                 o1.setStatus("Issue raised");
             }
             

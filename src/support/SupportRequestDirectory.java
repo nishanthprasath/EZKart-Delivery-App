@@ -5,6 +5,7 @@
 package support;
 
 import java.util.ArrayList;
+import java.util.Random;
 import support.SupportRequest;
 import support.SupportRequestDirectory;
 
@@ -26,7 +27,7 @@ public class SupportRequestDirectory {
         return supportList;
     }
     
-    public void setCartList(SupportRequest ob)
+    public void setSupList(SupportRequest ob)
     {
         supportList.add(ob);
     }
@@ -34,11 +35,11 @@ public class SupportRequestDirectory {
     
     public SupportRequest createReq(String custid, String orderid, String reason){
         SupportRequest sr = new SupportRequest();
+        Random rand = new Random();
         sr.setCustid(custid);
         sr.setOrderid(orderid);
         sr.setReason(reason);
-        
-
+        sr.setSupid("SP" + Integer.toString(rand.nextInt(10000)));
         return sr;
     }
 

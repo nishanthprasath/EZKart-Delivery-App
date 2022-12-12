@@ -13,6 +13,15 @@ public class SupportRequest {
     String orderid;
     String custid;
     String reason;
+    String Supid;
+
+    public String getSupid() {
+        return Supid;
+    }
+
+    public void setSupid(String Supid) {
+        this.Supid = Supid;
+    }
 
     public String getOrderid() {
         return orderid;
