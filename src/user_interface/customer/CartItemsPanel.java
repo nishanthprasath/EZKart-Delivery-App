@@ -4,6 +4,7 @@
  */
 package user_interface.customer;
 
+import cart.Cart;
 import java.awt.Color;
 import cart.CartDirectory;
 import ecosystem.Ecosystem;
@@ -14,6 +15,12 @@ import order.Order;
 import order.OrderDirectory;
 import user_interface.customer.CustomerMainPanel;
 import customer.CustomerAccountDirectory;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -45,6 +52,46 @@ public class CartItemsPanel extends javax.swing.JPanel {
                  
                  return value;
                              
+    }
+    
+     public void pallete() {
+
+        float food_price = 1;
+        float meat_price = 1;
+        float pharma_price = 1;
+        float grocery_price = 1;
+
+        for (Cart c1 : dcrd.getCartList()) {
+            if (c1.getType() == "Food") {
+                food_price = food_price * c1.getPrice()*c1.getQuantity();
+            }
+
+            if (c1.getType() == "Meat") {
+                meat_price = food_price * c1.getPrice()*c1.getQuantity();
+            }
+
+            if (c1.getType() == "Pharma") {
+                pharma_price = food_price * c1.getPrice()*c1.getQuantity();
+            }
+
+            if (c1.getType() == "Grocery") {
+                grocery_price = food_price * c1.getPrice()*c1.getQuantity();
+            }
+        }
+
+        DefaultPieDataset pieDataset = new DefaultPieDataset();
+        pieDataset.setValue("Food", food_price);
+        pieDataset.setValue("Meat", meat_price);
+        pieDataset.setValue("Pharma", pharma_price);
+        pieDataset.setValue("Grocery", grocery_price);
+
+        JFreeChart chart = ChartFactory.createPieChart("Organizations", pieDataset);
+        PiePlot p = (PiePlot) chart.getPlot();
+        ChartPanel chartPanel = new ChartPanel(chart);
+
+        ChartFrame frame = new ChartFrame("Organizations", chart);
+        frame.setVisible(true);
+        frame.setSize(450, 500);
     }
     
     public void populateTable()

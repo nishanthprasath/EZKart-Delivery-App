@@ -125,7 +125,7 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Role");
 
-        comboDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "General", "Food", "Groceries", "Meat", "Pharma" }));
+        comboDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Food", "Groceries", "Meat", "Pharma" }));
 
         comboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None","Food Admin", "Meat Admin", "Pharma Admin", "Groceries Admin", "Delivery Admin", "Delivery Agent", "Support Admin", "Support Agent", "Data analyst"}));
 
@@ -397,6 +397,11 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
     private void btnUpdateEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateEmployeeActionPerformed
         // TODO add your handling code here:
         employeeIndex = tblEmployeeAdmin.getSelectedRow();
+        
+        if (employeeIndex < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row to update");
+            return;
+        }
         String name = txtName.getText();
         String department = comboDepartment.getSelectedItem().toString();
         String role = comboRole.getSelectedItem().toString();
@@ -444,6 +449,10 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         employeeIndex = tblEmployeeAdmin.getSelectedRow();
         //ArrayList<Patient> patientList = patient.getPatientList();
+        if (employeeIndex < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row to delete");
+            return;
+        }
         emp_dir_ob.getEmpAccountList().remove(employeeIndex);
         //renderPatient(patientList);
            DefaultTableModel tblmodel = (DefaultTableModel)tblEmployeeAdmin.getModel();

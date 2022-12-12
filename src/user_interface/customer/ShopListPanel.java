@@ -14,6 +14,9 @@ import items.ItemDirectory;
 import items.Item;
 import static user_interface_foodAdmin.foodAdminMainPanel.foodShopTable;
 import cart.CartDirectory;
+import organisation.GroceryVendorDirectory;
+import organisation.MeatVendorDirectory;
+import organisation.PharmaVendorDirectory;
 
 
 /**
@@ -28,9 +31,9 @@ public class ShopListPanel extends javax.swing.JPanel {
     String shopType;
     Ecosystem system;
     FoodVendorDirectory fvd;
-//    GroceryVendorDirectory gcd;
-//    PharmaVendorDirectory pvd;
-//    MeatVendorDirectory mvd;
+    GroceryVendorDirectory gcd;
+    PharmaVendorDirectory pvd;
+    MeatVendorDirectory mvd;
     ItemDirectory id;
     CartDirectory crd;
     
@@ -44,9 +47,13 @@ public class ShopListPanel extends javax.swing.JPanel {
         this.crd = crd;
                 
         fvd = system.getFoodDirectory();
+        gcd = system.getGroceryDirectory();
+        mvd = system.getMeatDirectory();
+        pvd = system.getPharmaDirectory();
+        
        
         
-        if(shop.equals("food"))
+        if(shopType.equals("food"))
         {
             
         tblModel = (DefaultTableModel)tblShopDetails.getModel();
@@ -66,38 +73,38 @@ public class ShopListPanel extends javax.swing.JPanel {
         }
         
         
-        if(shop.equals("grocery"))
+        else if(shopType.equals("grocery"))
         {
             
         tblModel = (DefaultTableModel)tblShopDetails.getModel();
         tblModel.setRowCount(0);
       
-         for(int i=0; i< fvd.getFoodVendorList().size(); i++)
+         for(int i=0; i< gcd.getGroceryVendorList().size(); i++)
         {
-             Object data_value [] = {fvd.getFoodVendorList().get(i).getShop_id(),
+             Object data_value [] = {gcd.getGroceryVendorList().get(i).getShop_id(),
                  
-                 fvd.getFoodVendorList().get(i).getShop_name(),
+                 gcd.getGroceryVendorList().get(i).getShop_name(),
                  
-                 fvd.getFoodVendorList().get(i).getLocation()
+                 gcd.getGroceryVendorList().get(i).getLocation()
 
             };
            tblModel.addRow(data_value);
         }
         }
         
-        if(shop.equals("meat"))
+        else if(shopType.equals("meat"))
         {
             
         tblModel = (DefaultTableModel)tblShopDetails.getModel();
         tblModel.setRowCount(0);
       
-         for(int i=0; i< fvd.getFoodVendorList().size(); i++)
+         for(int i=0; i< mvd.getMeatVendorList().size(); i++)
         {
-             Object data_value [] = {fvd.getFoodVendorList().get(i).getShop_id(),
+             Object data_value [] = {mvd.getMeatVendorList().get(i).getShop_id(),
                  
-                 fvd.getFoodVendorList().get(i).getShop_name(),
+                 mvd.getMeatVendorList().get(i).getShop_name(),
                  
-                 fvd.getFoodVendorList().get(i).getLocation()
+                 mvd.getMeatVendorList().get(i).getLocation()
 
             };
            tblModel.addRow(data_value);
@@ -110,13 +117,13 @@ public class ShopListPanel extends javax.swing.JPanel {
         tblModel = (DefaultTableModel)tblShopDetails.getModel();
         tblModel.setRowCount(0);
       
-         for(int i=0; i< fvd.getFoodVendorList().size(); i++)
+         for(int i=0; i< pvd.getPharmaVendorList().size(); i++)
         {
-             Object data_value [] = {fvd.getFoodVendorList().get(i).getShop_id(),
+             Object data_value [] = {pvd.getPharmaVendorList().get(i).getShop_id(),
                  
-                 fvd.getFoodVendorList().get(i).getShop_name(),
+                 pvd.getPharmaVendorList().get(i).getShop_name(),
                  
-                 fvd.getFoodVendorList().get(i).getLocation()
+                 pvd.getPharmaVendorList().get(i).getLocation()
 
             };
            tblModel.addRow(data_value);

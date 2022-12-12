@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface/customer/CartItemsPanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_sysadmin/sysadminPanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface/MainJFrame.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_sysadmin/manageEmployeeAdmin.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface/employee_admin/EmployeeAdminPanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_groceries/groceriesAdminMainPanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_meatAdmin/meatAdminMainPanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_sysadmin/sysAdminDashboard.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface/support_agent/SupportAgentPanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface/delivery_admin/DeliveryAdminPanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_meatAdmin/meatAdminPanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_pharmacyAdmin/pharmAdminPanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_foodAdmin/manageItems.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/customer/CustomerAccountDirectory.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_sysadmin/enterprisePanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/customer/Customer.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_meatAdmin/manageMeatItems.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_sysadmin/manageAdminPanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_sysadmin/communityPanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface/delivery_agent/DeliveryAgentPanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_groceries/groceriesAdminPanel.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_pharmacyAdmin/managePharmItems.java</file>
-            <file>file:/Users/snehagovindarajan/Desktop/AEDFinalProject/EZKart/src/user_interface_groceries/manageGroceriesItems.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -6,7 +6,6 @@ package user_interface_meatAdmin;
 
 import db4util.Db4util;
 import ecosystem.Ecosystem;
-import items.Item;
 import items.MeatItem;
 import items.MeatItemDirectory;
 import user_interface_foodAdmin.*;
@@ -14,8 +13,8 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import user_interface.MainJFrame;
-
 
 /**
  *
@@ -26,52 +25,30 @@ public class manageMeatItems extends javax.swing.JPanel {
     /**
      * Creates new form foodAdminMainPanel
      */
-        Ecosystem system;
-        MainJFrame mainframe;
-        //public static int index = 99;
-        MeatItemDirectory id;
-        DefaultTableModel tblmodel1;
-        int itemIndex;
-        
+    
+    Ecosystem system;
+    MainJFrame mainframe;
+    MeatItemDirectory id;
+    DefaultTableModel tblmodel;
+//    ArrayList<String> items_gen;
+//    ArrayList<Float> price_gen;
+//    ArrayList<Integer> qty_gen;
+//    ArrayList<String> type_gen;
+    public static int index_val = 99;
+    
     private Db4util dB4OUtil = Db4util.getInstance();
-    public manageMeatItems(Ecosystem system,MainJFrame mainframe) {
+    public manageMeatItems(Ecosystem system, MainJFrame mainframe) {
         initComponents();
         this.system = system;
         this.mainframe = mainframe;
-        foodAdminTemp.setBackground(new Color(0,0,0,90));
-        //jLabel2.setVisible(true);
-        
-        tblmodel1 = (DefaultTableModel) meatAdminMainPanel.meattable.getModel();
-        
-        shopName.setText(tblmodel1.getValueAt(meatAdminMainPanel.index, 1).toString());
         id = system.getMeatItemDirectory();
-//        if(tblmodel1.getValueAt(meatAdminMainPanel.index, 1) == )
-        //populateMeatShopTable();
-           for(MeatItem I1: id.getMeatItemList())
-            {
-                if(I1.getShop_id() == tblmodel1.getValueAt(meatAdminMainPanel.index, 0).toString())
-                {
-                    populateMeatShopTable();
 
-                }
-            }
+        foodAdminTemp.setBackground(new Color(0, 0, 0, 90));
+        //jLabel2.setText(meatAdminMainPanel.jTable1.getValueAt(meatAdminPanel.index_1, 1).toString());
+
+        populatetable();
+        //jLabel2.setVisible(true);
      
-    }
-            private void populateMeatShopTable() {
-       DefaultTableModel model = (DefaultTableModel) meatItemsTbl.getModel();
-        model.setRowCount(0);
-         for(int i=0; i< id.getMeatItemList().size(); i++)
-        {
-             Object data_value [] = {
-                 id.getMeatItemList().get(i).getItemid(),
-                 id.getMeatItemList().get(i).getItemName(),
-                 id.getMeatItemList().get(i).getPrice(),
-                 id.getMeatItemList().get(i).getBestBefore(),
-                 id.getMeatItemList().get(i).getType(),
-                 id.getMeatItemList().get(i).getQuantity()
-            };
-           model.addRow(data_value);
-        }
     }
 
     /**
@@ -85,35 +62,24 @@ public class manageMeatItems extends javax.swing.JPanel {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         foodAdminTemp = new javax.swing.JPanel();
-        foodShopName = new javax.swing.JLabel();
         foodShopName1 = new javax.swing.JLabel();
         foodShopName2 = new javax.swing.JLabel();
         foodShopName3 = new javax.swing.JLabel();
         foodShopName4 = new javax.swing.JLabel();
-        priceTxt = new javax.swing.JTextField();
-        itemShopTxt = new javax.swing.JTextField();
-        txtComboBox = new javax.swing.JComboBox<>();
-        meatQuantityTxt = new javax.swing.JTextField();
-        uploadFoodPic = new javax.swing.JButton();
-        shopName = new javax.swing.JLabel();
-        addMeatShop = new javax.swing.JButton();
-        updateMeatBtn = new javax.swing.JButton();
-        deleteBtn = new javax.swing.JButton();
-        clearBtn = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField4 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        meatItemsTbl = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         foodShopName5 = new javax.swing.JLabel();
-        bestBfrTxt = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setLayout(null);
-
-        foodShopName.setBackground(new java.awt.Color(255, 255, 255));
-        foodShopName.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        foodShopName.setForeground(new java.awt.Color(255, 255, 255));
-        foodShopName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        foodShopName.setText("Upload Image");
 
         foodShopName1.setBackground(new java.awt.Color(255, 255, 255));
         foodShopName1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
@@ -139,55 +105,43 @@ public class manageMeatItems extends javax.swing.JPanel {
         foodShopName4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         foodShopName4.setText("Price");
 
-        txtComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Minced Meat", "Boneless", "Thighs","With Bone" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Red Meat", "Poultry", "Pork", "Seafood" }));
 
-        uploadFoodPic.setText("UPLOAD");
-
-        shopName.setFont(new java.awt.Font("KoHo", 2, 18)); // NOI18N
-        shopName.setForeground(new java.awt.Color(255, 255, 255));
-
-        addMeatShop.setText("Add Item");
-        addMeatShop.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Add Item");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addMeatShopActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        updateMeatBtn.setText("Update Item");
-        updateMeatBtn.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Update Item");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateMeatBtnActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
-        deleteBtn.setText("Delete Item");
-        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setText("Delete Item");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtnActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
-        clearBtn.setText("Clear");
-        clearBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearBtnActionPerformed(evt);
-            }
-        });
-
-        meatItemsTbl.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Item Id", "Items", "Price", "Best before", "Type", "Quantity"
+                "Item", "Price", "Best Before", "Type", "Quantity"
             }
         ));
-        meatItemsTbl.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                meatItemsTblMouseClicked(evt);
+                jTable1MouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(meatItemsTbl);
+        jScrollPane1.setViewportView(jTable1);
 
         foodShopName5.setBackground(new java.awt.Color(255, 255, 255));
         foodShopName5.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
@@ -195,109 +149,74 @@ public class manageMeatItems extends javax.swing.JPanel {
         foodShopName5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         foodShopName5.setText("Best Before");
 
-        bestBfrTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bestBfrTxtActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(new java.awt.Font("Lao MN", 3, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 255, 255));
-        jLabel2.setText("Add Items");
-
         javax.swing.GroupLayout foodAdminTempLayout = new javax.swing.GroupLayout(foodAdminTemp);
         foodAdminTemp.setLayout(foodAdminTempLayout);
         foodAdminTempLayout.setHorizontalGroup(
             foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(foodAdminTempLayout.createSequentialGroup()
-                .addContainerGap(132, Short.MAX_VALUE)
-                .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, foodAdminTempLayout.createSequentialGroup()
-                        .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(foodShopName, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(foodShopName4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(foodShopName3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(foodShopName1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(foodShopName2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(foodShopName5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(62, 62, 62))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, foodAdminTempLayout.createSequentialGroup()
-                        .addComponent(addMeatShop)
-                        .addGap(98, 98, 98)
-                        .addComponent(updateMeatBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(itemShopTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(priceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(foodAdminTempLayout.createSequentialGroup()
-                        .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(bestBfrTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(deleteBtn)
-                            .addComponent(txtComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(meatQuantityTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                            .addComponent(uploadFoodPic, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(111, 111, 111)
-                        .addComponent(clearBtn)))
-                .addGap(395, 395, 395))
-            .addGroup(foodAdminTempLayout.createSequentialGroup()
-                .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 88, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(foodAdminTempLayout.createSequentialGroup()
-                        .addGap(335, 335, 335)
-                        .addComponent(shopName)
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(foodAdminTempLayout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, foodAdminTempLayout.createSequentialGroup()
+                                .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(foodShopName4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(foodShopName3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(foodShopName1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(foodShopName2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(foodShopName5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(62, 62, 62))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, foodAdminTempLayout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(193, 193, 193)))
+                        .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(foodAdminTempLayout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addGap(149, 149, 149)
+                                .addComponent(jButton3)))
+                        .addGap(64, 64, 64)))
+                .addContainerGap(395, Short.MAX_VALUE))
         );
         foodAdminTempLayout.setVerticalGroup(
             foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(foodAdminTempLayout.createSequentialGroup()
-                .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(foodAdminTempLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(shopName)
-                        .addGap(37, 37, 37))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, foodAdminTempLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                .addGap(118, 118, 118)
                 .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(foodShopName3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(itemShopTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(foodShopName4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(priceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(foodShopName5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(foodAdminTempLayout.createSequentialGroup()
-                        .addComponent(bestBfrTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                        .addGap(1, 1, 1)))
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(foodShopName1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(foodShopName2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(meatQuantityTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
                 .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(foodShopName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(uploadFoodPic))
-                .addGap(30, 30, 30)
-                .addGroup(foodAdminTempLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addMeatShop)
-                    .addComponent(updateMeatBtn)
-                    .addComponent(deleteBtn)
-                    .addComponent(clearBtn))
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74))
         );
 
         add(foodAdminTemp);
@@ -308,168 +227,172 @@ public class manageMeatItems extends javax.swing.JPanel {
         jLabel1.setBounds(0, 0, 1200, 720);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addMeatShopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMeatShopActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         //String name, float price, String bestbfr, String type,int qty, String shop_id  
-        if(itemShopTxt.getText().trim().equals("") && priceTxt.getText().trim().equals("") && bestBfrTxt.getText().trim().equals("")
-                && meatQuantityTxt.getText().trim().equals("")){
-             JOptionPane.showMessageDialog(new JFrame(),
-                "Please enter Valid Inputs",
-                "Error",
-        JOptionPane.ERROR_MESSAGE);
-        }else{
-        id = system.getMeatItemDirectory();
-        MeatItem i = id.createItems(itemShopTxt.getText() , Float.parseFloat(priceTxt.getText()), bestBfrTxt.getText(),
-                txtComboBox.getSelectedItem().toString(), Integer.parseInt(meatQuantityTxt.getText()),
-                tblmodel1.getValueAt(meatAdminMainPanel.index, 1).toString()
-                );
-        id.setMeatItemList(i); 
-         for(MeatItem I1: id.getMeatItemList())
+        if(validation()){
+//        id = system.getMeatItemDirectory();
+
+        MeatItem mi = id.createItems(jTextField3.getText(), Float.parseFloat(jTextField2.getText()), jTextField5.getText(),
+                jComboBox1.getSelectedItem().toString(), Integer.parseInt(jTextField4.getText()),
+                meatAdminMainPanel.jTable1.getValueAt(meatAdminMainPanel.index, 0).toString());
+        id.setMeatItemList(mi);
+        populatetable();
+        clearFields();
+
+        JOptionPane.showMessageDialog(new JFrame(), "Item Saved Succesfully");
+        } else {
+            JOptionPane.showMessageDialog(null, "Enter Valid Details");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(validation()){
+        if (index_val == 99) {
+            JOptionPane.showMessageDialog(new JFrame(),
+                    "Please make a selection",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            
+
+            String item_edit = jTextField3.getText();
+            Float price_edit = Float.parseFloat(jTextField2.getText());
+            String bestb_edit = jTextField5.getText();
+            String type_edit = jComboBox1.getSelectedItem().toString();
+            int qty_edit = Integer.parseInt(jTextField4.getText());
+
+            id.getMeatItemList().get(meatAdminPanel.index_1).setItemName(item_edit);
+            id.getMeatItemList().get(meatAdminPanel.index_1).setPrice(price_edit);
+            id.getMeatItemList().get(meatAdminPanel.index_1).setBestBefore(bestb_edit);
+            id.getMeatItemList().get(meatAdminPanel.index_1).setType(type_edit);
+            id.getMeatItemList().get(meatAdminPanel.index_1).setQuantity(qty_edit);
+            
+            populatetable();
+            clearFields();
+            JOptionPane.showMessageDialog(new JFrame(), "Item Updated Succesfully");
+        }
+        }else {
+            JOptionPane.showMessageDialog(null, "Enter Valid Details");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        this.index_val = jTable1.getSelectedRow();
+        TableModel model = jTable1.getModel();
+
+        jTextField3.setText(model.getValueAt(index_val, 0).toString());
+        jTextField2.setText(model.getValueAt(index_val, 1).toString());
+        jTextField5.setText(model.getValueAt(index_val, 2).toString());
+        jComboBox1.setSelectedItem(model.getValueAt(index_val, 3).toString());
+        jTextField4.setText(model.getValueAt(index_val, 4).toString());
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        int index = jTable1.getSelectedRow();
+        
+        if (index < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row to delete");
+            return;
+        }
+        
+        
+        id.getMeatItemList().remove(index);
+        populatetable();
+        clearFields();
+        JOptionPane.showMessageDialog(this, "Item Deleted Successfully");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    public  void populatetable()
+    {
+        
+        tblmodel = (DefaultTableModel) jTable1.getModel();
+        tblmodel.setRowCount(0);
+        
+        System.out.println(id.getMeatItemList().size());
+
+        for(int j=0; j< id.getMeatItemList().size(); j++)
+        {
+            
+            
+            
+            if(id.getMeatItemList().get(j).getShop_id().equals(meatAdminMainPanel.jTable1.getValueAt(meatAdminPanel.index_1, 0).toString()))
             {
-                if(I1.getShop_id() == tblmodel1.getValueAt(meatAdminMainPanel.index, 0).toString())
-                {
-                    populateMeatShopTable();
-
-                }
-            }
-     
-      //  populateMeatShopTable();
-         
-       JOptionPane.showMessageDialog(new JFrame(), "Item Saved succesfully");
-       itemShopTxt.setText("");
-       priceTxt.setText("");
-       bestBfrTxt.setText("");
-       txtComboBox.setSelectedIndex(0);
-       meatQuantityTxt.setText("");
+            Object data_value[] = {
+                id.getMeatItemList().get(j).getItemName(),
+                id.getMeatItemList().get(j).getPrice(),
+                id.getMeatItemList().get(j).getBestBefore(),
+                id.getMeatItemList().get(j).getType(),
+                id.getMeatItemList().get(j).getQuantity(),
+                id.getMeatItemList().get(j).getShop_id()
+            };
+            
+            tblmodel.addRow(data_value);
         }
-       
-    }//GEN-LAST:event_addMeatShopActionPerformed
-
-    private void bestBfrTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bestBfrTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bestBfrTxtActionPerformed
-
-    private void meatItemsTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_meatItemsTblMouseClicked
-        // TODO add your handling code here:
-        itemIndex = meatItemsTbl.getSelectedRow();
-        // ArrayList<Patient> patientList = patient.getPatientList();
-        DefaultTableModel tempEmployee = (DefaultTableModel)meatItemsTbl.getModel();
-        String name = tempEmployee.getValueAt(itemIndex,1).toString();
-        String price = tempEmployee.getValueAt(itemIndex,2).toString();
-        String bestBfr = tempEmployee.getValueAt(itemIndex,3).toString();
-        String type = tempEmployee.getValueAt(itemIndex,4).toString();
-        String quantity = tempEmployee.getValueAt(itemIndex,5).toString();
-       
-   
-
-        itemShopTxt.setText(name);
-        txtComboBox.setSelectedItem(type);
-        priceTxt.setText(price);
-        bestBfrTxt.setText(bestBfr);
-        meatQuantityTxt.setText(quantity);
-      
-    }//GEN-LAST:event_meatItemsTblMouseClicked
-
-    private void updateMeatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateMeatBtnActionPerformed
-        // TODO add your handling code here:
-         itemIndex = meatItemsTbl.getSelectedRow();
-          if (itemIndex<0)
-        {
-                    JOptionPane.showMessageDialog(new JFrame(),
-                "Please make a selection",
-                "Error",
-        JOptionPane.ERROR_MESSAGE);
+        }
+               
+    }
+    public void clearFields(){
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField5.setText("");
+        jTextField4.setText("");
+    }
+    
+    public boolean validation() {
+        boolean validate = true;
+        
+        if (jTextField3.getText().isEmpty()) {
+            validate = false;
+        }
+        if (!isInteger(jTextField4.getText()))  {
+            validate = false;
+        }
+        if (!isFloat(jTextField2.getText()))  {
+            validate = false;
+        }
+        if (jTextField5.getText().isEmpty()) {
+            validate = false;
         }
         
-        else
-        {
-        
-               // TODO add your handling code here:
-        //itemIndex = meatItemsTbl.getSelectedRow();
-        String name = itemShopTxt.getText();
-        String price = priceTxt.getText();
-        String bestBfr = bestBfrTxt.getText();
-        String qnt = meatQuantityTxt.getText();
-        String type = txtComboBox.getSelectedItem().toString();
-        
-        id.getMeatItemList().get(itemIndex).setItemName(name);
-        id.getMeatItemList().get(itemIndex).setPrice(Float.parseFloat(price));
-        id.getMeatItemList().get(itemIndex).setType(type);
-        id.getMeatItemList().get(itemIndex).setBestBefore(bestBfr);
-        id.getMeatItemList().get(itemIndex).setQuantity(Integer.parseInt(qnt));
-//        Float.parseFloat(priceTxt.getText())
-         
-        populateMeatShopTable();
-         
-
-       // renderPatient(patientList);
-        JOptionPane.showMessageDialog(new JFrame(), "Admins Updated successfully ..!!");
-       itemShopTxt.setText("");
-       priceTxt.setText("");
-       bestBfrTxt.setText("");
-       meatQuantityTxt.setText("");
-       txtComboBox.setSelectedIndex(0);
-
-        }   
-        
-    }//GEN-LAST:event_updateMeatBtnActionPerformed
-
-    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(new JFrame(), "Data Cleared successfully ..!!");
-       itemShopTxt.setText("");
-       priceTxt.setText("");
-       bestBfrTxt.setText("");
-       meatQuantityTxt.setText("");
-       txtComboBox.setSelectedIndex(0);
-    }//GEN-LAST:event_clearBtnActionPerformed
-
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        // TODO add your handling code here:
-         itemIndex = meatItemsTbl.getSelectedRow();
-           if (itemIndex<0)
-        {
-                    JOptionPane.showMessageDialog(new JFrame(),
-                "Please make a selection",
-                "Error",
-        JOptionPane.ERROR_MESSAGE);
-        }else{
-       id.getMeatItemList().remove(itemIndex);
-       populateMeatShopTable();
-       JOptionPane.showMessageDialog(new JFrame(), "Item Deleted successfully ..!!");
-       itemShopTxt.setText("");
-       priceTxt.setText("");
-       bestBfrTxt.setText("");
-       meatQuantityTxt.setText("");
-       txtComboBox.setSelectedIndex(0);
-           
-           }
-    }//GEN-LAST:event_deleteBtnActionPerformed
-
+        return validate;
+    }
+    
+    private boolean isInteger(String txtField) {
+        if (txtField.matches("\\d+")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    private boolean isFloat(String txtField) {
+        if (txtField.matches("[-+]?[0-9]*\\.?[0-9]+")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addMeatShop;
-    private javax.swing.JTextField bestBfrTxt;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton clearBtn;
-    private javax.swing.JButton deleteBtn;
     private javax.swing.JPanel foodAdminTemp;
-    private javax.swing.JLabel foodShopName;
     private javax.swing.JLabel foodShopName1;
     private javax.swing.JLabel foodShopName2;
     private javax.swing.JLabel foodShopName3;
     private javax.swing.JLabel foodShopName4;
     private javax.swing.JLabel foodShopName5;
-    private javax.swing.JTextField itemShopTxt;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private volatile javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable meatItemsTbl;
-    private javax.swing.JTextField meatQuantityTxt;
-    private javax.swing.JTextField priceTxt;
-    private javax.swing.JLabel shopName;
-    private javax.swing.JComboBox<String> txtComboBox;
-    private javax.swing.JButton updateMeatBtn;
-    private javax.swing.JButton uploadFoodPic;
+    public static javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

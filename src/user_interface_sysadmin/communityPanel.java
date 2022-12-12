@@ -4,7 +4,7 @@
  */
 package user_interface_sysadmin;
 
-import community.Community;
+//import community.Community;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import ecosystem.Ecosystem;
@@ -32,23 +32,23 @@ public class communityPanel extends javax.swing.JPanel {
         this.system =  system;
         initComponents();
         networkPane.setBackground(new Color(0,0,0,30));
-        populateNetworkTable();
+//        populateNetworkTable();
     }
     
     
-       private void populateNetworkTable() {
-        DefaultTableModel model = (DefaultTableModel) communityJTable.getModel();
-        model.setRowCount(0);
-        
-            for(int i=0;i< system.getCommunityList().size();i++){
-            Community community = system.getCommunityList().get(i);
-            model.addRow(new Object[]{
-                   community.getCommunityName(),
-                   community.getZipCode()
-            
-            });
-    }
-    }
+//       private void populateNetworkTable() {
+//        DefaultTableModel model = (DefaultTableModel) communityJTable.getModel();
+//        model.setRowCount(0);
+//        
+//            for(int i=0;i< system.getCommunityList().size();i++){
+//            Community community = system.getCommunityList().get(i);
+//            model.addRow(new Object[]{
+//                   community.getCommunityName(),
+//                   community.getZipCode()
+//            
+//            });
+//    }
+//    }
 
 
     /**
@@ -207,10 +207,10 @@ public class communityPanel extends javax.swing.JPanel {
 //        if (!name.isEmpty()) {
 //            if (system.isUnique(name)) {
                  
-                Community community = system.createAndAddNetwork();
-                community.setCommunityName(name);
-                community.setZipCode(zipcode);
-                community.setEnterpriseDirectory(new EnterpriseDirectory());
+//                Community community = system.createAndAddNetwork();
+//                community.setCommunityName(name);
+//                community.setZipCode(zipcode);
+//                community.setEnterpriseDirectory(new EnterpriseDirectory());
                 JOptionPane.showMessageDialog(null, "Network Successfully Created");
                 addCommunityName.setText("");
                 addCommunityCode.setText("");
@@ -220,7 +220,7 @@ public class communityPanel extends javax.swing.JPanel {
 //        } else {
 //            JOptionPane.showMessageDialog(null, "Enter network name");
 //        }
-        populateNetworkTable();
+//        populateNetworkTable();
          }
         
         

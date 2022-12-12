@@ -13,6 +13,7 @@ import user_interface_foodAdmin.foodAdminMainPanel;
 import user_interface.MainJFrame;
 import user_interface.delivery_admin.DeliveryAdminPanel;
 import user_interface.employee_admin.EmployeeAdminPanel;
+import user_interface.support_admin.SupportAdminPanel;
 import user_interface.support_agent.SupportAgentPanel;
 import user_interface_foodAdmin.foodAdminPanel;
 import user_interface_groceries.groceriesAdminPanel;
@@ -38,6 +39,7 @@ public class sysAdminDashboard extends javax.swing.JFrame {
     pharmAdminPanel pharmAdmin;
     DeliveryAdminPanel delAdmin;
     SupportAgentPanel supAgent;
+    SupportAdminPanel supAdmin;
 
         public sysAdminDashboard(Ecosystem system, MainJFrame mainframe) {
         initComponents();
@@ -80,6 +82,7 @@ public class sysAdminDashboard extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1200, 720));
@@ -123,7 +126,7 @@ public class sysAdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setText("Customer Support");
+        jLabel10.setText("Support Admin");
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/meatAdminAvatar.jpeg"))); // NOI18N
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -147,6 +150,13 @@ public class sysAdminDashboard extends javax.swing.JFrame {
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
+            }
+        });
+
+        jButton1.setText("BACK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -193,10 +203,12 @@ public class sysAdminDashboard extends javax.swing.JFrame {
                             .addComponent(jLabel11)
                             .addGroup(SysMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel12)
                                 .addGroup(SysMenuLayout.createSequentialGroup()
-                                    .addComponent(jLabel16)
-                                    .addGap(4, 4, 4))
-                                .addComponent(jLabel12)))))
+                                    .addGroup(SysMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButton1)
+                                        .addComponent(jLabel16))
+                                    .addGap(4, 4, 4))))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         SysMenuLayout.setVerticalGroup(
@@ -230,7 +242,9 @@ public class sysAdminDashboard extends javax.swing.JFrame {
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         adminSplitPane.setLeftComponent(SysMenu);
@@ -288,9 +302,20 @@ public class sysAdminDashboard extends javax.swing.JFrame {
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here:
-        supAgent = new SupportAgentPanel(system,mainframe, "");
-        adminSplitPane.setRightComponent(supAgent);
+        supAdmin = new SupportAdminPanel(system,mainframe);
+        adminSplitPane.setRightComponent(supAdmin);
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+//        // TODO add your handling code here:
+//        mainframe.logoutAction();
+//        mainframe.displayPane();
+          sysAdminDashboard sy = new sysAdminDashboard(system,mainframe);
+          sysadminPanel sa = new sysadminPanel(system,mainframe);
+          sy.setVisible(false);
+          sa.setVisible(true);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -331,6 +356,7 @@ public class sysAdminDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SysMenu;
     private javax.swing.JSplitPane adminSplitPane;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

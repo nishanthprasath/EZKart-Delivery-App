@@ -4,8 +4,8 @@
  */
 package user_interface.delivery_agent;
 
-import assignedDeliveryAgent.assignedAgent;
-import assignedDeliveryAgent.assignedAgentDirectory;
+import delivery.assignedAgent;
+import delivery.assignedAgentDirectory;
 import customer.CustomerAccountDirectory;
 import ecosystem.Ecosystem;
 import employee.Employee;
@@ -338,7 +338,7 @@ public class DeliveryAgentPanel extends javax.swing.JPanel {
         );
 
         viewProfile.add(jPanel2);
-        jPanel2.setBounds(574, 78, 399, 414);
+        jPanel2.setBounds(574, 78, 0, 0);
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back.png"))); // NOI18N
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {

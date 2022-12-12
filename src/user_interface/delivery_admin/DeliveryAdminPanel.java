@@ -4,8 +4,8 @@
  */
 package user_interface.delivery_admin;
 
-import assignedDeliveryAgent.assignedAgent;
-import assignedDeliveryAgent.assignedAgentDirectory;
+import delivery.assignedAgent;
+import delivery.assignedAgentDirectory;
 import db4util.Db4util;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -211,9 +211,7 @@ public class DeliveryAdminPanel extends javax.swing.JPanel {
 
     private void tblDeliveryAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDeliveryAdminMouseClicked
         // TODO add your handling code here:
-        String message = "\n";
-        Object[] params = {message};
-        JOptionPane.showConfirmDialog(null, params, "Assign Delivery Person", JOptionPane.PLAIN_MESSAGE);
+        
 
     }//GEN-LAST:event_tblDeliveryAdminMouseClicked
 

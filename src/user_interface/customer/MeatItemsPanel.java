@@ -10,7 +10,11 @@ import db4util.Db4util;
 import ecosystem.Ecosystem;
 import items.Item;
 import items.ItemDirectory;
+import items.MeatItem;
+import items.MeatItemDirectory;
 import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class MeatItemsPanel extends javax.swing.JPanel {
     
     Ecosystem system;
-    ItemDirectory Id;
+    MeatItemDirectory Id;
     DefaultTableModel tblModel;
     CartDirectory crd;
     CartDirectory dcrd;
@@ -36,23 +40,25 @@ public class MeatItemsPanel extends javax.swing.JPanel {
         
          this.system = system;
         this.crd = crd;
-        Id = system.getItemDirectory();
+        Id = system.getMeatItemDirectory();
         dcrd = system.getCartDirectory();
-       
+        lblShopName.setText(ShopListPanel.tblShopDetails.getValueAt(index, 1).toString());
+        
         tblModel = (DefaultTableModel)tblMeatItems.getModel();
         
                     
-            for(Item I1: Id.getItemList())
+            for(MeatItem I1: Id.getMeatItemList())
             {
                 if(I1.getShop_id().equals(ShopListPanel.tblShopDetails.getValueAt(index, 0).toString()))
                 {
                     
                   
-             Object data_value [] = {Id.getItemList().get(count).getItemid(),
+             Object data_value [] = {Id.getMeatItemList().get(count).getItemid(),
 
-                 Id.getItemList().get(count).getItemName(),
-                 Id.getItemList().get(count).getType(),
-                 Id.getItemList().get(count).getPrice()
+                 Id.getMeatItemList().get(count).getItemName(),
+                 Id.getMeatItemList().get(count).getType(),
+                 Id.getMeatItemList().get(count).getBestBefore(),
+                 Id.getMeatItemList().get(count).getPrice()
                  
             };
            tblModel.addRow(data_value);
@@ -82,13 +88,10 @@ public class MeatItemsPanel extends javax.swing.JPanel {
 
         tblMeatItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Item Id", "Item", "Type", "Weight", "Best Before", "Price"
+                "Item Id", "Item", "Type", "Best Before", "Price"
             }
         ));
         jScrollPane1.setViewportView(tblMeatItems);
@@ -181,19 +184,33 @@ public class MeatItemsPanel extends javax.swing.JPanel {
         float price;
         int qty;
         
+        if(jComboBox1.getSelectedItem().toString().equals("Select"))
+        {
+                      JOptionPane.showMessageDialog(new JFrame(),
+                "Please select Qty",
+                "Error",
+        JOptionPane.ERROR_MESSAGE);
+        }
+        
+        else
+        {
+        
         int index = tblMeatItems.getSelectedRow();
         item_id = tblMeatItems.getValueAt( index, 0).toString();
         item_name = tblMeatItems.getValueAt(index, 1).toString();
         item_type = tblMeatItems.getValueAt(index, 2).toString();
-        weight = Float.parseFloat(tblMeatItems.getValueAt(index, 3).toString());
-        best_before = tblMeatItems.getValueAt(index, 4).toString();
-        price = Float.parseFloat(tblMeatItems.getValueAt(index, 5).toString());
+        best_before = tblMeatItems.getValueAt(index, 3).toString();
+        price = Float.parseFloat(tblMeatItems.getValueAt(index, 4).toString());
         qty = Integer.parseInt(jComboBox1.getSelectedItem().toString());
         
         Cart c = crd.createCart(item_id, item_name, qty, price, "Meat");
         Cart temp_c = dcrd.createCart(item_id, item_name, qty, price, "Meat");
         crd.setCartList(c);
         dcrd.setCartList(temp_c);
+        
+        JOptionPane.showMessageDialog(new JFrame(), "Added to Cart");
+
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

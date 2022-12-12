@@ -6,15 +6,12 @@ package organisation;
 
 /**
  *
- * @author snehagovindarajan
+ * @author nishu
  */
 public class MeatVendorOnboarding {
-     private String shop_name;
+    private String shop_name;
     private String location;
     private String shop_id;
-    
-
-
 
     public String getShop_id() {
         return shop_id;
@@ -41,5 +38,4 @@ public class MeatVendorOnboarding {
     public void setLocation(String location) {
         this.location = location;
     }
-    
 }

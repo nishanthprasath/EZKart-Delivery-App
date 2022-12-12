@@ -7,9 +7,13 @@ package user_interface.customer;
 import cart.Cart;
 import cart.CartDirectory;
 import ecosystem.Ecosystem;
+import items.GroceryItem;
+import items.GroceryItemDirectory;
 import items.Item;
 import items.ItemDirectory;
 import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,11 +23,12 @@ import javax.swing.table.DefaultTableModel;
 public class GroceryItemsPanel extends javax.swing.JPanel {
     
     Ecosystem system;
-    ItemDirectory Id;
+    GroceryItemDirectory Id;
     DefaultTableModel tblModel;
     CartDirectory crd;
     CartDirectory dcrd;
     int count = 0;
+    int count1= 0;
 
     /**
      * Creates new form GroceryItemsPanel
@@ -33,28 +38,29 @@ public class GroceryItemsPanel extends javax.swing.JPanel {
         
         this.system = system;
         this.crd = crd;
-        Id = system.getItemDirectory();
+        Id = system.getGroceryItemDirectory();
         dcrd = system.getCartDirectory();
+        lblShopName.setText(ShopListPanel.tblShopDetails.getValueAt(index, 1).toString());
         
         tblModel = (DefaultTableModel)tblGroceryItems.getModel();
         jPanel1.setBackground(new Color(0,0,0,20));
         
+
+        
                     
-            for(Item I1: Id.getItemList())
+            for(GroceryItem I1: Id.getGroceryItemList())
             {
                 if(I1.getShop_id().equals(ShopListPanel.tblShopDetails.getValueAt(index, 0).toString()))
                 {
                     
-                    
-      
 //         for(int i=0; i< Id.getItemList().size(); i++)
 //        {
-             Object data_value [] = {Id.getItemList().get(count).getItemid(),
+             Object data_value [] = {Id.getGroceryItemList().get(count).getItemid(),
 
-                 Id.getItemList().get(count).getItemName(),
-                 Id.getItemList().get(count).getType(),
-                 Id.getItemList().get(count).getPrice()
-                 
+                 Id.getGroceryItemList().get(count).getItemName(),
+                 Id.getGroceryItemList().get(count).getType(),
+                 Id.getGroceryItemList().get(count).getBestBefore(),
+                 Id.getGroceryItemList().get(count).getPrice()
             };
            tblModel.addRow(data_value);
 //        }
@@ -84,10 +90,7 @@ public class GroceryItemsPanel extends javax.swing.JPanel {
 
         tblGroceryItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Item Id", "Item", "Type", "Best Before", "Price"
@@ -182,6 +185,17 @@ public class GroceryItemsPanel extends javax.swing.JPanel {
         float price;
         int qty;
         
+                if(jComboBox1.getSelectedItem().toString().equals("Select"))
+        {
+                      JOptionPane.showMessageDialog(new JFrame(),
+                "Please select Qty",
+                "Error",
+        JOptionPane.ERROR_MESSAGE);
+        }
+                
+        else
+                {
+        
         int index = tblGroceryItems.getSelectedRow();
         item_id = tblGroceryItems.getValueAt( index, 0).toString();
         item_name = tblGroceryItems.getValueAt(index, 1).toString();
@@ -194,6 +208,10 @@ public class GroceryItemsPanel extends javax.swing.JPanel {
         Cart temp_c = dcrd.createCart(item_id, item_name, qty, price, "Grocery");
         crd.setCartList(c);
         dcrd.setCartList(temp_c);
+        JOptionPane.showMessageDialog(new JFrame(), "Added to Cart");
+
+        
+                }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

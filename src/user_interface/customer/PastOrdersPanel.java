@@ -34,31 +34,35 @@ public class PastOrdersPanel extends javax.swing.JPanel {
     /**
      * Creates new form PastOrdersPanel
      */
-    public PastOrdersPanel(Ecosystem system, OrderDirectory ord) {
+    public PastOrdersPanel(Ecosystem system, OrderDirectory ord, String custid) {
         initComponents();
+        int count = 0;
         this.system = system;
         this.ord  = ord;
         tblmodel = (DefaultTableModel)tblPastOrders.getModel();
         ord = system.getOrderDirectory();
                 
-         for(int i=0; i< ord.getOrderList().size(); i++)
-        {
-             Object data_value [] = {ord.getOrderList().get(i).getOrderid(),
+            for(Order o1: ord.getOrderList())
+            {
+                if(o1.getCust_id().equals(custid))
+                {
                  
-                 ord.getOrderList().get(i).getTotal_price(),
+                 Object data_value [] = {ord.getOrderList().get(count).getOrderid(),
+                 
+                 ord.getOrderList().get(count).getTotal_price(),
                  
                   timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date()),
                  
-                 ord.getOrderList().get(i).getStatus()
-                 
-                 
-                 
-
-            };
+                 ord.getOrderList().get(count).getStatus()
+                };
+                
            tblmodel.addRow(data_value);
+                }
+                
+                count++;
         }
 //        reasonDropDown = new javax.swing.JComboBox<>();
-//        jPanel1.setBackground(new Color(0,0,0,20));
+        jPanel1.setBackground(new Color(0, 0, 0, 20));
     }
 
     /**
@@ -176,9 +180,10 @@ public class PastOrdersPanel extends javax.swing.JPanel {
             if(o1.getOrderid().equals(tblPastOrders.getValueAt(index, 0).toString()))
             {
                 o1.setStatus("Cancelled");
+                JOptionPane.showMessageDialog(new JFrame(), "Order cancelled");
             }
             
-            JOptionPane.showMessageDialog(new JFrame(), "Order cancelled");
+            
             
         }
     }//GEN-LAST:event_btnCancelOrderActionPerformed
@@ -195,9 +200,10 @@ public class PastOrdersPanel extends javax.swing.JPanel {
                 SupportRequest sr = srd.createReq(CustomerMainPanel.cust_id, o1.getOrderid(), jComboBox1.getSelectedItem().toString());
                 srd.setSupList(sr);
                 o1.setStatus("Issue raised");
+                JOptionPane.showMessageDialog(new JFrame(), "Support ticket raised");
             }
             
-            JOptionPane.showMessageDialog(new JFrame(), "Support ticket raised");
+            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

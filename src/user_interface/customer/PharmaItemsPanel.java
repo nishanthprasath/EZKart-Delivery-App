@@ -10,7 +10,11 @@ import db4util.Db4util;
 import ecosystem.Ecosystem;
 import items.Item;
 import items.ItemDirectory;
+import items.PharmaItem;
+import items.PharmaItemDirectory;
 import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class PharmaItemsPanel extends javax.swing.JPanel {
     
     Ecosystem system;
-    ItemDirectory Id;
+    PharmaItemDirectory Id;
     DefaultTableModel tblModel;
     CartDirectory crd;
     CartDirectory dcrd;
@@ -35,22 +39,24 @@ public class PharmaItemsPanel extends javax.swing.JPanel {
         this.system = system;
         this.crd = crd;
         dcrd = system.getCartDirectory();
-        Id = system.getItemDirectory();
+        Id = system.getPharmaItemDirectory();
+        lblShopName.setText(ShopListPanel.tblShopDetails.getValueAt(index, 1).toString());
         
         tblModel = (DefaultTableModel)tblPharmatems.getModel();
         jPanel1.setBackground(new Color(0,0,0,20));
         
-        for(Item I1: Id.getItemList())
+        for(PharmaItem I1: Id.getPharmaItemList())
             {
                 if(I1.getShop_id().equals(ShopListPanel.tblShopDetails.getValueAt(index, 0).toString()))
                 {
                     
                   
-             Object data_value [] = {Id.getItemList().get(count).getItemid(),
+             Object data_value [] = {Id.getPharmaItemList().get(count).getItemid(),
 
-                 Id.getItemList().get(count).getItemName(),
-                 Id.getItemList().get(count).getType(),
-                 Id.getItemList().get(count).getPrice()
+                 Id.getPharmaItemList().get(count).getItemName(),
+                 Id.getPharmaItemList().get(count).getType(),
+                 Id.getPharmaItemList().get(count).getExpiry(),
+                 Id.getPharmaItemList().get(count).getPrice()
                  
             };
            tblModel.addRow(data_value);
@@ -80,10 +86,7 @@ public class PharmaItemsPanel extends javax.swing.JPanel {
 
         tblPharmatems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Item Id", "Item", "Type", "Expiry Date", "Price"
@@ -177,6 +180,17 @@ public class PharmaItemsPanel extends javax.swing.JPanel {
         float price;
         int qty;
         
+                if(jComboBox1.getSelectedItem().toString().equals("Select"))
+        {
+                      JOptionPane.showMessageDialog(new JFrame(),
+                "Please select Qty",
+                "Error",
+        JOptionPane.ERROR_MESSAGE);
+        }
+                
+        else
+                {
+        
         int index = tblPharmatems.getSelectedRow();
         item_id = tblPharmatems.getValueAt( index, 0).toString();
         item_name = tblPharmatems.getValueAt(index, 1).toString();
@@ -189,6 +203,9 @@ public class PharmaItemsPanel extends javax.swing.JPanel {
         Cart temp_c = dcrd.createCart(item_id, item_name, qty, price, "Pharma");
         crd.setCartList(c);
         dcrd.setCartList(temp_c);
+        JOptionPane.showMessageDialog(new JFrame(), "Added to Cart");
+
+                }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

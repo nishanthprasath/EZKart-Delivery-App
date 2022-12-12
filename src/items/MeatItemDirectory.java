@@ -9,30 +9,34 @@ import java.util.Random;
 
 /**
  *
- * @author snehagovindarajan
+ * @author nishu
  */
 public class MeatItemDirectory {
-     private ArrayList<MeatItem> meatItemList;
+    private ArrayList<MeatItem> meatItemList;
      Random rand;
-      public MeatItemDirectory() {
+
+
+    public MeatItemDirectory() {
         meatItemList = new ArrayList();
     }
 
     public ArrayList<MeatItem> getMeatItemList() {
         return meatItemList;
     }
-
-    public void setMeatItemList(MeatItem meat) {
-        meatItemList.add(meat);
+    
+    public void setMeatItemList(MeatItem ob)
+    {
+        meatItemList.add(ob);
     }
     
-      public MeatItem createItems(String name, float price, String bestbfr, String type,
+    
+    public MeatItem createItems(String name, float price, String bestb, String type,
             int qty, String shop_id){
         MeatItem i = new MeatItem();
         rand = new Random();
         i.setItemName(name);
         i.setPrice(price);
-        i.setBestBefore(bestbfr);
+        i.setBestBefore(bestb);
         i.setType(type);
         i.setQuantity(qty);
         i.setItemid('I' + Integer.toString(rand.nextInt(10000)));

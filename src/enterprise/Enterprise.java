@@ -4,7 +4,7 @@
  */
 package enterprise;
 
-import community.Community;
+//import community.Community;
 
 /**
  *
@@ -13,7 +13,7 @@ import community.Community;
 public class Enterprise {
      private EnterpriseType enterpriseType;
      private String shopName;
-     private Community community;
+//     private Community community;
 
     public String getShopName() {
         return shopName;

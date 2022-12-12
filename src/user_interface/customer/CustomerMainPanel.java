@@ -286,7 +286,7 @@ public class CustomerMainPanel extends javax.swing.JPanel {
 
     private void btnPastOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPastOrdersActionPerformed
         // TODO add your handling code here:
-        PastOrdersPanel pastOrders = new PastOrdersPanel(system, ord);
+        PastOrdersPanel pastOrders = new PastOrdersPanel(system, ord, cust_id);
         splitPane.setRightComponent(pastOrders);
     }//GEN-LAST:event_btnPastOrdersActionPerformed
 

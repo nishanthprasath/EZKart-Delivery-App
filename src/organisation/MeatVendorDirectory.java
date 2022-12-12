@@ -9,11 +9,9 @@ import java.util.Random;
 
 /**
  *
- * @author snehagovindarajan
+ * @author nishu
  */
 public class MeatVendorDirectory {
-    
-       
     private ArrayList<MeatVendorOnboarding> meatVendorList;
     Random rand;
 
@@ -32,12 +30,12 @@ public class MeatVendorDirectory {
     
     
         public MeatVendorOnboarding createShopData(String name, String location){
-        MeatVendorOnboarding meatVendor = new MeatVendorOnboarding();
+        MeatVendorOnboarding mv = new MeatVendorOnboarding();
         rand = new Random();
-        meatVendor.setShop_name(name);
-        meatVendor.setLocation(location);
-        meatVendor.getShop_id();
-        meatVendor.setShop_id('M' + Integer.toString(rand.nextInt(10000)));
-        return meatVendor;
+        mv.setShop_name(name);
+        mv.setLocation(location);
+        mv.getShop_id();
+        mv.setShop_id('S' + Integer.toString(rand.nextInt(10000)));
+        return mv;
     }
 }

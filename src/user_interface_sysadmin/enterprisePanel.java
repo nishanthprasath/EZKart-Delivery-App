@@ -4,7 +4,7 @@
  */
 package user_interface_sysadmin;
 
-import community.Community;
+//import community.Community;
 import ecosystem.Ecosystem;
 import enterprise.Enterprise;
 import java.awt.Color;
@@ -32,39 +32,39 @@ public class enterprisePanel extends javax.swing.JPanel {
         initComponents();
         jPanel1.setBackground(new Color(0,0,0,30));
         this.system = system;
-        populateTable();
-        populateComboBox();
+//        populateTable();
+//        populateComboBox();
     }
      
-      private void populateTable() {
-        DefaultTableModel model = (DefaultTableModel) enterpriseJTable.getModel();
-        model.setRowCount(0);
-
-        for(int i=0;i< system.getCommunityList().size();i++){
-                   Community community = system.getCommunityList().get(i);
-                   if(community.getEnterpriseDirectory()!=null){
-                      for(int j=0;j < community.getEnterpriseDirectory().getEnterpriseList().size();j++){
-                       Enterprise enterprise = community.getEnterpriseDirectory().getEnterpriseList().get(j);
-                        model.addRow(new Object[]{
-                          enterprise.getShopName(),
-                          community.getCommunityName(),
-                          enterprise.getEnterpriseType().getValue(),
-                    });
-                }
-                   }
-             }
-      }
+//      private void populateTable() {
+//        DefaultTableModel model = (DefaultTableModel) enterpriseJTable.getModel();
+//        model.setRowCount(0);
+//
+//        for(int i=0;i< system.getCommunityList().size();i++){
+//                   Community community = system.getCommunityList().get(i);
+//                   if(community.getEnterpriseDirectory()!=null){
+//                      for(int j=0;j < community.getEnterpriseDirectory().getEnterpriseList().size();j++){
+//                       Enterprise enterprise = community.getEnterpriseDirectory().getEnterpriseList().get(j);
+//                        model.addRow(new Object[]{
+//                          enterprise.getShopName(),
+//                          community.getCommunityName(),
+//                          enterprise.getEnterpriseType().getValue(),
+//                    });
+//                }
+//                   }
+//             }
+//      }
       
-       private void populateComboBox() {
-        communityComboBox.removeAllItems();
-        enterpriseComboBox.removeAllItems();
-        for (Community community : system.getCommunityList()) {
-            communityComboBox.addItem(community.getCommunityName());
-        }
-        for (Enterprise.EnterpriseType type : Enterprise.EnterpriseType.values()) {
-            enterpriseComboBox.addItem(type);
-        }
-    }
+//       private void populateComboBox() {
+//        communityComboBox.removeAllItems();
+//        enterpriseComboBox.removeAllItems();
+//        for (Community community : system.getCommunityList()) {
+//            communityComboBox.addItem(community.getCommunityName());
+//        }
+//        for (Enterprise.EnterpriseType type : Enterprise.EnterpriseType.values()) {
+//            enterpriseComboBox.addItem(type);
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -205,24 +205,25 @@ public class enterprisePanel extends javax.swing.JPanel {
 //         int communityId =  communityComboBox.getSelectedIndex();
         if(nameText.getText().trim().equals("")){
             JOptionPane.showMessageDialog(new JFrame(), "Enter valid Details..!!");
-        }else{
-        Community community = system.retriveNetwork(communityComboBox.getSelectedItem().toString()) ;
+        }
+        else{
+//        Community community = system.retriveNetwork(communityComboBox.getSelectedItem().toString()) ;
         Enterprise.EnterpriseType type = (Enterprise.EnterpriseType) enterpriseComboBox.getSelectedItem();
        // String type =  enterpriseComboBox.getSelectedItem().toString();
-        if (community == null || type == null) {
-            JOptionPane.showMessageDialog(null, "Invalid Input!");
-            return;
-        }
+//        if (community == null || type == null) {
+//            JOptionPane.showMessageDialog(null, "Invalid Input!");
+//            return;
+//        }
         String name = nameText.getText();
         if (!name.isEmpty()) {
 //            if (community.getEnterpriseDirectory().isUnique(name)) {
                 //System.out.print(( community.getEnterpriseDirectory()));
-                System.out.println(community.getEnterpriseDirectory());
-                Enterprise enterprise = community.getEnterpriseDirectory().createAndAddEnterprise(name, type);
+//                System.out.println(community.getEnterpriseDirectory());
+//                Enterprise enterprise = community.getEnterpriseDirectory().createAndAddEnterprise(name, type);
                 
                 JOptionPane.showMessageDialog(null, "Enterprise created sucessfully!");
                 nameText.setText("");
-                populateTable();
+//                populateTable();
 //            } else {
 //                JOptionPane.showMessageDialog(null, "Enterprise already exists!");
 //            }

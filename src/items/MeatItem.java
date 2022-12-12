@@ -6,43 +6,16 @@ package items;
 
 /**
  *
- * @author dkdha
+ * @author nishu
  */
 public class MeatItem {
-    
     private String itemName;
     private float Price;
-
-    public String getBestBefore() {
-        return bestBefore;
-    }
-
-    public void setBestBefore(String bestBefore) {
-        this.bestBefore = bestBefore;
-    }
+    private String bestBefore;
     private String type;
     private int quantity;
     private String itemid;
     private String shop_id;
-    private String bestBefore;
-
-    public String getShop_id() {
-        return shop_id;
-    }
-
-    public void setShop_id(String shop_id) {
-        this.shop_id = shop_id;
-    }
-
-
-    
-        public String getItemid() {
-        return itemid;
-    }
-
-    public void setItemid(String itemid) {
-        this.itemid = itemid;
-    }
 
     public String getItemName() {
         return itemName;
@@ -60,6 +33,14 @@ public class MeatItem {
         this.Price = Price;
     }
 
+    public String getBestBefore() {
+        return bestBefore;
+    }
+
+    public void setBestBefore(String bestBefore) {
+        this.bestBefore = bestBefore;
+    }
+
     public String getType() {
         return type;
     }
@@ -75,7 +56,21 @@ public class MeatItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
-    
+
+    public String getItemid() {
+        return itemid;
+    }
+
+    public void setItemid(String itemid) {
+        this.itemid = itemid;
+    }
+
+    public String getShop_id() {
+        return shop_id;
+    }
+
+    public void setShop_id(String shop_id) {
+        this.shop_id = shop_id;
+    }
     
 }

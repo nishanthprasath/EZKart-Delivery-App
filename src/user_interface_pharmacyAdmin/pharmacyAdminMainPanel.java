@@ -4,10 +4,22 @@
  */
 package user_interface_pharmacyAdmin;
 
-import user_interface_meatAdmin.*;
-import user_interface_foodAdmin.*;
+import customer.Customer;
+import db4util.Db4util;
+import ecosystem.Ecosystem;
+import items.PharmaItem;
+import items.PharmaItemDirectory;
 import java.awt.CardLayout;
 import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import organisation.PharmaVendorOnboarding;
+import organisation.PharmaVendorDirectory;
+import user_interface.MainJFrame;
+import user_interface_groceries.groceriesAdminPanel;
 
 /**
  *
@@ -18,9 +30,25 @@ public class pharmacyAdminMainPanel extends javax.swing.JPanel {
     /**
      * Creates new form foodAdminMainPanel
      */
-    public pharmacyAdminMainPanel() {
+    
+    PharmaVendorDirectory pvd;
+    Ecosystem system;
+    MainJFrame mainframe;
+    public static int index = 99;
+    DefaultTableModel tblmodel;
+    PharmaItemDirectory pd;
+
+    private Db4util dB4OUtil = Db4util.getInstance();
+    
+    public pharmacyAdminMainPanel(Ecosystem system, MainJFrame mainframe) {
         initComponents();
-        ItemsContainer.setBackground(new Color(0,0,0,90));
+        this.system = system;
+        this.mainframe = mainframe;
+        pvd = system.getPharmaDirectory();
+        pd = system.getPharmaItemDirectory();
+
+        ItemsContainer.setBackground(new Color(0, 0, 0, 90));
+        populateTable();
     }
 
     /**
@@ -34,23 +62,20 @@ public class pharmacyAdminMainPanel extends javax.swing.JPanel {
 
         ItemsContainer = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPharmaShop = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtShopName = new javax.swing.JTextField();
+        txtShopLocation = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        btnUpdate = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         temp = new javax.swing.JPanel();
         pharmAdminImage = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
 
         setLayout(null);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPharmaShop.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -58,7 +83,12 @@ public class pharmacyAdminMainPanel extends javax.swing.JPanel {
                 "Shop Id", "Shop Name", "Location"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        tblPharmaShop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPharmaShopMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblPharmaShop);
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
@@ -72,24 +102,32 @@ public class pharmacyAdminMainPanel extends javax.swing.JPanel {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Location");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtShopName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtShopNameActionPerformed(evt);
             }
         });
 
         jButton1.setText("Delete Shop");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Update Shop");
+        btnUpdate.setText("Update Shop");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Clear");
-
-        jButton5.setText("Add Shop");
-
-        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel5.setFont(new java.awt.Font("Lao MN", 3, 36)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(204, 255, 255));
-        jLabel5.setText("Add Items");
+        btnAdd.setText("Add Shop");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ItemsContainerLayout = new javax.swing.GroupLayout(ItemsContainer);
         ItemsContainer.setLayout(ItemsContainerLayout);
@@ -98,55 +136,45 @@ public class pharmacyAdminMainPanel extends javax.swing.JPanel {
             .addGroup(ItemsContainerLayout.createSequentialGroup()
                 .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ItemsContainerLayout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(ItemsContainerLayout.createSequentialGroup()
+                        .addGap(239, 239, 239)
+                        .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(113, 113, 113)
                         .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ItemsContainerLayout.createSequentialGroup()
-                                .addGap(148, 148, 148)
-                                .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(ItemsContainerLayout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(67, 67, 67)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(71, 71, 71)
-                        .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ItemsContainerLayout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(77, 77, 77)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtShopName, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtShopLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(ItemsContainerLayout.createSequentialGroup()
-                        .addGap(225, 225, 225)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(497, Short.MAX_VALUE))
+                        .addGap(71, 71, 71)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ItemsContainerLayout.createSequentialGroup()
+                        .addGap(182, 182, 182)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(131, 131, 131)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(124, 124, 124)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(334, Short.MAX_VALUE))
         );
         ItemsContainerLayout.setVerticalGroup(
             ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ItemsContainerLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(101, 101, 101)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
                 .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtShopName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtShopLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                 .addGroup(ItemsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(138, 138, 138))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(121, 121, 121))
         );
 
         add(ItemsContainer);
@@ -159,35 +187,154 @@ public class pharmacyAdminMainPanel extends javax.swing.JPanel {
         pharmAdminImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Pharamaadmin_1200x720.png"))); // NOI18N
         add(pharmAdminImage);
         pharmAdminImage.setBounds(0, 0, 1200, 720);
-
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("Lao MN", 3, 36)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(204, 255, 255));
-        jLabel4.setText("Add Items");
-        add(jLabel4);
-        jLabel4.setBounds(0, 0, 176, 51);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtShopNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtShopNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtShopNameActionPerformed
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        if(validation()){
+        pvd = system.getPharmaDirectory();
 
+        PharmaVendorOnboarding pv = pvd.createShopData(txtShopName.getText(), txtShopLocation.getText());
+        pvd.setPharmaVendorList(pv);
+        Object data_value[] = {pv.getShop_id(),
+            txtShopName.getText(), txtShopLocation.getText()
+
+        };
+        tblmodel.addRow(data_value);
+        clearFields();
+        JOptionPane.showMessageDialog(new JFrame(), "Shop Saved Succesfully");
+        } else {
+            JOptionPane.showMessageDialog(null, "Enter Valid Details");
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:'
+        if(validation()){
+        if (index == 99) {
+            JOptionPane.showMessageDialog(new JFrame(),
+                    "Please make a selection",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            String shopname_edit = txtShopName.getText();
+            String shop_loc_edit = txtShopLocation.getText();
+
+            pvd.getPharmaVendorList().get(index).setShop_name(shopname_edit);
+            pvd.getPharmaVendorList().get(index).setLocation(shop_loc_edit);
+            
+            populateTable();
+            clearFields();
+            JOptionPane.showMessageDialog(new JFrame(), "Shop Updated Succesfully");
+
+        }
+        } else {
+            JOptionPane.showMessageDialog(null, "Enter Valid Details");
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void tblPharmaShopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPharmaShopMouseClicked
+        // TODO add your handling code here:
+        this.index = tblPharmaShop.getSelectedRow();
+        pharmAdminPanel.index_1 = this.index;
+        TableModel model = tblPharmaShop.getModel();
+//        String shop_name = model.getValueAt(index, 1).toString();
+//        String shop_location = model.getValueAt(index, 2).toString();
+
+        txtShopName.setText(model.getValueAt(index, 1).toString());
+        txtShopLocation.setText(model.getValueAt(index, 2).toString());
+    }//GEN-LAST:event_tblPharmaShopMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int index = tblPharmaShop.getSelectedRow();
+        
+        if (index < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row to delete");
+            return;
+        }
+        
+        
+        int count = 0;
+        
+        for(PharmaItem I1: pd.getPharmaItemList())
+        {
+        if(tblPharmaShop.getValueAt(index, 0).equals(I1.getShop_id()))
+        {
+            
+            count++;
+        }
+        }
+        
+        if(count == 0)
+        {
+        
+        pvd.getPharmaVendorList().remove(index);
+        JOptionPane.showMessageDialog(this, "Vendor Deleted Successfully");
+
+        }
+        else
+        {
+                     JOptionPane.showMessageDialog(new JFrame(),
+                "Please del all items before deleting shop",
+                "Error",
+        JOptionPane.ERROR_MESSAGE);
+        }
+        
+        populateTable();
+        clearFields();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void populateTable() {
+
+        tblmodel = (DefaultTableModel) tblPharmaShop.getModel();
+        tblmodel.setRowCount(0);
+
+        for (int i = 0; i < pvd.getPharmaVendorList().size(); i++) {
+            Object data_value[] = {pvd.getPharmaVendorList().get(i).getShop_id(),
+                pvd.getPharmaVendorList().get(i).getShop_name(),
+                pvd.getPharmaVendorList().get(i).getLocation()
+
+            };
+            tblmodel.addRow(data_value);
+        }
+
+    }
+    private void clearFields() {
+        
+        txtShopName.setText("");
+        txtShopLocation.setText("");
+    }
+    
+    public boolean validation() {
+        boolean validate = true;
+        
+        if (txtShopName.getText().isEmpty()) {
+            validate = false;
+        }
+        if (txtShopLocation.getText().isEmpty()) {
+            validate = false;
+        }
+        
+        return validate;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ItemsContainer;
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel pharmAdminImage;
+    public static javax.swing.JTable tblPharmaShop;
     private javax.swing.JPanel temp;
+    private javax.swing.JTextField txtShopLocation;
+    private javax.swing.JTextField txtShopName;
     // End of variables declaration//GEN-END:variables
 }

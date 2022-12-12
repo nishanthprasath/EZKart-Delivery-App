@@ -4,6 +4,7 @@
  */
 package user_interface;
 
+import EmailService.Email;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.io.File;
@@ -51,7 +52,7 @@ import user_interface_foodAdmin.foodAdminPanel;
 import user_interface.support_admin.SupportAdminPanel;
 import java.util.Random;
 import user_interface.support_agent.SupportAgentPanel;
-import api.API;
+import user_interface_dataAnalyst.DataAnalysis;
 
 /**
  *
@@ -80,14 +81,16 @@ public class MainJFrame extends javax.swing.JFrame {
     CustomerAccountDirectory cd ;
     CustomerMainPanel custPanel;
     SupportAgentPanel supagPanel;
+    DataAnalysis analyst;
 
     public static String customer_id;
     EmployeeAccountDirectory emp_dir_ob; 
     Employee emp_ob;
-    String otp_val;
+    String otp;
 
     private Ecosystem system;
     private Db4util dB4OUtil = Db4util.getInstance();
+    int cus_count = 0;
 
 
 
@@ -418,7 +421,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         MainPane.addTab("tab2", signupPanel);
 
-        getContentPane().add(MainPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 720));
+        getContentPane().add(MainPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 1200, 750));
 
         container.setLayout(new java.awt.CardLayout());
         getContentPane().add(container, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 720));
@@ -453,31 +456,12 @@ public class MainJFrame extends javax.swing.JFrame {
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        if(txtUserName.getText().trim().equals("") && txtPassword.getText().trim().equals("")){
-         String error = "Please enter valid username && password";
-              JOptionPane.showMessageDialog(new JFrame(), error, "Error",
-        JOptionPane.ERROR_MESSAGE);
-    }else{
-        // Customer Login
-       // System.out.println(cd.getUserAccountList());
-        cd =system.getCustDirectory();
-        for(Customer c1 : cd.getUserAccountList())
-        {
-        if(txtUserName.getText().trim().equals(c1.getEmail_id()) && String.valueOf(txtPassword.getPassword()).trim().equals(c1.getPassword()))
-        {
-            
-            custPanel = new CustomerMainPanel(system, this, c1);
-            MainPane.setVisible(false);
-            container.add("custpanel area", custPanel);
-            CardLayout layout = (CardLayout) container.getLayout();
-            layout.next(container);
-        }
-        }
+
         
-        // Empadmin login
-        String empadmin_email = "";
-        String empadmin_pass = "";
-        String role;        
+ 
+       //Emp admin 
+       String empadmin_email = "";
+       String empadmin_pass = "";
         for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
         {
             if ("Employee Admin".equals(emp_ob.getRole()))
@@ -487,30 +471,7 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         }
         
-        if(txtUserName.getText().trim().equals(empadmin_email) && String.valueOf(txtPassword.getPassword()).trim().equals(empadmin_pass))
-        {
-            empAdminn = new EmployeeAdminPanel(system, this);
-            MainPane.setVisible(false);
-            container.add("Empadmin area", empAdminn);
-            CardLayout layout = (CardLayout) container.getLayout();
-            layout.next(container);
-        }
-        
-        
-        // Sysadmin Login sysadmin@ezcart.com
-        if(txtUserName.getText().trim().equals("sy") && String.valueOf(txtPassword.getPassword()).trim().equals("sy")){
-            
-            sysAdmin = new sysadminPanel(system, this);
-            MainPane.setVisible(false);
-            sysAdmin.setVisible(true);
-        }
-        
-    
-        
-
-        
-        
-        // Deladmin Login
+        // Del admin
         String deladmin_email = "";
         String deladmin_pass = "";
         for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
@@ -521,59 +482,8 @@ public class MainJFrame extends javax.swing.JFrame {
                 deladmin_pass = emp_ob.getPassword();
         }
         }
-      
-        if(txtUserName.getText().trim().equals(deladmin_email) && String.valueOf(txtPassword.getPassword()).trim().equals(deladmin_pass))
-        {
-            delAdmin = new DeliveryAdminPanel(system, this);
-            MainPane.setVisible(false);
-            container.add("deladmin area", delAdmin);
-            CardLayout layout = (CardLayout) container.getLayout();
-            layout.next(container);
-        }
         
-        
-        // Foodadmin Login
-        String foodadmin_email = "";
-        String foodadmin_pass = "";
-        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
-        {
-            if ("Food Admin".equals(emp_ob.getRole()))
-            {
-                foodadmin_email = emp_ob.getEmail_id();
-                foodadmin_pass = emp_ob.getPassword();
-        }
-        }
-      
-        if(txtUserName.getText().trim().equals(foodadmin_email) && String.valueOf(txtPassword.getPassword()).trim().equals(foodadmin_pass))
-        {
-            foodAdmin = new foodAdminPanel(system, this);
-            MainPane.setVisible(false);
-            container.add("foodadmin area", foodAdmin);
-            CardLayout layout = (CardLayout) container.getLayout();
-            layout.next(container);
-        }
-        
-        // meatadmin Login
-        String meatadmin_email = "";
-        String meatadmin_pass = "";
-        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
-        {
-            if (emp_ob.getRole().equals("Meat Admin"))
-            {
-                meatadmin_email = emp_ob.getEmail_id();
-                meatadmin_pass = emp_ob.getPassword();
-        }
-        }
-      
-        if(txtUserName.getText().trim().equals(meatadmin_email) && String.valueOf(txtPassword.getPassword()).trim().equals(meatadmin_pass))
-        {
-            meatAdmin = new meatAdminPanel(system, this);
-            MainPane.setVisible(false);
-            container.add("meatadmin area", meatAdmin);
-            CardLayout layout = (CardLayout) container.getLayout();
-            layout.next(container);
-        }
-        //support admin login
+        // Support admin
         String sup_admin_email = "";
         String sup_admin_pw = "";
         for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
@@ -584,8 +494,155 @@ public class MainJFrame extends javax.swing.JFrame {
                 sup_admin_pw = emp_ob.getPassword();
         }
         }
+        
+        
+        
+        // Food admin
+        String foodadmin_email = "";
+        String foodadmin_pass = "";
+        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+        {
+            if ("Food Admin".equals(emp_ob.getRole()))
+            {
+                foodadmin_email = emp_ob.getEmail_id();
+                foodadmin_pass = emp_ob.getPassword();
+        }
+        }
+        
+        // Grocery admin
+        String groceryadmin_email = "";
+        String groceryadmin_pass = "";
+        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+        {
+            if ("Groceries Admin".equals(emp_ob.getRole()))
+            {
+                groceryadmin_email = emp_ob.getEmail_id();
+                groceryadmin_pass = emp_ob.getPassword();
+        }
+        }
+        
+        
+        // Meat admin
+        String meatadmin_email = "";
+        String meatadmin_pass = "";
+        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+        {
+            if (emp_ob.getRole().equals("Meat Admin"))
+            {
+                meatadmin_email = emp_ob.getEmail_id();
+                meatadmin_pass = emp_ob.getPassword();
+        }
+        }
+        
+        // pharma admin
+        String pharmacyadmin_email = "";
+        String pharmacyadmin_pass = "";
+        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+        {
+            if ("Pharma Admin".equals(emp_ob.getRole()))
+            {
+                pharmacyadmin_email = emp_ob.getEmail_id();
+                pharmacyadmin_pass = emp_ob.getPassword();
+        }
+        }
+        
+        // del agent
+        String deliveryAgent_email = "";
+        String deliveryAgent_pass = "";
+        Employee emp_ob_val = null;
+        
+        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+        {
+            if ("Delivery Agent".equals(emp_ob.getRole()))
+            {
+                deliveryAgent_email = emp_ob.getEmail_id();
+                deliveryAgent_pass = emp_ob.getPassword();
+                emp_ob_val = emp_ob;
+
+                
+            }
+        }
+                
+        
+        // Sup agent
+        String sup_agent_email = "";
+        String sup_agent_pw = "";
+        String sup_emp_id = "";
+        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+        {
+           if ("Support Agent".equals(emp_ob.getRole()))
+            {
+                sup_agent_email = emp_ob.getEmail_id();
+                sup_agent_pw = emp_ob.getPassword();
+                sup_emp_id = emp_ob.getEmp_id();
+            }
+                
+                
+        }
+        
+        //analyst login
+        String admin_email = "";
+        String admin_pass = "";
+        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+        {
+            if ("Data analyst".equals(emp_ob.getRole()))
+            {
+                admin_email = emp_ob.getEmail_id();
+                admin_pass = emp_ob.getPassword();
+        }
+        }
+           
+           
+        // cust login
+        
+        cd =system.getCustDirectory();
+        for(Customer c1 : cd.getUserAccountList())
+        {
+        if(txtUserName.getText().trim().equals(c1.getEmail_id()) && String.valueOf(txtPassword.getPassword()).trim().equals(c1.getPassword()))
+        {
+            cus_count++;
+            custPanel = new CustomerMainPanel(system, this, c1);
+            MainPane.setVisible(false);
+            container.add("custpanel area", custPanel);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
+        }
+        }
+        
+        // Sysadmin Login sysadmin@ezcart.com
+        if(txtUserName.getText().trim().equals("sysadmin@ezkart.com") && String.valueOf(txtPassword.getPassword()).trim().equals("sy")){
+            
+            sysAdmin = new sysadminPanel(system, this);
+            MainPane.setVisible(false);
+            sysAdmin.setVisible(true);
+        }
+        
+        // Empadmin login
+        else if(txtUserName.getText().trim().equals(empadmin_email) && String.valueOf(txtPassword.getPassword()).trim().equals(empadmin_pass))
+        {
+            empAdminn = new EmployeeAdminPanel(system, this);
+            MainPane.setVisible(false);
+            container.add("Empadmin area", empAdminn);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
+        }
+        
+        
+        // Deladmin Login
+
+        else if(txtUserName.getText().trim().equals(deladmin_email) && String.valueOf(txtPassword.getPassword()).trim().equals(deladmin_pass))
+        {
+            delAdmin = new DeliveryAdminPanel(system, this);
+            MainPane.setVisible(false);
+            container.add("deladmin area", delAdmin);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
+        }
+        
+        
+       //support admin login
       
-        if(txtUserName.getText().equals(sup_admin_email) && String.valueOf(txtPassword.getPassword()).equals(sup_admin_pw))
+       else if(txtUserName.getText().equals(sup_admin_email) && String.valueOf(txtPassword.getPassword()).equals(sup_admin_pw))
         {
             supAdmin = new SupportAdminPanel(system, this);
             MainPane.setVisible(false);
@@ -594,58 +651,95 @@ public class MainJFrame extends javax.swing.JFrame {
             layout.next(container);
         }
         
-        // sup agent
-        
-//        String sup_agent_email = "";
-//        String sup_agent_pw = "";
-//        String sup_emp_id = "";
-//           for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
-//        {
-//           if ("Support Agent".equals(emp_ob.getRole()))
-//            {
-//            }
-//                sup_agent_email = emp_ob.getEmail_id();
-//                sup_agent_pw = emp_ob.getPassword();
-//                sup_emp_id = emp_ob.getEmp_id();
-//                
-//        }
-//        
-//            
-//        if(txtUserName.getText().equals(sup_agent_email) && String.valueOf(txtPassword.getPassword()).equals(sup_agent_pw))
-//        {
-//            supagPanel = new SupportAgentPanel(system, this, sup_emp_id);
-//            MainPane.setVisible(false);
-//            container.add("supp agent area", supagPanel);
-//            CardLayout layout = (CardLayout) container.getLayout();
-//            layout.next(container);
-//        }
         
         
-        
-        
-        //delivery Agent
-        String deliveryAgent_email = "";
-        String deliveryAgent_pass = "";
-        
-        for( Employee emp_ob : emp_dir_ob.getEmpAccountList())
+        // Foodadmin Login
+        else if(txtUserName.getText().trim().equals(foodadmin_email) && String.valueOf(txtPassword.getPassword()).trim().equals(foodadmin_pass))
         {
-            if (emp_ob.getRole().equals("Delivery Agent"))
-            {
-//                deliveryAgent_email = emp_ob.getEmail_id();
-//                deliveryAgent_pass = emp_ob.getPassword();
-                
-        if(txtUserName.getText().trim().equals(emp_ob.getEmail_id()) && String.valueOf(txtPassword.getPassword()).trim().equals(emp_ob.getPassword()))
-        {
-            deliveryAgent = new DeliveryAgentPanel(system, this, emp_ob);
+            foodAdmin = new foodAdminPanel(system, this);
             MainPane.setVisible(false);
-            container.add("meatadmin area", deliveryAgent);
+            container.add("foodadmin area", foodAdmin);
             CardLayout layout = (CardLayout) container.getLayout();
             layout.next(container);
         }
+        
+        // Grocery Admin Login
+        
+        else if(txtUserName.getText().trim().equals(groceryadmin_email) && String.valueOf(txtPassword.getPassword()).trim().equals(groceryadmin_pass))
+        {
+            groceriesAdmin = new groceriesAdminPanel(system, this);
+            MainPane.setVisible(false);
+            container.add("grocery area", groceriesAdmin);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
         }
+
+        
+        // meatadmin Login
+        else if(txtUserName.getText().trim().equals(meatadmin_email) && String.valueOf(txtPassword.getPassword()).trim().equals(meatadmin_pass))
+        {
+            meatAdmin = new meatAdminPanel(system, this);
+            MainPane.setVisible(false);
+            container.add("meatadmin area", meatAdmin);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
         }
         
+        // Pharmacy Admin Login
+        else if (txtUserName.getText().equals(pharmacyadmin_email) && String.valueOf(txtPassword.getPassword()).equals(pharmacyadmin_pass))
+        {
+            pharmacyAdmin = new pharmAdminPanel(system, this);
+            MainPane.setVisible(false);
+            container.add("pharmacyAdmin", pharmacyAdmin);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
         }
+        
+        
+        //delivery Agent
+
+        else if(txtUserName.getText().trim().equals(deliveryAgent_email) && String.valueOf(txtPassword.getPassword()).trim().equals(deliveryAgent_pass))
+        {
+            deliveryAgent = new DeliveryAgentPanel(system, this, emp_ob_val);
+            MainPane.setVisible(false);
+            container.add("del agent area", deliveryAgent);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
+        }
+        
+
+ 
+        //sup agent
+        else if(txtUserName.getText().equals(sup_agent_email) && String.valueOf(txtPassword.getPassword()).equals(sup_agent_pw))
+        {
+            supagPanel = new SupportAgentPanel(system, this, sup_emp_id);
+            MainPane.setVisible(false);
+            container.add("supp agent area", supagPanel);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
+            
+        }else if(txtUserName.getText().equals(admin_email) && String.valueOf(txtPassword.getPassword()).equals(admin_pass)){
+            analyst = new DataAnalysis(system,this);
+            MainPane.setVisible(false);
+            container.add("data analyst area", analyst);
+            CardLayout layout = (CardLayout) container.getLayout();
+            layout.next(container);
+        }
+        else if(cus_count==0)
+        {
+         JOptionPane.showMessageDialog(new JFrame(),
+                "Invalid credentials",
+                "Error",
+        JOptionPane.ERROR_MESSAGE);
+            
+        }
+        
+
+        
+        
+    
+  
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
@@ -667,6 +761,16 @@ public class MainJFrame extends javax.swing.JFrame {
         MainPane.setSelectedIndex(0);
     }//GEN-LAST:event_lblBackMousePressed
 
+     private boolean checkOtp(String mailOtp, String txtOtp){
+        boolean flagOtp = false;
+        if(mailOtp.equals(txtOtp)){
+            flagOtp = true;
+            return flagOtp;
+        }
+        else{
+            return flagOtp;
+        }
+    }
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         Boolean flag = false;
@@ -677,6 +781,7 @@ public class MainJFrame extends javax.swing.JFrame {
         String phoneno = "";
         String address = "";
         String zipcode = "";
+        String txtOtp = "";
         cd =system.getCustDirectory();
         emp_dir_ob = system.getEmpDirectory();
    
@@ -689,10 +794,7 @@ public class MainJFrame extends javax.swing.JFrame {
         }else if(!isValidEmail(txtEmail.getText())){
              JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid E-mail ");   //Validation for employee Phone Number
         }
-//        else if(txtOTP.getText().trim().equals("")){
-//             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Otp tp proceed ");
-//        }
-        
+
 
         
         else if(!isValid(txtPhone.getText().trim())){
@@ -709,11 +811,16 @@ public class MainJFrame extends javax.swing.JFrame {
         phoneno = txtPhone.getText();
         address = txtAddress.getText();
         zipcode = txtZipCode.getText();
-        flag = true;
-   
-                   
+       
+        txtOtp = txtOTP.getText();
+        boolean flagOtp = checkOtp(otp, txtOtp);
+        if(flagOtp){
         Customer c = cd.createUserAccount(name, password, email_data, phoneno, gender, address,zipcode);
-        cd.SetUserAccountList(c); 
+        cd.SetUserAccountList(c);
+        flag = true;
+        }else{
+             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid OTP ");
+        }
         }
        }
 
@@ -741,34 +848,36 @@ public class MainJFrame extends javax.swing.JFrame {
         }else if(txtZipCode.getText().trim().equals("")){
              JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Zip Code ");
         }else{
-        String user_otp = txtOTP.getText();
-        
-        
-//        if(user_otp.equals(otp_val))
-//        {
-                               
+                      
         Customer c = cd.createUserAccount(name, password, email_data, phoneno, gender, address,zipcode);
         cd.SetUserAccountList(c); 
-//        }
-        
-//        else
-//        {
-//          JOptionPane.showMessageDialog(new JFrame(),
-//                "OTP is invalid",
-//                "Error",
-//        JOptionPane.ERROR_MESSAGE);
-//        }
-        
-        
-   
 
        }
 
 
-       
-
      if(chkDeliveryPartner.isSelected())
      {
+                       if(txtName.getText().trim().equals("")){
+             String error = "Please enter valid Name";
+              JOptionPane.showMessageDialog(new JFrame(), error, "Error",
+        JOptionPane.ERROR_MESSAGE);
+        }else if(!isValidEmail(txtEmail.getText())){
+             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid E-mail ");   //Validation for employee Phone Number
+        }
+//        else if(txtOTP.getText().trim().equals("")){
+//             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Otp tp proceed ");
+//             
+//        }
+
+        
+        
+        else if(!isValid(txtPhone.getText().trim())){
+            JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Phone Number ");   //Validation for employee Phone Number
+        }else if(txtAddress.getText().trim().equals("")){
+             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Address ");
+        }else if(txtZipCode.getText().trim().equals("")){
+             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Zip Code ");
+        }else{
          
         name = txtName.getText();
         gender = comboGender.getSelectedItem().toString();
@@ -777,12 +886,22 @@ public class MainJFrame extends javax.swing.JFrame {
         phoneno = txtPhone.getText();
         address = txtAddress.getText();
         zipcode = txtZipCode.getText();
-        flag = true;
-        String user_otp = txtOTP.getText();
+//        flag = true;
+//        String user_otp = txtOTP.getText();
+       txtOtp = txtOTP.getText();
+        boolean flagOtp = checkOtp(otp, txtOtp);
+        if(flagOtp){
         Employee e = emp_dir_ob.createEmpAccount(name, password, email_data, phoneno, "N/A", address ,"Delivey Agent");
         emp_dir_ob.SetEmpAccountList(e);
+        flag = true;
+        }else{
+             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid OTP ");
+        }
+        if(flag){
+       
         JOptionPane.showMessageDialog(new JFrame(), "We will get back to you shortly");
-
+        }
+        }
      }
   }
      
@@ -803,15 +922,15 @@ public class MainJFrame extends javax.swing.JFrame {
     private void btnOTPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOTPActionPerformed
         // TODO add your handling code here:
         
-        API api_ob = new API();
-        try
-        {
-        otp_val = api_ob.sendEmail(txtEmail.getText());
-        }
-        catch(IOException ex)
-        {
-            System.out.println("Error in sending OTP");
-        }
+        if(!txtEmail.getText().isEmpty() && isValidEmail(txtEmail.getText())){
+            Random random = new Random();
+            otp = String.format("%04d", random.nextInt(10000));
+            Email email= new Email();
+            email.sendOTPMail(otp, txtEmail.getText());
+         }
+         else{
+             JOptionPane.showMessageDialog(null, "Please Enter a Valid Email");
+         }
         
         
         

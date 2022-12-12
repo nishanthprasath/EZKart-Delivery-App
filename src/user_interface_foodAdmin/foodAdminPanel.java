@@ -34,9 +34,10 @@ public class foodAdminPanel extends javax.swing.JPanel {
         
         
         initComponents();
-        fvd = system.getFoodDirectory();
         this.system= system;
         this.mainframe = mainframe;
+                fvd = system.getFoodDirectory();
+
 
         foodMain = new foodAdminMainPanel(system, mainframe);
         foodItems = new manageItems(system, mainframe);
@@ -68,13 +69,10 @@ public class foodAdminPanel extends javax.swing.JPanel {
         lblAnalysis1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         manageItems = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         rightSystemAdminPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(215, 81, 81));
-        setMinimumSize(new java.awt.Dimension(1200, 600));
         setPreferredSize(new java.awt.Dimension(1338, 840));
-        setSize(new java.awt.Dimension(1200, 720));
         setLayout(new java.awt.BorderLayout());
 
         systemAdminPanel.setBackground(new java.awt.Color(51, 51, 51));
@@ -112,9 +110,9 @@ public class foodAdminPanel extends javax.swing.JPanel {
             .addGroup(manageNetworkPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(manageNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(manageNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         manageNetworkPanelLayout.setVerticalGroup(
             manageNetworkPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,7 +126,7 @@ public class foodAdminPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel3.add(manageNetworkPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 220, -1));
+        jPanel3.add(manageNetworkPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 290, -1));
 
         lblAnalysis.setBackground(new java.awt.Color(167, 159, 159));
         lblAnalysis.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -146,7 +144,7 @@ public class foodAdminPanel extends javax.swing.JPanel {
                 jLabel1MouseClicked(evt);
             }
         });
-        lblAnalysis.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 60, 50));
+        lblAnalysis.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 60, 50));
 
         manageItems1.setBackground(new java.awt.Color(255, 204, 153));
         manageItems1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -159,15 +157,14 @@ public class foodAdminPanel extends javax.swing.JPanel {
                 manageItems1MousePressed(evt);
             }
         });
-        lblAnalysis.add(manageItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 90, 50));
+        lblAnalysis.add(manageItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 110, 50));
 
-        jPanel3.add(lblAnalysis, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 220, 50));
+        jPanel3.add(lblAnalysis, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, 240, 70));
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Welcome Food Admin");
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 170, 20));
+        jLabel7.setText("Hello Sysadmin");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 170, 20));
 
         lblAnalysis1.setBackground(new java.awt.Color(167, 159, 159));
         lblAnalysis1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -190,12 +187,9 @@ public class foodAdminPanel extends javax.swing.JPanel {
                 manageItemsMousePressed(evt);
             }
         });
-        lblAnalysis1.add(manageItems, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 150, 38));
+        lblAnalysis1.add(manageItems, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 230, 38));
 
-        jPanel3.add(lblAnalysis1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 220, 50));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/foodAvatar.jpeg"))); // NOI18N
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 80, 80));
+        jPanel3.add(lblAnalysis1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 280, 40));
 
         rightSystemAdminPanel.setBackground(new java.awt.Color(255, 255, 255));
         rightSystemAdminPanel.setPreferredSize(new java.awt.Dimension(1058, 840));
@@ -208,7 +202,7 @@ public class foodAdminPanel extends javax.swing.JPanel {
             .addGroup(systemAdminPanelLayout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rightSystemAdminPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(rightSystemAdminPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1143, Short.MAX_VALUE))
         );
         systemAdminPanelLayout.setVerticalGroup(
             systemAdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,7 +263,6 @@ public class foodAdminPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel3;

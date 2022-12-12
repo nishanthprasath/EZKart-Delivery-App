@@ -45,9 +45,7 @@ public class FoodItemsPanel extends javax.swing.JPanel {
         
         tblModel = (DefaultTableModel)tblFoodItems.getModel();
 
-        
-        
-            
+       
             
             for(Item I1: Id.getItemList())
             {

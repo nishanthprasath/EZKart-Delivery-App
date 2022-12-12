@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ecosystem;
-import assignedDeliveryAgent.assignedAgent;
-import assignedDeliveryAgent.assignedAgentDirectory;
-import community.Community;
+import delivery.assignedAgent;
+import delivery.assignedAgentDirectory;
 import organisation.Organisation;
 import customer.CustomerAccountDirectory;
 import employee.EmployeeAccountDirectory;
@@ -19,6 +18,10 @@ import organisation.SupportRequestAssignDir;
 import support.SupportRequestDirectory;
 import organisation.SupportRequestAssignDir;
 import cart.CartDirectory;
+import items.GroceryItemDirectory;
+import items.PharmaItemDirectory;
+import organisation.GroceryVendorDirectory;
+import organisation.PharmaVendorDirectory;
 /**
  *
  * @author dkdha
@@ -26,7 +29,6 @@ import cart.CartDirectory;
 public class Ecosystem extends Organisation {
     
     private static Ecosystem business;
-    private ArrayList<Community> communityList;
     CustomerAccountDirectory customerList;
     EmployeeAccountDirectory empList;
     FoodVendorDirectory foodList;
@@ -37,6 +39,10 @@ public class Ecosystem extends Organisation {
     SupportRequestDirectory supportList;
     assignedAgentDirectory assignedAgentList;
     SupportRequestAssignDir supassignList;
+    GroceryVendorDirectory groceryList;
+    PharmaVendorDirectory pharmaList;
+    GroceryItemDirectory groceryItemList;
+    PharmaItemDirectory pharmaItemList;
     CartDirectory cartList;
     
     
@@ -67,28 +73,28 @@ public class Ecosystem extends Organisation {
         return empList;
     }
     
-    public ArrayList<Community> getCommunityList() {
-        if(communityList == null){
-            this.communityList = new ArrayList<Community>();
-        }
-        return communityList;
-    }
-    
-    public Community createAndAddNetwork(){
-        Community community= new Community();
-        communityList.add(community);
-        return community;
-    }
-    
-     public Community retriveNetwork(String name){
-         Community com=new Community();
-        for(Community community : communityList){
-            if(community.getCommunityName().equalsIgnoreCase(name)){
-                com= community;
-            }
-        }
-        return com;
-    }
+//    public ArrayList<Community> getCommunityList() {
+//        if(communityList == null){
+//            this.communityList = new ArrayList<Community>();
+//        }
+//        return communityList;
+//    }
+//    
+//    public Community createAndAddNetwork(){
+//        Community community= new Community();
+//        communityList.add(community);
+//        return community;
+//    }
+//    
+//     public Community retriveNetwork(String name){
+//         Community com=new Community();
+//        for(Community community : communityList){
+//            if(community.getCommunityName().equalsIgnoreCase(name)){
+//                com= community;
+//            }
+//        }
+//        return com;
+//    }
     
      public FoodVendorDirectory getFoodDirectory()
     {
@@ -176,6 +182,49 @@ public class Ecosystem extends Organisation {
         return cartList;
     }
     
+
+     
+    public GroceryVendorDirectory getGroceryDirectory()
+    {
+        if(groceryList == null)
+        {
+            this.groceryList = new GroceryVendorDirectory();
+        }
+        return groceryList;
+    }
+    
+    public PharmaVendorDirectory getPharmaDirectory()
+    {
+        if(pharmaList == null)
+        {
+            this.pharmaList = new PharmaVendorDirectory();
+        }
+        return pharmaList;
+    }
     
     
+    public GroceryItemDirectory getGroceryItemDirectory()
+    {
+        if(groceryItemList == null)
+        {
+            this.groceryItemList = new GroceryItemDirectory();
+        }
+        return groceryItemList;
+    }
+    
+    public PharmaItemDirectory getPharmaItemDirectory()
+    {
+        if(pharmaItemList == null)
+        {
+            this.pharmaItemList = new PharmaItemDirectory();
+        }
+        return pharmaItemList;
+    }
+    
+
 }
+
+    
+    
+    
+
