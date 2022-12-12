@@ -328,7 +328,8 @@ public class EmployeeAdminPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Phone Number ");   //Validation for employee Phone Number
         }else if(txtAddress.getText().trim().equals("")){
              JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Address ");
-        }else if(comboDepartment.getSelectedIndex() == 0){
+        }
+        else if(comboDepartment.getSelectedIndex() == 0){
              JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid department ");
         }else if(comboRole.getSelectedIndex() == 0){
              JOptionPane.showMessageDialog(new JFrame(), "Please Enter valid Role ");

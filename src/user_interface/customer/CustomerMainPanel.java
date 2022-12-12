@@ -25,6 +25,7 @@ public class CustomerMainPanel extends javax.swing.JPanel {
     Ecosystem system;
     MainJFrame mainframe;
     CartDirectory crd;
+    CartDirectory dcrd;
     OrderDirectory ord;
     private Db4util dB4OUtil = Db4util.getInstance();
     static String cust_id;
@@ -37,6 +38,7 @@ public class CustomerMainPanel extends javax.swing.JPanel {
         lblName.setText(cust_ob.getCustomer_name());
         cust_id = cust_ob.getCust_id();
         crd = new CartDirectory();
+        dcrd = system.getCartDirectory();
         
                 
     }

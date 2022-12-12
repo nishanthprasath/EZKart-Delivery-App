@@ -16,6 +16,7 @@ import order.OrderDirectory;
 import organisation.SupportRequestAssignDir;
 import support.SupportRequestDirectory;
 import organisation.SupportRequestAssignDir;
+import cart.CartDirectory;
 /**
  *
  * @author dkdha
@@ -33,6 +34,7 @@ public class Ecosystem extends Organisation {
     ItemDirectory itemList;
     SupportRequestDirectory supportList;
     SupportRequestAssignDir supassignList;
+    CartDirectory cartList;
     
     
     public static Ecosystem getInstance(){
@@ -149,6 +151,16 @@ public class Ecosystem extends Organisation {
             this.supassignList = new SupportRequestAssignDir();
         }
         return supassignList;
+    }
+    
+    
+    public CartDirectory getCartDirectory()
+    {
+        if(cartList == null)
+        {
+            this.cartList = new CartDirectory();
+        }
+        return cartList;
     }
     
     

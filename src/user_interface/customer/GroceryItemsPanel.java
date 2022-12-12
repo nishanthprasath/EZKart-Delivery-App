@@ -22,6 +22,7 @@ public class GroceryItemsPanel extends javax.swing.JPanel {
     ItemDirectory Id;
     DefaultTableModel tblModel;
     CartDirectory crd;
+    CartDirectory dcrd;
     int count = 0;
 
     /**
@@ -33,6 +34,7 @@ public class GroceryItemsPanel extends javax.swing.JPanel {
         this.system = system;
         this.crd = crd;
         Id = system.getItemDirectory();
+        dcrd = system.getCartDirectory();
         
         tblModel = (DefaultTableModel)tblGroceryItems.getModel();
         jPanel1.setBackground(new Color(0,0,0,20));
@@ -189,7 +191,9 @@ public class GroceryItemsPanel extends javax.swing.JPanel {
         qty = Integer.parseInt(jComboBox1.getSelectedItem().toString());
         
         Cart c = crd.createCart(item_id, item_name, qty, price, "Grocery");
+        Cart temp_c = dcrd.createCart(item_id, item_name, qty, price, "Grocery");
         crd.setCartList(c);
+        dcrd.setCartList(temp_c);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

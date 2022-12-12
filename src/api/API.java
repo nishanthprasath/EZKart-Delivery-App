@@ -18,12 +18,12 @@ import java.util.Random;
 
 public class API {
     
-    public String sendEmail() throws java.io.IOException
+    public String sendEmail(String  emailid) throws java.io.IOException
     {
         
         Random random = new Random();
         Email from = new Email("subhashchandran.shankar@gmail.com");
-        Email to = new Email("dhanushkumar13@gmail.com");
+        Email to = new Email(emailid);
         String sub = "Test";
         String id = String.format("%04d", random.nextInt(10000));
 
