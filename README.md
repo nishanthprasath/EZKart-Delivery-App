@@ -1,20 +1,29 @@
-# EZKart
+# EZKART Delivery App
 
-EZKART – A delivery app that provides anything and everything at your door step in very little time and with the best packaging. Providing food from every famous food place near you. A life changing application, especially a major need during covid times, capable of influencing every individual’s house need’s shopping easy. Unlike other application, our application gives you the flexibility to make multiple order from various shops at a time and get it all delivered in one go. Our application’s flow involves 4 enterprises – Food enterprise, Meat Enterprise, Grocery enterprise and pharmacy enterprise and various organizations such as food shops, order onboarding, delivery organization, data organization, customer support organization and meat onboarding. User can register as a member and will be receiving a code of verification in their mail and once registered, they will be able to login and order their wishlist. Our customers are our priority, hence we offer 24/7 customer support and handle all the queries raised by them.
+EZKART is a delivery app that aims to provide a convenient and efficient way to deliver anything and everything right at your doorstep with the best packaging. Our app offers a wide range of products from food, meat, groceries, and pharmacy items from every famous food place near you. It is a life-changing application, especially during covid times, that can make every individual's house needs shopping easy.
 
-## Setup project
-
-
-  1. Clone the file from git hub <<git clone>>
-  2. Set up the environment and run the file
-  
+Unlike other delivery apps, EZKART gives you the flexibility to make multiple orders from various shops at a time and get it all delivered in one go. Our application's flow involves four enterprises - Food, Meat, Grocery, and Pharmacy, and various organizations such as vendor onboarding, order processing, delivery organization, data organization, customer support organization, and employee management organization.
 
 ## Features
 
+1. Login/Signup for Customers, Delivery Personnel with email OTP verification
+2. Customers can view products and add them to the cart
+3. Employee admin can add employees (CRUD Functionality)
+4. System admin can control the entire application
+5. Delivery agents can update the orders after delivery
+6. Support agents can resolve issues associated with orders
+7. Users can register as a delivery partner to start delivering products right away
 
-  1. Login/Signup for Customers, Deliver person with email OTP verification
-  2. After login , customer can view products and add them to cart
-  3. Employee admin can add employees (CRUD Functionality)
-  4. System admin can control entire application
-  5. Dlivery agent can update the orders after delivery
-  6. Support agents can resole issues associated with orders
+## Setup Project
+
+To set up the project on your local machine, follow the steps below:
+
+1. Clone the file from GitHub <>
+2. Set up the environment by installing the required packages and dependencies
+3. Run the file to start the application
+
+## Usage
+
+After setting up the project, users can register as a member by providing their details and verifying their email address using the OTP code sent to their email. Once registered, they can log in and start ordering their wishlist.
+
+Users can also register as a delivery partner to start delivering products right away. The delivery agents can update the orders after delivery, and support agents can resolve any issues associated with the orders. The employee admin can add employees, and the system admin can control the entire application.
